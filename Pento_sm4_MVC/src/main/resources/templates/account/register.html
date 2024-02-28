@@ -15,7 +15,7 @@
 	<a th:href="@{/account/index}">Back</a>
 	<h3>Account Add</h3>
 	<th:block th:text="${msg}"></th:block>
-	<form method="post" th:action="@{/account/add}">
+	<form method="post" th:action="@{/account/register}">
 		<table>
 			<tr>
 				<td>Email:</td>
@@ -23,17 +23,13 @@
 			</tr>
 			<tr>
 				<td>Password:</td>
-				<td><input type="password" th:field="${account.password}"></td>
+				<td><input type="password" name="newPassword"></td>
 			</tr>
 			<tr>
-				<td valign="top">Role</td>
-				<td><select th:field="${account.role.id}">
-						<option th:each="role : ${roles}"
-						th:value="${role.id}" th:text="${role.name}"></option>
-					</select>
-				</td>
-				</td>
+				<td>Confirm Password:</td>
+				<td><input type="password" name="confirmPassword"></td>
 			</tr>
+			
 			<tr>
 				<td>&nbsp;</td>
 				<td><input type="submit" value="Save"></td>

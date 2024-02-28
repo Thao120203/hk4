@@ -25,6 +25,15 @@ public class AccountServiceImpl implements AccountService{
 	public Account findByEmail(String email) {
 		return accountRepository.findByEmail(email);
 	}
+	
+	@Override
+	public Account login(String email, String password) {
+		try {
+			return accountRepository.login(email, password, 1);
+		} catch (Exception e) {
+			return null;
+		}
+	}
 
 	@Override
 	public boolean save(Account account) {
@@ -52,6 +61,11 @@ public class AccountServiceImpl implements AccountService{
 			e.printStackTrace();
 			return false;
 		}
+	}
+
+	@Override
+	public String findPassword(int id) {
+		return accountRepository.findPassword(id);
 	}
 
 

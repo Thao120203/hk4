@@ -8,10 +8,15 @@ public interface AccountService {
 	public Account find(int id);
 	public Account findByEmail(String email);
 	
+	// LOGIN
+	public Account login(String email, String password);
 	// CRUD
 	public boolean save(Account account);
 	public boolean edit(int id);
 	public boolean delete(int id);
+	
+	// Find Pasword
+	public String findPassword(int id);
 	
 	
 }
