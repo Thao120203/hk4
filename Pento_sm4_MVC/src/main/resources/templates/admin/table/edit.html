@@ -1,0 +1,61 @@
+<html xmlns:th="http://www.thymeleaf.org" th:replace="~{layout/admin :: content('Edit Table',~{this :: .aaa})}">
+
+<head>
+	<title th:text="${title}"></title>
+
+
+</head>
+
+<body>
+
+	<div class="aaa">
+		<div class="row">
+			<div class="col-md-12">
+				<div class="card shadow mb-4">
+					<div class="card-header">
+						<strong class="card-title">Edit Table</strong>
+					</div>
+					<div class="card-body">
+						<form method="post" th:action="@{/table/edit}">
+							<div class="form-group">
+								<label>Name</label>
+								<input type="text" class="form-control" th:field="${table.name}" id="inputAddress5">
+							</div>
+							<div class="form-group">
+								<div class="form-group mb-3">
+									<label for="example-select">Branchs</label>
+									<select th:field="${table.branchs.id}" class="form-control" id="example-select">
+										<option th:each="branchs : ${branch}" th:value="${branchs.id}"
+											th:text="${branchs.name}"></option>
+									</select>
+								</div>
+							</div>
+							<div class="form-group">
+								<label for="inputAddress2">Type Table</label>
+								<select th:field="${table.tableTypeId}" class="form-control" id="example-select">
+									<option value="small">small table</option>
+									<option value="medium ">medium table </option>
+									<option value="large">large table</option>
+
+								</select>
+							</div>
+							<div class="form-group">
+								<label for="inputAddress2"> Number Seat</label>
+								<input type="number" class="form-control" th:field="${table.numberOfSeat}"
+									id="inputAddress6">
+							</div>
+							<div class="form-group">
+								<label for="inputAddress2">Status</label>
+								<input type="text" class="form-control" th:field="${table.status}" id="inputAddress6">
+							</div>
+							<button type="submit" class="btn btn-primary">Edit</button>
+							<input type="hidden" th:field="${table.id}">
+						</form>
+					</div> <!-- /. card-body -->
+				</div> <!-- /. card -->
+			</div>
+		</div>
+	</div>
+</body>
+
+</html>

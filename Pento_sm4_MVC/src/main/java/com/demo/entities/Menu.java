@@ -16,24 +16,27 @@ public class Menu implements java.io.Serializable {
 	private String name;
 	private String description;
 	private double price;
-	private Set<OrderDetail> orderDetails = new HashSet<OrderDetail>(0);
+	private int categoryId;
+	private Set<CategoryFood> categoryFoods = new HashSet<CategoryFood>(0);
 	private Set<Ratings> ratingses = new HashSet<Ratings>(0);
 
 	public Menu() {
 	}
 
-	public Menu(String name, double price) {
+	public Menu(String name, double price, int categoryId) {
 		this.name = name;
 		this.price = price;
+		this.categoryId = categoryId;
 	}
 
-	public Menu(Images images, String name, String description, double price, Set<OrderDetail> orderDetails,
-			Set<Ratings> ratingses) {
+	public Menu(Images images, String name, String description, double price, int categoryId,
+			Set<CategoryFood> categoryFoods, Set<Ratings> ratingses) {
 		this.images = images;
 		this.name = name;
 		this.description = description;
 		this.price = price;
-		this.orderDetails = orderDetails;
+		this.categoryId = categoryId;
+		this.categoryFoods = categoryFoods;
 		this.ratingses = ratingses;
 	}
 
@@ -86,13 +89,22 @@ public class Menu implements java.io.Serializable {
 		this.price = price;
 	}
 
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "menu")
-	public Set<OrderDetail> getOrderDetails() {
-		return this.orderDetails;
+	@Column(name = "category_id", nullable = false)
+	public int getCategoryId() {
+		return this.categoryId;
 	}
 
-	public void setOrderDetails(Set<OrderDetail> orderDetails) {
-		this.orderDetails = orderDetails;
+	public void setCategoryId(int categoryId) {
+		this.categoryId = categoryId;
+	}
+
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "menu")
+	public Set<CategoryFood> getCategoryFoods() {
+		return this.categoryFoods;
+	}
+
+	public void setCategoryFoods(Set<CategoryFood> categoryFoods) {
+		this.categoryFoods = categoryFoods;
 	}
 
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "menu")

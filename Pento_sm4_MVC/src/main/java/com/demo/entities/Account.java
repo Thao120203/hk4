@@ -15,6 +15,7 @@ import jakarta.persistence.*;
 public class Account implements java.io.Serializable {
 
 	private Integer id;
+	private Branchs branchs;
 	private Role role;
 	private String email;
 	private String password;
@@ -26,7 +27,8 @@ public class Account implements java.io.Serializable {
 	public Account() {
 	}
 
-	public Account(Role role, String email, String password, String status, String securityCode) {
+	public Account(Branchs branchs, Role role, String email, String password, String status, String securityCode) {
+		this.branchs = branchs;
 		this.role = role;
 		this.email = email;
 		this.password = password;
@@ -34,8 +36,9 @@ public class Account implements java.io.Serializable {
 		this.securityCode = securityCode;
 	}
 
-	public Account(Role role, String email, String password, String status, String securityCode, Set<Reviews> reviewses,
+	public Account(Branchs branchs, Role role, String email, String password, String status, String securityCode, Set<Reviews> reviewses,
 			Set<User> users) {
+		this.branchs = branchs;
 		this.role = role;
 		this.email = email;
 		this.password = password;
@@ -56,7 +59,16 @@ public class Account implements java.io.Serializable {
 	public void setId(Integer id) {
 		this.id = id;
 	}
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "branch_id", nullable = true)
+	public Branchs getBranchs() {
+		return this.branchs;
+	}
 
+	public void setBranchs(Branchs branchs) {
+		this.branchs = branchs;
+	}
+	
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "role_id", nullable = false)
 	public Role getRole() {

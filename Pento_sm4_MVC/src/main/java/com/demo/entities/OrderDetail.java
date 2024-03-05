@@ -10,7 +10,7 @@ import jakarta.persistence.*;
 public class OrderDetail implements java.io.Serializable {
 
 	private Integer id;
-	private Menu menu;
+	private CategoryFood categoryFood;
 	private Orders orders;
 	private Promotions promotions;
 	private int quantity;
@@ -25,8 +25,8 @@ public class OrderDetail implements java.io.Serializable {
 		this.price = price;
 	}
 
-	public OrderDetail(Menu menu, Orders orders, Promotions promotions, int quantity, double price) {
-		this.menu = menu;
+	public OrderDetail(CategoryFood categoryFood, Orders orders, Promotions promotions, int quantity, double price) {
+		this.categoryFood = categoryFood;
 		this.orders = orders;
 		this.promotions = promotions;
 		this.quantity = quantity;
@@ -46,13 +46,13 @@ public class OrderDetail implements java.io.Serializable {
 	}
 
 	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "menu_id")
-	public Menu getMenu() {
-		return this.menu;
+	@JoinColumn(name = "category_id")
+	public CategoryFood getCategoryFood() {
+		return this.categoryFood;
 	}
 
-	public void setMenu(Menu menu) {
-		this.menu = menu;
+	public void setCategoryFood(CategoryFood categoryFood) {
+		this.categoryFood = categoryFood;
 	}
 
 	@ManyToOne(fetch = FetchType.LAZY)

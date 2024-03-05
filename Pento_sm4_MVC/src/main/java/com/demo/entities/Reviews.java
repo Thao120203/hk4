@@ -13,7 +13,7 @@ import jakarta.persistence.*;
 public class Reviews implements java.io.Serializable {
 
 	private Integer id;
-	private Account account;
+	private Account account;	
 	private String rating;
 	private String comment;
 	private Date created;

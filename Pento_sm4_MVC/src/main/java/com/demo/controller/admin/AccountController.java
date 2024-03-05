@@ -21,20 +21,24 @@ import com.demo.entities.Account;
 import com.demo.entities.Role;
 import com.demo.helpers.SecurityCodeHelper;
 import com.demo.service.AccountService;
+import com.demo.service.BranchService;
 import com.demo.service.MailService;
 import com.demo.service.RoleService;
 
 import jakarta.mail.Session;
 import jakarta.servlet.http.HttpSession;
+import jakarta.validation.constraints.NotBlank;
 
 @Controller
-@RequestMapping({ "account", "account/" })
+@RequestMapping({ "admin/account", "admin/account/" })
 public class AccountController {
 
 	@Autowired
 	private AccountService accountService;
 	@Autowired
 	private RoleService roleService;
+	@Autowired
+	private BranchService branchService;
 	@Autowired
 	private MailService mailService;
 
@@ -44,7 +48,7 @@ public class AccountController {
 	@GetMapping({ "index", "", "/" })
 	public String index(ModelMap modelMap) {
 		modelMap.put("accounts", accountService.findAll());
-		return "account/index";
+		return "admin/account/index";
 	}
 
 	// -------- ADD // for Admin
@@ -53,7 +57,8 @@ public class AccountController {
 		Account account = new Account();
 		modelMap.put("account", account);
 		modelMap.put("roles", roleService.findAll());
-		return "account/add";
+		modelMap.put("branchs", branchService.findAll());
+		return "admin/account/add";
 	}
 
 	@PostMapping({ "add" })
@@ -70,54 +75,9 @@ public class AccountController {
 			e.printStackTrace();
 			redirectAttributes.addFlashAttribute("msg", e.getMessage());
 		}
-		return "redirect:/account/index";
+		return "redirect:/admin/account/index";
 	}
-
-	// ------ Register // For User
-	@GetMapping({ "register" })
-	public String register(ModelMap modelMap) {
-		Account account = new Account();
-		modelMap.put("account", account);
-		return "account/register";
-	}
-
-	@PostMapping({ "register" })
-	public String register(@ModelAttribute("account") Account account, RedirectAttributes redirectAttributes,
-			@RequestParam("newPassword") String newPassword, @RequestParam("confirmPassword") String confirmPassword) {
-		try {
-			account.setStatus("0");
-			account.setRole(new Role(3, "ROLE_MEMBER"));
-
-			// Genereate Code
-			String securityCode = SecurityCodeHelper.generate();
-			account.setSecurityCode(securityCode);
-
-			if (confirmPassword.matches(newPassword)) {
-				account.setPassword(newPassword);
-				if (accountService.save(account)) {
-					// Generate Content
-					String content = "Click here to Active Account";
-					content += "<br> <a href='http://localhost:8085/account/verify?code=" + securityCode + "&email="
-							+ account.getEmail() + "'>Click Me</a>";
-
-					// Send Mail
-					mailService.send(environment.getProperty("spring.mail.username"), account.getEmail(), "Verify",
-							content);
-
-					redirectAttributes.addFlashAttribute("msg", "Regsiter Success");
-				} else {
-					redirectAttributes.addFlashAttribute("msg", "Register Failed");
-				}
-			} else {
-				redirectAttributes.addFlashAttribute("msg", "Password not match");
-			}
-		} catch (Exception e) {
-			e.printStackTrace();
-			redirectAttributes.addFlashAttribute("msg", e.getMessage());
-		}
-		return "redirect:/account/index";
-	}
-
+	
 	// DELETE
 	@GetMapping({ "delete/{id}" })
 	public String delete(RedirectAttributes redirectAtributes, @PathVariable("id") int id, HttpSession session) {
@@ -126,21 +86,23 @@ public class AccountController {
 		} else {
 			redirectAtributes.addFlashAttribute("msg", "Delete Failed");
 		}
-		return "redirect:/account/index";
+		return "redirect:/admin/account/index";
 	}
 
 	// EDIT Information
 	@GetMapping({ "edit/{id}" })
 	public String edit(@PathVariable("id") int id, ModelMap modelMap) {
 		modelMap.put("account", accountService.find(id));
-		return "account/edit";
+		modelMap.put("roles", roleService.findAll());
+		modelMap.put("branchs", branchService.findAll());
+		return "admin/account/edit";
 	}
 
 	@PostMapping({ "edit" })
 	public String edit(@ModelAttribute("account") Account account, RedirectAttributes redirectAttributes) {
 		try {
-			account.setStatus("0");
-			account.setSecurityCode("");
+			String statusValue = account.getStatus();
+			account.setStatus(statusValue != null && statusValue.equals("on") ? "1" : "0");
 			if (accountService.save(account)) {
 				redirectAttributes.addFlashAttribute("msg", "Edit Success");
 			} else {
@@ -151,7 +113,7 @@ public class AccountController {
 			e.printStackTrace();
 			redirectAttributes.addFlashAttribute("msg", e.getMessage());
 		}
-		return "redirect:/account/index";
+		return "redirect:/admin/account/index";
 	}
 
 	// ----------- LOGIN
@@ -160,7 +122,7 @@ public class AccountController {
 		Account account = new Account();
 		modelMap.put("account", account);
 		modelMap.put("roles", roleService.findAll());
-		return "account/login";
+		return "admin/account/login";
 	}
 
 	@PostMapping({ "login" })
@@ -171,25 +133,25 @@ public class AccountController {
 		try {
 			if ( email == null || password == null ) {
 				redirectAttributes.addFlashAttribute("msg", "Email Password not null");
-				return "redirect:/account/login";
+				return "redirect:/admin/account/login";
 			}
 
 			if ( !account.getStatus().equals("1") ) {
 				redirectAttributes.addFlashAttribute("msg", "Email not Active");
-				return "redirect:/account/login";
+				return "redirect:/admin/account/login";
 			}
 
 			if ( accountService.login(email, password) == null ) {
 				redirectAttributes.addFlashAttribute("msg", "Login Failed");
-				return "redirect:/account/login";
+				return "redirect:/admin/account/login";
 			}
 
 			session.setAttribute("email", email);
 			modelMap.put("accounts", accountService.findAll());
-			return "account/index";
+			return "admin/account/index";
 		} catch (Exception e) {
 			redirectAttributes.addFlashAttribute("msg", "Login Failed");
-			return "redirect:/account/login";
+			return "redirect:/admin/account/login";
 		}
 	}
 
@@ -203,9 +165,9 @@ public class AccountController {
 			redirectAttributes.addFlashAttribute("msg", "Email not found");
 		} else {
 			modelMap.put("account", account);
-			return "account/updatePassword";
+			return "admin/account/updatePassword";
 		}
-		return "redirect:/account/login";
+		return "redirect:/admin/account/login";
 	}
 
 	@PostMapping({ "updatePassword" })
@@ -215,74 +177,29 @@ public class AccountController {
 		
 		if (currentPassword.isEmpty() || newPassword.isEmpty() || confirmPassword.isEmpty()) {
 		    redirectAttributes.addFlashAttribute("msg", "Password cannot be empty");
-		    return "redirect:/account/updatePassword/" + account.getId();
+		    return "redirect:/admin/account/updatePassword/" + account.getId();
 		}
 
 		if (!accountService.findPassword(account.getId()).equals(currentPassword)) {
 		    redirectAttributes.addFlashAttribute("msg", "Current password is incorrect");
-		    return "redirect:/account/updatePassword/" + account.getId();
+		    return "redirect:/admin/account/updatePassword/" + account.getId();
 		}
 
 		if (!confirmPassword.equals(newPassword)) {
 		    redirectAttributes.addFlashAttribute("msg", "Confirm password does not match new password");
-		    return "redirect:/account/updatePassword/" + account.getId();
+		    return "redirect:/admin/account/updatePassword/" + account.getId();
 		}
 
 		account.setPassword(newPassword);
 		redirectAttributes.addFlashAttribute("msg", accountService.save(account) ? "Password changed successfully" : "Failed to change password");
-		return "redirect:/account/index";
-	}
-
-	//
-	@RequestMapping(value = "verify", method = RequestMethod.GET)
-	public String verify(@RequestParam("email") String email, @RequestParam("code") String code,
-			RedirectAttributes redirectAttributes) {
-		Account account = accountService.findByEmail(email);
-		if (account == null) {
-			redirectAttributes.addFlashAttribute("msg", "email not found");
-		} else {
-			if (code.equals(account.getSecurityCode())) {
-				account.setStatus("1");
-				if (accountService.save(account)) {
-					redirectAttributes.addFlashAttribute("msg", "Actived");
-				} else {
-					redirectAttributes.addFlashAttribute("msg", "Failed");
-				}
-			} else {
-				redirectAttributes.addFlashAttribute("msg", "Failed");
-			}
-		}
-		return "redirect:/account/login";
+		return "redirect:/admin/account/index";
 	}
 
 	@RequestMapping(value = "logout", method = RequestMethod.GET)
 	public String logout(HttpSession session) {
 		session.removeAttribute("email");
-		return "redirect:/account/login";
+		return "redirect:/admin/account/login";
 	}
 
-	@RequestMapping(value = "forgetpassword", method = RequestMethod.GET)
-	public String forgetpassword() {
-		return "account/forgetpassword";
-	}
-
-	@RequestMapping(value = "forgetpassword", method = RequestMethod.POST)
-	public String forgetpassword(@RequestParam("email") String email, RedirectAttributes redirectAttributes) {
-		Account account = accountService.findByEmail(email);
-		if (account == null) {
-			redirectAttributes.addFlashAttribute("msg", "Email not found");
-			return "redirect:/account/forgetpassword";
-		} else {
-			String securityCode = SecurityCodeHelper.generate();
-			account.setSecurityCode(securityCode);
-			if (accountService.save(account)) {
-				String content = "Nhan vao <a href='http://localhost:8085/account/updatepassword?code=" + securityCode
-						+ "&email=" + account.getEmail() + "'>day</a> de cap nhat password";
-				mailService.send(environment.getProperty("spring.mail.email"), account.getEmail(), "Update Password",
-						content);
-			}
-			return "redirect:/account/login";
-		}
-	}
 
 }

@@ -1,0 +1,44 @@
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+<title>Index</title>
+</head>
+
+<body>
+	<a th:href="@{/user/add}">Add</a> |
+	<a th:href="@{/account}">Account</a>
+	<h3>User List</h3>
+	<th:block th:text="${msg}"></th:block>
+
+	<table border="1">
+		<tr>
+			<th>Id</th>
+			<th>Email</th>
+			<th>Full Name</th>
+			<th>Phone Number</th>
+			<th>Birthday</th>
+			<th>Gender</th>
+			<th>Role</th>
+			<th>Status</th>
+			<th>More</th>
+		</tr>
+		<tr th:each="user : ${users}">
+			<td th:text="${user.id}"></td>
+			<td th:text="${user.account != null ? user.account.email : 'EMPTY'}"></td>
+			<td th:text="(${user.firstName ?: ''}+ ' ' + ${user.lastName ?: 'EMPTY'})"></td>
+			<td th:text="${user.phoneNumber ?: 'EMPTY'}"></td>
+			<td th:text="${#dates.format(user.birthday, 'dd/MM/yyyy') ?: 'EMPTY'}"></td>
+			<td th:text="${user.gender ?: 'EMPTY'}"></td>
+			<td th:text="${user.account != null ? user.account.role.name : 'EMPTY'}"></td>
+			<td th:text="${user.account != null ? (user.account.status) : 'EMPTY'}"></td>
+			
+
+			<td><a th:href="@{'/user/edit/' + ${user.id}}">Edit</a> || <a
+				th:href="@{'/user/delete/' + ${user.id}}"
+				onclick="return confirm('Are you sure')">Delete</a></td>
+		</tr>
+	</table>
+
+</body>
+
+</html>

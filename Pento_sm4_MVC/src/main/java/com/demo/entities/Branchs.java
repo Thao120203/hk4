@@ -21,6 +21,7 @@ public class Branchs implements java.io.Serializable {
 	private String openingHours;
 	private String clossingHours;
 	private String status;
+	private Set<Account> accounts = new HashSet<Account>(0);
 	private Set<Convenient> convenients = new HashSet<Convenient>(0);
 	private Set<Tables> tableses = new HashSet<Tables>(0);
 
@@ -38,13 +39,14 @@ public class Branchs implements java.io.Serializable {
 	}
 
 	public Branchs(String name, String address, String phoneNumber, String openingHours, String clossingHours,
-			String status, Set<Convenient> convenients, Set<Tables> tableses) {
+			String status, Set<Account> accounts, Set<Convenient> convenients, Set<Tables> tableses) {
 		this.name = name;
 		this.address = address;
 		this.phoneNumber = phoneNumber;
 		this.openingHours = openingHours;
 		this.clossingHours = clossingHours;
 		this.status = status;
+		this.accounts = accounts;
 		this.convenients = convenients;
 		this.tableses = tableses;
 	}
@@ -114,6 +116,15 @@ public class Branchs implements java.io.Serializable {
 	public void setStatus(String status) {
 		this.status = status;
 	}
+	
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "branchs")
+	public Set<Account> getAccounts() {
+		return this.accounts;
+	}
+
+	public void setAccounts(Set<Account> accounts) {
+		this.accounts = accounts;
+	}
 
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "branchs")
 	public Set<Convenient> getConvenients() {
@@ -134,3 +145,4 @@ public class Branchs implements java.io.Serializable {
 	}
 
 }
+

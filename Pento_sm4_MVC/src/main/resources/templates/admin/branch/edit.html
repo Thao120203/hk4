@@ -1,0 +1,54 @@
+<html xmlns:th="http://www.thymeleaf.org" th:replace="~{layout/admin :: content('Eidt Branch',~{this :: .aaa})}">
+
+<head>
+		<title th:text="${title}"></title>
+
+</head>
+
+<body>
+	<div class="aaa">
+		<div class="row">
+			<div class="col-md-12">
+				<div class="card shadow mb-4">
+					<div class="card-header">
+						<strong class="card-title">Edit Branch</strong>
+					</div>
+					<div class="card-body">
+						<form method="post" th:action="@{/branch/edit}">
+							<div class="form-group">
+								<label>Name</label>
+								<input type="text" class="form-control" th:field="${branch.name}" id="inputAddress5">
+							</div>
+							<div class="form-group">
+								<label for="inputAddress2">Address</label>
+								<input type="text" class="form-control" th:field="${branch.address}" id="inputAddress6">
+							</div>
+							<div class="form-group">
+								<label for="inputAddress2">Phone Number</label>
+								<input type="text" class="form-control"  th:field="${branch.phoneNumber}" id="inputAddress6">
+							</div>
+							<div class="form-row">
+								<div class="form-group col-md-6">
+									<label for="inputEmail4">Opening Hours</label>
+									<input class="form-control" id="example-time"  th:field="${branch.openingHours}" type="time" name="time">
+								</div>
+								<div class="form-group col-md-6">
+									<label for="inputPassword4">Clossing Hours</label>
+									<input class="form-control" id="example-time" type="time"  th:field="${branch.clossingHours}" name="time">
+								</div>
+							</div>
+							<div class="form-group">
+								<label for="inputAddress2">Status</label>
+								<input type="text" class="form-control"  th:field="${branch.status}" id="inputAddress6">
+							</div>
+							<button type="submit" class="btn btn-primary">Edit</button>
+							<input type="hidden" th:field="${branch.id}">
+						</form>
+					</div> <!-- /. card-body -->
+				</div> <!-- /. card -->
+			</div>
+		</div>
+	</div>
+</body>
+
+</html>

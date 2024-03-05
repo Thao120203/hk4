@@ -1,0 +1,56 @@
+	<html xmlns:th="http://www.thymeleaf.org" th:replace="~{layout/admin :: content('Add Promotion',~{this :: .aaa})}">
+
+<head>
+		<title th:text="${title}"></title>
+
+
+</head>
+
+<body>
+
+	<div class="aaa">
+		<div class="row">
+			<div class="col-md-12">
+				<div class="card shadow mb-4">
+					<div class="card-header">
+						<strong class="card-title">Add Promotion</strong>
+					</div>
+					<div class="card-body">
+						<form  method="post" th:action="@{/promotions/add}">
+							<div class="form-group">
+								<label for="validationCustomUsername ">Name</label>
+								<input type="text" class="form-control" th:field="${promotions.name}" aria-describedby="inputGroupPrepend" id="validationCustomUsername" required>
+								<div class="invalid-feedback"> Please choose a name. </div>
+							</div>
+							<div class="form-group">
+								<label for="inputAddress2">Description</label>
+								<input type="text" class="form-control" th:field="${promotions.description}" id="inputAddress6">
+							</div>
+							<div class="form-row">
+								<div class="form-group col-md-6">
+									<label for="inputEmail4">Start Date</label>
+									<input class="form-control"  type="text" name="date"  th:field="${promotions.startDate}">
+								</div>
+								<div class="form-group col-md-6">
+									<label for="inputPassword4">End Date</label>
+									<input class="form-control"  type="text" name="date" th:field="${promotions.endDate}">
+								</div>
+							</div>
+							<div class="form-group">
+								<label for="inputAddress2">Discount Amount</label>
+								<input type="text" class="form-control" th:field="${promotions.discountAmount}" id="inputAddress6">
+							</div>
+							<div class="form-group">
+								<label for="inputAddress2">Status</label>
+								<input type="text" class="form-control"  th:field="${promotions.status}" id="inputAddress6">
+							</div>
+							<button type="submit" class="btn btn-primary">Add</button>
+						</formclass="needs-validation">
+					</div> <!-- /. card-body -->
+				</div> <!-- /. card -->
+			</div>
+		</div>
+	</div>
+</body>
+
+</html>
