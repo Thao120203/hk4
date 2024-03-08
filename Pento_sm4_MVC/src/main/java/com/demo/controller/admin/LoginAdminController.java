@@ -31,7 +31,7 @@ import jakarta.servlet.http.HttpSession;
 import jakarta.validation.constraints.NotBlank;
 
 @Controller
-@RequestMapping({ "admin", "admin/" })
+@RequestMapping({ "admin/log/", "admin/log/" })
 public class LoginAdminController {
 
 	@Autowired

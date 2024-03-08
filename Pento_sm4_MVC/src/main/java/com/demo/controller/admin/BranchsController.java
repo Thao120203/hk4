@@ -19,7 +19,7 @@ import com.demo.entities.Branchs;
 import com.demo.service.BranchService;
 
 @Controller
-@RequestMapping({ "branch", "branch/"})
+@RequestMapping({ "admin/branch", "admin/branch/"})
 public class BranchsController {
 	
 	@Autowired

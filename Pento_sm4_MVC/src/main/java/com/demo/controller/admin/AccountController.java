@@ -49,7 +49,7 @@ public class AccountController {
 	@Autowired
 	private Environment environment;
 
-	@GetMapping({ "index", "", "/" })
+	@GetMapping({ "index"})
 	public String index(ModelMap modelMap) {
 		modelMap.put("accounts", accountService.findAll());
 		return "admin/account/index";

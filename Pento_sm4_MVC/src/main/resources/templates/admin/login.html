@@ -26,7 +26,7 @@
 <body class="light ">
 	<div class="wrapper vh-100">
 		<div class="row align-items-center h-100">
-			<form class="col-lg-3 col-md-4 col-10 mx-auto text-center" method="post" th:action="@{/admin/process-login}">
+			<form class="col-lg-3 col-md-4 col-10 mx-auto text-center" method="post" th:action="@{/admin/log/process-login}">
 			
 				
 				<h1 >Sign in</h1>
@@ -44,7 +44,7 @@
 				</div>
 				
 				<button class="btn btn-lg btn-primary btn-block" type="submit">Sign In</button>
-				<a th:href="@{/admin/forgetPassword}">Forget Password</a>
+				<a th:href="@{/admin/log/forgetPassword}">Forget Password</a>
 				<p class="mt-5 mb-3 text-muted">© 2024</p>
 				<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
 			</form>
