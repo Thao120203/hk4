@@ -18,7 +18,7 @@ import com.demo.entities.User;
 import com.demo.service.UserService;
 
 @Controller
-@RequestMapping({ "admin/user"})
+@RequestMapping({ "user", "/user", "user/"})
 public class UserController {
 	
 	@Autowired
@@ -27,7 +27,7 @@ public class UserController {
 	@GetMapping({ "index", "", "/" })
 	public String index(ModelMap modelMap) {
 		modelMap.put("users", userService.findAll());
-		return "user/index_2";
+		return "user/home/index";
 	}
 	
 	// ADD

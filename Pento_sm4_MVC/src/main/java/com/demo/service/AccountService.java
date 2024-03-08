@@ -1,8 +1,10 @@
 package com.demo.service;
 
+import org.springframework.security.core.userdetails.UserDetailsService;
+
 import com.demo.entities.Account;
 
-public interface AccountService {
+public interface AccountService extends UserDetailsService{
 
 	public Iterable<Account> findAll();
 	public Account find(int id);

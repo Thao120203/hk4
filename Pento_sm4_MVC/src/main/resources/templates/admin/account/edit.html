@@ -30,16 +30,14 @@
 							<div class="form-row">
 								<div class="col-md-4 mb-4">
 									<label for="example-select">Role</label> <select
-										th:field="${account.role.id}" class="form-control"
-										id="example-select">
+										th:field="${account.role.id}" class="form-control select2">
 										<option th:each="role : ${roles}" th:value="${role.id}"
 											th:text="${role.name}"></option>
 									</select>
 								</div>
 								<div class="col-md-5 mb-4">
 									<label for="example-select">Branch</label> <select
-										th:field="${account.branchs.id}" class="form-control"
-										id="example-select">
+										th:field="${account.branchs.id}" class="form-control select2">
 										<option th:each="branch : ${branchs}" th:value="${branch.id}"
 											th:text="${branch.name}"></option>
 									</select>

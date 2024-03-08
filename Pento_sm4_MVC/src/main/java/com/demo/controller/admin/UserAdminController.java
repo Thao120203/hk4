@@ -18,7 +18,7 @@ import com.demo.entities.User;
 import com.demo.service.UserService;
 
 @Controller
-@RequestMapping({ "user", "user/" })
+@RequestMapping({ "admin/user", "admin/user/" })
 public class UserAdminController {
 	
 	@Autowired

@@ -1,9 +1,18 @@
 package com.demo.service;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.User;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 
 import com.demo.entities.Account;
+import com.demo.entities.Role;
 import com.demo.repositories.AccountRepository;
 
 @Service
@@ -68,6 +77,17 @@ public class AccountServiceImpl implements AccountService{
 		return accountRepository.findPassword(id);
 	}
 
+	@Override
+	public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
+		Account account = accountRepository.findByEmail(email);
+		if (account == null) {
+			throw new UsernameNotFoundException("Email Not Found");
+		} else {
+			List<GrantedAuthority> authorities = new ArrayList<GrantedAuthority>();
+			authorities.add(new SimpleGrantedAuthority(account.getRole().getName()));
+			return new User(email, account.getPassword(), authorities);
+		}
+	}
 
 
 }

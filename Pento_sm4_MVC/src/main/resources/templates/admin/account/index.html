@@ -9,73 +9,118 @@
 <body>
 
 	<div class="aaa">
-		<div class="row">
-			<div class="col-md-12">
-				<div class="card shadow">
-					<div class="card-body">
-						<h5 class="card-title">List Accounts</h5>
-						<table class="table table-striped table-hover">
-							<thead class="thead-dark">
-								<tr>
-									<th>Id</th>
-									<th>Email</th>
-									<th>Password</th>
-									<th>Status</th>
-									<th>Role</th>
-									<th>Branchs</th>
-									<th>More</th>
-								</tr>
-							</thead>
-							<tbody>
-								<tr th:each="account : ${accounts}">
-									<td th:text="${account.id}"></td>
-									<td th:text="${account.email}"></td>
-									<td th:text="${account.password}"></td>
-									
-									<td th:if="${account.status == '1'}"><span
-										class="badge badge-pill badge-success">Active</span></td>
-									<td th:if="${account.status == '0'}"><span
-										class="badge badge-pill badge-warning">Inactive</span></td>
+		<div col-12>
+			<h2 class="mb-2 page-title">List Account</h2>
+			<div class="row my-4">
+				<!-- Small table -->
+				<div class="col-md-12">
+					<div class="card shadow">
+
+						<div class="card-body">
+							<!-- table -->
+							<div id="dataTable-1_wrapper"
+								class="dataTables_wrapper dt-bootstrap4 no-footer">
+
+								<div class="row">
+									<div class="col-sm-12">
+										<table class="table datatables dataTable no-footer"
+											id="dataTable-1" role="grid"
+											aria-describedby="dataTable-1_info">
+											<thead class="thead-dark">
+												<tr role="row">
+													
+													<th class="sorting" tabindex="0"
+														aria-controls="dataTable-1" rowspan="1" colspan="1"
+														aria-label="#: activate to sort column ascending"
+														style="width: 9.5625px;">Id</th>
+													<th class="sorting" tabindex="0"
+														aria-controls="dataTable-1" rowspan="1" colspan="1"
+														aria-label="Name: activate to sort column ascending"
+														style="width: 93.075px;">Email</th>
+													
+													<th class="sorting" tabindex="0"
+														aria-controls="dataTable-1" rowspan="1" colspan="1"
+														aria-label="Department: activate to sort column ascending"
+														style="width: 124.65px;">Status</th>
+													<th class="sorting" tabindex="0"
+														aria-controls="dataTable-1" rowspan="1" colspan="1"
+														aria-label="Company: activate to sort column ascending"
+														style="width: 69.2px;">Role</th>
+													<th class="sorting" tabindex="0"
+														aria-controls="dataTable-1" rowspan="1" colspan="1"
+														aria-label="Address: activate to sort column ascending"
+														style="width: 162.675px;">Branchs</th>
+													<th class="sorting" tabindex="0"
+														aria-controls="dataTable-1" rowspan="1" colspan="1"
+														aria-label="City: activate to sort column ascending"
+														style="width: 96.9625px;">More</th>
+
+												</tr>
+											</thead>
+											<tbody>
+
+												<tr role="row" class="odd" th:each="account : ${accounts}">
+													
+													<td th:text="${account.id}"></td>
+													<td th:text="${account.email}"></td>
+													<td th:if="${account.status == '1'}"><span
+														class="badge badge-pill badge-success">Active</span></td>
+													<td th:if="${account.status == '0'}"><span
+														class="badge badge-pill badge-warning">Inactive</span></td>
 
 
-									<td th:text="${account.role.name}"></td>
+													<td th:text="${account.role.name}"></td>
 
-									<td
-										th:text="${account.branchs != null ? account.branchs.name : 'NULL'}"></td>
+													<td
+														th:text="${account.branchs != null ? account.branchs.name : 'NULL'}"></td>
 
-									<td>
-										<div class="dropdown">
-											<button class="btn btn-sm dropdown-toggle more-vertical"
-												type="button" data-toggle="dropdown" aria-haspopup="true"
-												aria-expanded="false">
-												<span class="text-muted sr-only">Action</span>
-											</button>
-											<div class="dropdown-menu dropdown-menu-right" style="">
-												<a class="dropdown-item"
-													th:href="@{'/admin/account/edit/' + ${account.id} }">
-													<button type="button" class="btn mb-2 btn-outline-success">Edit</button>
-												</a> <a class="dropdown-item"
-													th:href="@{'/admin/account/delete/' + ${account.id} } ">
-													<button type="button" class="btn mb-2 btn-outline-danger">Remove</button>
-												</a> <a class="dropdown-item"
-													th:href="@{'/admin/account/updatePassword/' + ${account.id} } ">Change
-													Password</a>
-											</div>
-										</div>
-									</td>
-								</tr>
+													<td>
+														<div class="dropdown">
+															<button class="btn btn-sm dropdown-toggle more-vertical"
+																type="button" data-toggle="dropdown"
+																aria-haspopup="true" aria-expanded="false">
+																<span class="text-muted sr-only">Action</span>
+															</button>
+															<div class="dropdown-menu dropdown-menu-right" style="">
+																<a class="dropdown-item"
+																	th:href="@{'/admin/account/edit/' + ${account.id} }">
+																	<button type="button"
+																		class="btn mb-2 btn-outline-success">Edit</button>
+																</a> <a class="dropdown-item"
+																	th:href="@{'/admin/account/delete/' + ${account.id} } ">
+																	<button type="button"
+																		class="btn mb-2 btn-outline-danger">Remove</button>
+																</a> <a class="dropdown-item"
+																	th:href="@{'/admin/account/updatePassword/' + ${account.id} } ">
+																	<button type="button"
+																		class="btn mb-2 btn-outline-warning">Change
+																		Password</button>
+																</a>
+															</div>
+														</div>
+													</td>
+												</tr>
 
-							</tbody>
+											</tbody>
+										</table>
+									</div>
+								</div>
+
+							</div>
+						</div>
 
 
-						</table>
-						<a th:href="@{/admin/account/add}"><button type="submit"
-								class="btn btn-primary">Add</button></a>
 					</div>
 				</div>
+				<!-- simple table -->
 			</div>
+			<!-- end section -->
+
 		</div>
+
 	</div>
+
+
 </body>
 
 </html>

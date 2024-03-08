@@ -5,6 +5,8 @@ import java.util.Date;
 
 import org.springframework.core.env.Environment;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -41,7 +43,9 @@ public class AccountController {
 	private BranchService branchService;
 	@Autowired
 	private MailService mailService;
-
+	
+	@Autowired
+	private BCryptPasswordEncoder encoder;
 	@Autowired
 	private Environment environment;
 
@@ -65,6 +69,7 @@ public class AccountController {
 	public String add(@ModelAttribute("account") Account account, RedirectAttributes redirectAttributes) {
 		try {
 			account.setStatus("0");
+			account.setPassword(encoder.encode(account.getPassword()));
 			if (accountService.save(account)) {
 				redirectAttributes.addFlashAttribute("msg", "Add Success");
 			} else {
@@ -189,8 +194,7 @@ public class AccountController {
 		    redirectAttributes.addFlashAttribute("msg", "Confirm password does not match new password");
 		    return "redirect:/admin/account/updatePassword/" + account.getId();
 		}
-
-		account.setPassword(newPassword);
+		account.setPassword(encoder.encode(newPassword));
 		redirectAttributes.addFlashAttribute("msg", accountService.save(account) ? "Password changed successfully" : "Failed to change password");
 		return "redirect:/admin/account/index";
 	}
@@ -199,6 +203,17 @@ public class AccountController {
 	public String logout(HttpSession session) {
 		session.removeAttribute("email");
 		return "redirect:/admin/account/login";
+	}
+	
+	@RequestMapping(value = "welcome", method = RequestMethod.GET)
+	public String welcome(Authentication authentication, ModelMap modelMap) {
+		modelMap.put("email", authentication.getName());
+		return "admin/welcome";
+	}
+	
+	@RequestMapping(value = "accessDenied", method = RequestMethod.GET)
+	public String accessDenied() {
+		return "admin/accessDenied";
 	}
 
 

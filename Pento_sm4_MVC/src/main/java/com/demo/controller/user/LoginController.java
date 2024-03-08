@@ -24,7 +24,7 @@ import jakarta.mail.Session;
 import jakarta.servlet.http.HttpSession;
 
 @Controller
-@RequestMapping({ "", "/" })
+@RequestMapping({ "login" })
 public class LoginController {
 
 	@Autowired
@@ -91,7 +91,7 @@ public class LoginController {
 
 
 	// ----------- LOGIN
-	@GetMapping({ "login", "", "/"})
+	@GetMapping({ "login", "login/"})
 	public String login(ModelMap modelMap) {
 		Account account = new Account();
 		modelMap.put("account", account);

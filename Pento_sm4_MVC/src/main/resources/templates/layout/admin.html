@@ -56,12 +56,7 @@
 						<span class="fe fe-grid fe-16"></span>
 					</a>
 				</li>
-				<li class="nav-item nav-notif">
-					<a class="nav-link text-muted my-2" href="./#" data-toggle="modal" data-target=".modal-notif">
-						<span class="fe fe-bell fe-16"></span>
-						<span class="dot dot-md bg-success"></span>
-					</a>
-				</li>
+				
 				<li class="nav-item dropdown">
 					<a class="nav-link dropdown-toggle text-muted pr-0" href="#" id="navbarDropdownMenuLink"
 						role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -102,7 +97,7 @@
 					<ul class="navbar-nav flex-fill w-100 mb-2">
 						<li class="nav-item w-100">
 							<a class="nav-link" th:href="@{/admin/account/index}">
-								<i class="fe fe-24 fe-git-branch"></i>
+								<i class="fe fe-user fe-24"></i>
 								<span class="ml-3 item-text">Account</span>
 							</a>
 						</li>
@@ -128,6 +123,14 @@
 							<a class="nav-link" th:href="@{/table/index}">
 								<i class="fe fe-table glyph__ico"></i>
 								<span class="ml-3 item-text">Table</span>
+							</a>
+						</li>
+					</ul>
+					<ul class="navbar-nav flex-fill w-100 mb-2">
+						<li class="nav-item w-100">
+							<a class="nav-link" th:href="@{/admin/logout}">
+								<i class="fe fe-table glyph__ico"></i>
+								<span class="ml-3 item-text">Logout</span>
 							</a>
 						</li>
 					</ul>
@@ -280,6 +283,9 @@
 	<script th:src="@{/admin/js/jquery.stickOnScroll.js}"></script>
 	<script th:src="@{/admin/js/tinycolor-min.js}"></script>
 	<script th:src="@{/admin/js/config.js}"></script>
+	<script th:src="@{/admin/js/jquery.dataTables.min.js}"></script>
+	<script th:src="@{/admin/js/dataTables.bootstrap4.min.js}"></script>
+	
 	<script th:src="@{/admin/js/d3.min.js}"></script>
 	<script th:src="@{/admin/js/topojson.min.js}"></script>
 	<script th:src="@{/admin/js/datamaps.all.min.js}"></script>
@@ -303,6 +309,7 @@
 	<script th:src="@{/admin/js/dropzone.min.js}"></script>
 	<script th:src="@{/admin/js/uppy.min.js}"></script>
 	<script th:src="@{/admin/js/quill.min.js}"></script>
+
 	<script>
 		$('.select2').select2(
 			{
@@ -496,6 +503,16 @@
 			});
 		}
 	</script>
+	 <script>
+      $('#dataTable-1').DataTable(
+      {
+        autoWidth: true,
+        "lengthMenu": [
+          [16, 32, 64, -1],
+          [16, 32, 64, "All"]
+        ]
+      });
+    </script>
 	<script th:src="@{/admin/js/apps.js}"></script>
 	<!-- Global site tag (gtag.js) - Google Analytics -->
 	<script async src="https://www.googletagmanager.com/gtag/js?id=UA-56159088-1"></script>
@@ -508,6 +525,8 @@
 		gtag('js', new Date());
 		gtag('config', 'UA-56159088-1');
 	</script>
+	
+	
 </body>
 
 </html>
