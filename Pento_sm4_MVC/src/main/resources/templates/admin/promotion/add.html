@@ -16,7 +16,7 @@
 						<strong class="card-title">Add Promotion</strong>
 					</div>
 					<div class="card-body">
-						<form  method="post" th:action="@{/promotions/add}">
+						<form  method="post" th:action="@{/admin/promotions/add}">
 							<div class="form-group">
 								<label for="validationCustomUsername ">Name</label>
 								<input type="text" class="form-control" th:field="${promotions.name}" aria-describedby="inputGroupPrepend" id="validationCustomUsername" required>
@@ -29,11 +29,11 @@
 							<div class="form-row">
 								<div class="form-group col-md-6">
 									<label for="inputEmail4">Start Date</label>
-									<input class="form-control"  type="text" name="date"  th:field="${promotions.startDate}">
+									<input class="form-control" id="datepicker" type="text" name="date"  th:field="${promotions.startDate}">
 								</div>
 								<div class="form-group col-md-6">
 									<label for="inputPassword4">End Date</label>
-									<input class="form-control"  type="text" name="date" th:field="${promotions.endDate}">
+									<input class="form-control" id="datepicker1" type="text" name="date"  th:field="${promotions.endDate}">
 								</div>
 							</div>
 							<div class="form-group">

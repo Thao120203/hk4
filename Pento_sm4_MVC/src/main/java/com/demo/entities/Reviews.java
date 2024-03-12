@@ -1,5 +1,5 @@
 package com.demo.entities;
-// Generated Feb 23, 2024, 1:06:06 PM by Hibernate Tools 4.3.6.Final
+// Generated Mar 8, 2024, 2:17:53 PM by Hibernate Tools 4.3.6.Final
 
 import java.util.Date;
 
@@ -13,7 +13,8 @@ import jakarta.persistence.*;
 public class Reviews implements java.io.Serializable {
 
 	private Integer id;
-	private Account account;	
+	private Account account;
+	private Branchs branchs;
 	private String rating;
 	private String comment;
 	private Date created;
@@ -21,8 +22,16 @@ public class Reviews implements java.io.Serializable {
 	public Reviews() {
 	}
 
-	public Reviews(Account account, String rating, String comment, Date created) {
+	public Reviews(Account account, Branchs branchs, String rating, Date created) {
 		this.account = account;
+		this.branchs = branchs;
+		this.rating = rating;
+		this.created = created;
+	}
+
+	public Reviews(Account account, Branchs branchs, String rating, String comment, Date created) {
+		this.account = account;
+		this.branchs = branchs;
 		this.rating = rating;
 		this.comment = comment;
 		this.created = created;
@@ -50,6 +59,16 @@ public class Reviews implements java.io.Serializable {
 		this.account = account;
 	}
 
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "branch_id", nullable = false)
+	public Branchs getBranchs() {
+		return this.branchs;
+	}
+
+	public void setBranchs(Branchs branchs) {
+		this.branchs = branchs;
+	}
+
 	@Column(name = "rating", nullable = false, length = 250)
 	public String getRating() {
 		return this.rating;
@@ -59,7 +78,7 @@ public class Reviews implements java.io.Serializable {
 		this.rating = rating;
 	}
 
-	@Column(name = "comment", nullable = false, length = 1000)
+	@Column(name = "comment", length = 1000)
 	public String getComment() {
 		return this.comment;
 	}

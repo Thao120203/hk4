@@ -1,0 +1,74 @@
+<html xmlns:th="http://www.thymeleaf.org"
+	th:replace="~{layout/admin :: content('Edit contact',~{this :: .aaa})}">
+
+<head>
+<title th:text="${title}"></title>
+
+
+</head>
+
+<body>
+
+	<div class="aaa">
+		<div class="row">
+			<div class="col-md-12">
+
+				<div class="card shadow mb-4">
+					<div class="card-header">
+						<strong class="card-title">View contact</strong>
+					</div>
+					<div class="card-body">
+						<div class="form-group mb-3">
+							<b>
+								<h3>
+									<th:block th:text="${contact.Title}"></th:block>
+								</h3>
+							</b>
+						</div>
+
+						<div class="form-group mb-3">
+							<br> <b> <th:block th:text="${contact.content}"></b>
+						</div>
+					</div>
+				</div>
+				
+				
+				<div class="card shadow mb-4">
+					<div class="card-header">
+						<strong class="card-title">Change contact Status</strong>
+					</div>
+					<div class="card-body">
+						<form class="needs-validation" method="post"
+							th:action="@{/admin/contact/edit}" novalidate>
+
+							<div class="form-row">
+								<div class="col-md-12 mx-auto mb-4">
+									<p class="mb-3">Change Status</p>
+									<div class="custom-control custom-switch">
+										<input type="checkbox" class="custom-control-input"
+											id="customSwitch1" name="status"
+											th:checked="${contact.status == '1'}"> <label
+											class="custom-control-label" for="customSwitch1">Checked</label>
+									</div>
+								</div>
+							</div>
+
+
+							<button type="submit" class="btn btn-primary">Add</button>
+							<input type="hidden" th:field="${contact.id}">
+							<input type="hidden" th:field="${contact.title}">
+							<input type="hidden" th:field="${contact.content}">
+							<input type="hidden" th:field="${contact.account.id}">
+						</form>
+
+					</div>
+
+					<!-- /. card-body -->
+				</div>
+				<!-- /. card -->
+			</div>
+		</div>
+	</div>
+</body>
+
+</html>

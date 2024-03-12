@@ -21,7 +21,7 @@ import com.demo.service.UserService;
 @RequestMapping({ "", "/" })
 public class HomeController {
 	
-	@GetMapping({ "index", "index/", "", "/",})
+	@GetMapping({ "index", "index/", "", "/"})
 	public String index(ModelMap modelMap) {
 		return "user/home/index";
 	}
@@ -30,5 +30,6 @@ public class HomeController {
 	public String accessDenied(ModelMap modelMap) {
 		return "user/accessDenied";
 	}
+
 	
 }

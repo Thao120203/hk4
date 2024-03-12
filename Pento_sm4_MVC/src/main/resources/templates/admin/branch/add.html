@@ -16,7 +16,7 @@
 						<strong class="card-title">Add Branch</strong>
 					</div>
 					<div class="card-body">
-						<form class="needs-validation" method="post" th:action="@{/branch/add}" novalidate>
+						<form class="needs-validation" method="post" th:action="@{/admin/branch/add}" novalidate>
 							<div class="form-group">
 								<label for="validationCustomUsername ">Name</label>
 								<input type="text" class="form-control" th:field="${branch.name}" aria-describedby="inputGroupPrepend" id="validationCustomUsername" required>
@@ -40,9 +40,28 @@
 									<input type="text" class="form-control time-input" id="time-input2"  th:field="${branch.clossingHours}" placeholder="" aria-describedby="button-addon2">
 								</div>
 							</div>
-							<div class="form-group">
-								<label for="inputAddress2">Status</label>
-								<input type="text" class="form-control"  th:field="${branch.status}" id="inputAddress6">
+							
+							<div class="form-group toggle">
+								<div class="custom-control custom-switch">
+									<input type="checkbox" class="custom-control-input"
+										id="customSwitch1"  onclick="A()" th:checked="${account.status == 'Open'}">
+									<label class="custom-control-label text" for="customSwitch1" >CLOSE</label>
+								</div>
+								<!--
+								
+								<div class="form-group toggle">
+								<div class="custom-control custom-switch">
+									<input type="checkbox" class="custom-control-input" id="customSwitch1" th:checked="${branch.status}" onclick="A()" required="">
+									<label class="custom-control-label text" for="customSwitch1" >CLOSE</label>
+								</div>
+							</div>
+								 
+								<div class="custom-control custom-switch">
+									<input type="checkbox" class="custom-control-input"
+										id="customSwitch1" name="status" th:checked="${account.status == '1'}">
+									<label class="custom-control-label" for="customSwitch1">Active</label>
+								</div>
+								 -->
 							</div>
 							<button type="submit" class="btn btn-primary">Add</button>
 						</formclass="needs-validation">

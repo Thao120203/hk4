@@ -51,6 +51,7 @@ public class AccountController {
 
 	@GetMapping({ "index"})
 	public String index(ModelMap modelMap) {
+		
 		modelMap.put("accounts", accountService.findAll());
 		return "admin/account/index";
 	}

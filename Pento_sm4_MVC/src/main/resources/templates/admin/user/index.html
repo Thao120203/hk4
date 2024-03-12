@@ -1,43 +1,132 @@
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org"
+	th:replace="~{layout/admin :: content('List User',~{this :: .aaa})}">
 
 <head>
-<title>Index</title>
+<title th:text="${title}"></title>
+
 </head>
 
 <body>
-	<a th:href="@{/user/add}">Add</a> |
-	<a th:href="@{/account}">Account</a>
-	<h3>User List</h3>
-	<th:block th:text="${msg}"></th:block>
 
-	<table border="1">
-		<tr>
-			<th>Id</th>
-			<th>Email</th>
-			<th>Full Name</th>
-			<th>Phone Number</th>
-			<th>Birthday</th>
-			<th>Gender</th>
-			<th>Role</th>
-			<th>Status</th>
-			<th>More</th>
-		</tr>
-		<tr th:each="user : ${users}">
-			<td th:text="${user.id}"></td>
-			<td th:text="${user.account != null ? user.account.email : 'EMPTY'}"></td>
-			<td th:text="(${user.firstName ?: ''}+ ' ' + ${user.lastName ?: 'EMPTY'})"></td>
-			<td th:text="${user.phoneNumber ?: 'EMPTY'}"></td>
-			<td th:text="${#dates.format(user.birthday, 'dd/MM/yyyy') ?: 'EMPTY'}"></td>
-			<td th:text="${user.gender ?: 'EMPTY'}"></td>
-			<td th:text="${user.account != null ? user.account.role.name : 'EMPTY'}"></td>
-			<td th:text="${user.account != null ? (user.account.status) : 'EMPTY'}"></td>
+	<div class="aaa">
+		<div col-12>
+			<h2 class="mb-2 page-title">List User</h2>
 			
+			<div class="row my-4">
+				<!-- Small table -->
+				<div class="col-md-12">
+					<div class="card shadow">
 
-			<td><a th:href="@{'/user/edit/' + ${user.id}}">Edit</a> || <a
-				th:href="@{'/user/delete/' + ${user.id}}"
-				onclick="return confirm('Are you sure')">Delete</a></td>
-		</tr>
-	</table>
+						<div class="card-body">
+							<!-- table -->
+							<div id="dataTable-1_wrapper"
+								class="dataTables_wrapper dt-bootstrap4 no-footer">
+
+								<div class="row">
+									<div class="col-sm-12">
+									<a th:href="@{/admin/user/add}"><button class="btn btn-primary float-right ml-3" type="button">Add
+											more +</button></a>
+									
+										<table class="table datatables dataTable no-footer"
+											id="dataTable-1" role="grid"
+											aria-describedby="dataTable-1_info">
+											<thead class="thead-dark">
+												<tr role="row">
+													
+													<th class="sorting" tabindex="0"
+														aria-controls="dataTable-1" rowspan="1" colspan="1"
+														aria-label="#: activate to sort column ascending"
+														style="width: 9.5625px;">Id</th>
+													<th class="sorting" tabindex="0"
+														aria-controls="dataTable-1" rowspan="1" colspan="1"
+														aria-label="Name: activate to sort column ascending"
+														style="width: 93.075px;">Email</th>
+													
+													<th class="sorting" tabindex="0"
+														aria-controls="dataTable-1" rowspan="1" colspan="1"
+														aria-label="Department: activate to sort column ascending"
+														style="width: 168.65px;">FullName</th>
+														<th class="sorting" tabindex="0"
+														aria-controls="dataTable-1" rowspan="1" colspan="1"
+														aria-label="Department: activate to sort column ascending"
+														style="width: 100.65px;">Phone Number</th>
+													<th class="sorting" tabindex="0"
+														aria-controls="dataTable-1" rowspan="1" colspan="1"
+														aria-label="Company: activate to sort column ascending"
+														style="width: 69.2px;">Birthday</th>
+													<th class="sorting" tabindex="0"
+														aria-controls="dataTable-1" rowspan="1" colspan="1"
+														aria-label="Address: activate to sort column ascending"
+														style="width: 15.675px;">Gender</th>
+														<th class="sorting" tabindex="0"
+														aria-controls="dataTable-1" rowspan="1" colspan="1"
+														aria-label="Address: activate to sort column ascending"
+														style="width: 162.675px;">Role</th>
+														<th class="sorting" tabindex="0"
+														aria-controls="dataTable-1" rowspan="1" colspan="1"
+														aria-label="Address: activate to sort column ascending"
+														style="width: 10.675px;">Status</th>
+													<th class="sorting" tabindex="0"
+														aria-controls="dataTable-1" rowspan="1" colspan="1"
+														aria-label="City: activate to sort column ascending"
+														style="width: 9.9625px;">More</th>
+
+												</tr>
+											</thead>
+											
+											<tbody>
+												<tr th:each="user : ${users}">
+													<td th:text="${user.id}"></td>
+													<td th:text="${user.account != null ? user.account.email : 'EMPTY'}"></td>
+													<td th:text="(${user.firstName ?: ''}+ ' ' + ${user.lastName ?: 'EMPTY'})"></td>
+													<td th:text="${user.phoneNumber ?: 'EMPTY'}"></td>
+													<td th:text="${#dates.format(user.birthday, 'dd/MM/yyyy') ?: 'EMPTY'}"></td>
+													<td th:text="${user.gender ?: 'EMPTY'}"></td>
+													<td th:text="${user.account != null ? user.account.role.name : 'EMPTY'}"></td>
+													<td th:text="${user.account != null ? (user.account.status) : 'EMPTY'}"></td>
+
+													<td>
+														<div class="dropdown">
+															<button class="btn btn-sm dropdown-toggle more-vertical"
+																type="button" data-toggle="dropdown"
+																aria-haspopup="true" aria-expanded="false">
+																<span class="text-muted sr-only">Action</span>
+															</button>
+															<div class="dropdown-menu dropdown-menu-right" style="">
+																<a class="dropdown-item"
+																	th:href="@{'/admin/user/edit/' + ${user.id} }">
+																	<button type="button"
+																		class="btn mb-2 btn-outline-success">Edit</button>
+																</a> <a class="dropdown-item"
+																	th:href="@{'/admin/user/delete/' + ${user.id} } ">
+																	<button type="button"
+																		class="btn mb-2 btn-outline-danger">Remove</button>
+																</a> 
+															</div>
+														</div>
+													</td>
+												</tr>
+
+											</tbody>
+										</table>
+										
+									</div>
+								</div>
+
+							</div>
+						</div>
+
+
+					</div>
+				</div>
+				<!-- simple table -->
+			</div>
+			<!-- end section -->
+
+		</div>
+
+	</div>
+
 
 </body>
 

@@ -1,0 +1,118 @@
+<html xmlns:th="http://www.thymeleaf.org"
+	th:replace="~{layout/admin :: content('List Contact',~{this :: .aaa})}">
+
+<head>
+<title th:text="${title}"></title>
+
+</head>
+
+<body>
+
+	<div class="aaa">
+		<div col-12>
+			<h2 class="mb-2 page-title">List contact</h2>
+			<div class="row my-4">
+				<!-- Small table -->
+				<div class="col-md-12">
+					<div class="card shadow">
+
+						<div class="card-body">
+							<!-- table -->
+							<div id="dataTable-1_wrapper"
+								class="dataTables_wrapper dt-bootstrap4 no-footer">
+
+								<div class="row">
+									<div class="col-sm-12">
+										<table class="table datatables dataTable no-footer"
+											id="dataTable-1" role="grid"
+											aria-describedby="dataTable-1_info">
+											<thead class="thead-dark">
+												<tr role="row">
+
+													<th class="sorting" tabindex="0"
+														aria-controls="dataTable-1" rowspan="1" colspan="1"
+														aria-label="#: activate to sort column ascending"
+														style="width: 9.5625px;">Id</th>
+													<th class="sorting" tabindex="0"
+														aria-controls="dataTable-1" rowspan="1" colspan="1"
+														aria-label="Name: activate to sort column ascending"
+														style="width: 93.075px;">Email</th>
+
+													<th class="sorting" tabindex="0"
+														aria-controls="dataTable-1" rowspan="1" colspan="1"
+														aria-label="Department: activate to sort column ascending"
+														style="width: 124.65px;">Status</th>
+													<th class="sorting" tabindex="0"
+														aria-controls="dataTable-1" rowspan="1" colspan="1"
+														aria-label="Company: activate to sort column ascending"
+														style="width: 69.2px;">Title</th>
+													<th class="sorting" tabindex="0"
+														aria-controls="dataTable-1" rowspan="1" colspan="1"
+														aria-label="Address: activate to sort column ascending"
+														style="width: 162.675px;">Content</th>
+													<th class="sorting" tabindex="0"
+														aria-controls="dataTable-1" rowspan="1" colspan="1"
+														aria-label="City: activate to sort column ascending"
+														style="width: 96.9625px;">Action</th>
+
+												</tr>
+											</thead>
+											<tbody>
+
+												<tr role="row" class="odd" th:each="contact : ${contacts}">
+
+													<td th:text="${contact.id}"></td>
+													<td th:text="${contact.account.email}"></td>
+
+
+													<td th:if="${contact.status == '1'}"><span
+														class="badge badge-pill badge-success">Pending</span></td>
+													<td th:if="${contact.status == '0'}"><span
+														class="badge badge-pill badge-warning">Checked</span></td>
+
+													<td th:text="${contact.title}"></td>
+													<td th:text="${contact.content}"></td>
+
+													<td>
+														<div class="dropdown">
+															<button class="btn btn-sm dropdown-toggle more-vertical"
+																type="button" data-toggle="dropdown"
+																aria-haspopup="true" aria-expanded="false">
+																<span class="text-muted sr-only">Action</span>
+															</button>
+															<div class="dropdown-menu dropdown-menu-right" style="">
+																<a class="dropdown-item"
+																	th:href="@{'/admin/contact/edit/' + ${contact.id} }">
+																	<button type="button"
+																		class="btn mb-2 btn-outline-success">Edit</button>
+																</a> <a class="dropdown-item"
+																	th:href="@{'/admin/contact/delete/' + ${contact.id} } ">
+																	<button type="button"
+																		class="btn mb-2 btn-outline-danger">Delete</button>
+																</a>
+															</div>
+														</div>
+													</td>
+												</tr>
+
+											</tbody>
+										</table>
+									</div>
+								</div>
+
+							</div>
+						</div>
+
+
+					</div>
+				</div>
+				<!-- simple table -->
+			</div>
+			<!-- end section -->
+
+		</div>
+
+	</div>
+</body>
+
+</html>

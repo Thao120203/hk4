@@ -1,9 +1,8 @@
 package com.demo.entities;
-// Generated Feb 23, 2024, 1:06:06 PM by Hibernate Tools 4.3.6.Final
+// Generated Mar 11, 2024, 1:29:10 PM by Hibernate Tools 4.3.6.Final
 
 import java.util.HashSet;
 import java.util.Set;
-
 
 import jakarta.persistence.*;
 
@@ -21,30 +20,32 @@ public class Account implements java.io.Serializable {
 	private String password;
 	private String status;
 	private String securityCode;
+	private Set<Contact> contacts = new HashSet<Contact>(0);
 	private Set<Reviews> reviewses = new HashSet<Reviews>(0);
+	private Set<Menu> menus = new HashSet<Menu>(0);
 	private Set<User> users = new HashSet<User>(0);
 
 	public Account() {
 	}
 
-	public Account(Branchs branchs, Role role, String email, String password, String status, String securityCode) {
-		this.branchs = branchs;
+	public Account(Role role, String email, String password, String status) {
 		this.role = role;
 		this.email = email;
 		this.password = password;
 		this.status = status;
-		this.securityCode = securityCode;
 	}
 
-	public Account(Branchs branchs, Role role, String email, String password, String status, String securityCode, Set<Reviews> reviewses,
-			Set<User> users) {
+	public Account(Branchs branchs, Role role, String email, String password, String status, String securityCode,
+			Set<Contact> contacts, Set<Reviews> reviewses, Set<Menu> menus, Set<User> users) {
 		this.branchs = branchs;
 		this.role = role;
 		this.email = email;
 		this.password = password;
 		this.status = status;
 		this.securityCode = securityCode;
+		this.contacts = contacts;
 		this.reviewses = reviewses;
+		this.menus = menus;
 		this.users = users;
 	}
 
@@ -59,8 +60,9 @@ public class Account implements java.io.Serializable {
 	public void setId(Integer id) {
 		this.id = id;
 	}
+
 	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "branch_id", nullable = true)
+	@JoinColumn(name = "branch_id")
 	public Branchs getBranchs() {
 		return this.branchs;
 	}
@@ -68,7 +70,7 @@ public class Account implements java.io.Serializable {
 	public void setBranchs(Branchs branchs) {
 		this.branchs = branchs;
 	}
-	
+
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "role_id", nullable = false)
 	public Role getRole() {
@@ -106,7 +108,7 @@ public class Account implements java.io.Serializable {
 		this.status = status;
 	}
 
-	@Column(name = "security_code", nullable = true, length = 250)
+	@Column(name = "security_code", length = 250)
 	public String getSecurityCode() {
 		return this.securityCode;
 	}
@@ -116,12 +118,30 @@ public class Account implements java.io.Serializable {
 	}
 
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "account")
+	public Set<Contact> getContacts() {
+		return this.contacts;
+	}
+
+	public void setContacts(Set<Contact> contacts) {
+		this.contacts = contacts;
+	}
+
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "account")
 	public Set<Reviews> getReviewses() {
 		return this.reviewses;
 	}
 
 	public void setReviewses(Set<Reviews> reviewses) {
 		this.reviewses = reviewses;
+	}
+
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "account")
+	public Set<Menu> getMenus() {
+		return this.menus;
+	}
+
+	public void setMenus(Set<Menu> menus) {
+		this.menus = menus;
 	}
 
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "account")

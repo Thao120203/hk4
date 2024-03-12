@@ -13,6 +13,7 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
@@ -38,15 +39,15 @@ public class SecurityConfiguration {
 						auth
 							.requestMatchers(
 									"/", "/index/**", 
-									"/admin/css/**", "/admin/js/**",
-									"/admin/log/**",
-									"/home/**", "/aboutus/**",
+									"/admin/css/**", "/admin/js/**", "/admin/log/**",
+									"/home/**", "/aboutus/**", "/dashboard/**", "/contact/**", "/menu/**",
 									"/user/**", "/users/**",
 									"/accessDenied"
 									).permitAll()
-							.requestMatchers("/superadmin/**").hasAnyRole("SUPER_ADMIN")
+							.requestMatchers("/admin/account/index", "/admin/table/index").hasAnyRole("SUPER_ADMIN")
 							.requestMatchers("/admin/**").hasAnyRole("SUPER_ADMIN", "ADMIN")
-							.requestMatchers("/user/**", "/").hasAnyRole("SUPER_ADMIN", "ADMIN", "MEMBER");
+							.requestMatchers("/user/**", "/").hasAnyRole("SUPER_ADMIN", "ADMIN", "MEMBER")
+							.anyRequest().authenticated();
 					})
 					.formLogin(formLogin -> {
 						formLogin.loginPage("/admin/log/login")
@@ -62,8 +63,8 @@ public class SecurityConfiguration {
 										Collection<GrantedAuthority> roles = (Collection<GrantedAuthority>) authentication.getAuthorities();
 										
 										Map<String, String> urls = new HashMap<String, String>();
-										urls.put("ROLE_SUPER_ADMIN", "/admin/account/index");
-										urls.put("ROLE_ADMIN", "/admin/account/index");
+										urls.put("ROLE_SUPER_ADMIN", "/admin/dashboard");
+										urls.put("ROLE_ADMIN", "/admin/dashboard");
 										urls.put("ROLE_MEMBER", "/");
 										
 										String url = "";
@@ -102,5 +103,7 @@ public class SecurityConfiguration {
 	public BCryptPasswordEncoder encoder() {
 		return new BCryptPasswordEncoder();
 	}
+	
+	
 	
 }

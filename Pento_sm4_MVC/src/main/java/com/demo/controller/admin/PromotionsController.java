@@ -22,7 +22,7 @@ import com.demo.service.BranchService;
 import com.demo.service.PromotionsService;
 
 @Controller
-@RequestMapping({ "promotions", "promotions/"})
+@RequestMapping({ "admin/promotions", "admin/promotions/"})
 public class PromotionsController {
 	
 	@Autowired
@@ -72,7 +72,7 @@ public class PromotionsController {
 	// EDIT Information
 	@GetMapping({"edit/{id}"})
 	public String edit(@PathVariable("id") int id, ModelMap modelMap) {
-		modelMap.put("promotions", promotionsService.find(id));	
+		modelMap.put("promotion", promotionsService.find(id));	
 		return "admin/promotion/edit";
 	}
 	

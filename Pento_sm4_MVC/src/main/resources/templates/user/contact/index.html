@@ -1,0 +1,42 @@
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+	<title>Index</title>
+
+
+</head>
+
+<body>
+	
+	<h3>Contact</h3>
+	<th:block th:text="${contactName}"></th:block>
+		<th:block th:text="${contactEmail}"></th:block>
+	
+	<form method="post" th:action="@{/contact/add}">
+
+		<table>
+			<tr>
+				<td>Title: </td>
+				<td><input type="text" th:field="${contact.title}"></td>
+			</tr>
+			<tr>
+				<td>Content: </td>	
+				<td>
+					<textarea th:field="${contact.content}" rows="7" cols="30">
+					
+					</textarea>
+				</td>
+			</tr>
+			
+			<tr>
+				<td>&nbsp;</td>
+				<td>
+					<input type="submit" value="Save">
+				</td>
+			</tr>
+		</table>
+	</form>
+
+</body>
+
+</html>

@@ -4,6 +4,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -19,17 +20,25 @@ import com.demo.service.BranchService;
 import com.demo.service.TablesService;
 
 @Controller
-@RequestMapping({ "table", "table/"})
+@RequestMapping({ "admin/table", "admin/table/"})
 public class TablesController {
 	
 	@Autowired
-	private TablesService TablesService;
+	private TablesService tablesService;
 	@Autowired
 	private BranchService branchService;
 	
-	@GetMapping({ "index", "", "/" })
+	@GetMapping({ "index" })
 	public String index(ModelMap modelMap) {
-		modelMap.put("tables", TablesService.findAll());
+		modelMap.put("tables", tablesService.findAll());
+		return "admin/table/index";
+	}
+	
+	@GetMapping({ "find/{id}",})
+	public String findTable(ModelMap modelMap, @PathVariable("id") int id) {
+		modelMap.put("branchName", branchService.find(id).getName());
+		modelMap.put("tables", tablesService.findTableNamesByBranchId(id));
+		
 		return "admin/table/index";
 	}
 	
@@ -44,7 +53,7 @@ public class TablesController {
 
 	@PostMapping({ "add" })
 	public String add(@ModelAttribute("table") Tables table, RedirectAttributes redirectAttributes) {
-		if(TablesService.save(table)) {
+		if(tablesService.save(table)) {
 			return "redirect:/table/index";
 		}
 		return "redirect:/table/add";
@@ -53,7 +62,7 @@ public class TablesController {
 	// DELETE
 	@GetMapping({"delete/{id}"})
 	public String delete(RedirectAttributes redirectAtributes, @PathVariable("id") int id) {
-		if(TablesService.delete(id)) {
+		if(tablesService.delete(id)) {
 			redirectAtributes.addFlashAttribute("msg", "Delete Sucess");
 		} else {
 			redirectAtributes.addFlashAttribute("msg", "Delete Failed");
@@ -64,7 +73,7 @@ public class TablesController {
 	// EDIT Information
 	@GetMapping({"edit/{id}"})
 	public String edit(@PathVariable("id") int id, ModelMap modelMap) {
-		modelMap.put("table", TablesService.find(id));	
+		modelMap.put("table", tablesService.find(id));	
 		modelMap.put("branch", branchService.findAll());
 
 		return "admin/table/edit";
@@ -72,7 +81,7 @@ public class TablesController {
 	
 	@PostMapping({ "edit" })
 	public String edit(@ModelAttribute("table") Tables table, RedirectAttributes redirectAttributes) {
-		if(TablesService.save(table)) {
+		if(tablesService.save(table)) {
 			return "redirect:/table/index";
 		}
 		return "redirect:/table/edit";

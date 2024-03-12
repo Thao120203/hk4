@@ -1,5 +1,7 @@
 package com.demo.service;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -9,22 +11,22 @@ import com.demo.repositories.TablesRepository;
 @Service
 public class TablesServiceImpl implements TablesService{
 	@Autowired
-	private TablesRepository TablesRepository;
+	private TablesRepository tablesRepository;
 	
 	@Override
 	public Iterable<Tables> findAll() {
-		return TablesRepository.findAll();
+		return tablesRepository.findAll();
 	}
 
 	@Override
 	public Tables find(int id) {
-		return TablesRepository.findById(id).get();
+		return tablesRepository.findById(id).get();
 	}
 
 	@Override
 	public boolean save(Tables Tables) {
 		try {
-			TablesRepository.save(Tables);
+			tablesRepository.save(Tables);
 			return true;
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -41,12 +43,17 @@ public class TablesServiceImpl implements TablesService{
 	@Override
 	public boolean delete(int id) {
 		try {
-			TablesRepository.delete(find(id));
+			tablesRepository.delete(find(id));
 			return true;
 		} catch (Exception e) {
 			e.printStackTrace();
 			return false;
 		}
+	}
+
+	@Override
+	public List<Tables> findTableNamesByBranchId(int id) {
+		return tablesRepository.findTableNamesByBranchId(id);
 	}
 
 

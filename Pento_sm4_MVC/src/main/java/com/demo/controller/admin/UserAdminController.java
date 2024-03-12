@@ -27,7 +27,7 @@ public class UserAdminController {
 	@GetMapping({ "index", "", "/" })
 	public String index(ModelMap modelMap) {
 		modelMap.put("users", userService.findAll());
-		return "user/index";
+		return "admin/user/index";
 	}
 	
 	// ADD
@@ -35,13 +35,23 @@ public class UserAdminController {
 	public String add(ModelMap modelMap) {
 		User User = new User();
 		modelMap.put("user", User);
-		return "User/add";
+		return "admin/user/add";
 	}
 
 	@PostMapping({ "add" })
-	public String add(@ModelAttribute("User") User User, RedirectAttributes redirectAttributes) {
-		
-		return "redirect:/user/index";
+	public String add(@ModelAttribute("user") User user, RedirectAttributes redirectAttributes) {
+		try {
+			if (userService.save(user)) {
+				redirectAttributes.addFlashAttribute("msg", "Add Success");
+			} else {
+				redirectAttributes.addFlashAttribute("msg", "Add Failed");
+
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+			redirectAttributes.addFlashAttribute("msg", e.getMessage());
+		}
+		return "redirect:/admin/user/index";
 	}
 	
 	// DELETE
@@ -52,20 +62,31 @@ public class UserAdminController {
 		} else {
 			redirectAtributes.addFlashAttribute("msg", "Delete Failed");
 		}
-		return "redirect:/user/index";
+		return "redirect:/admin/user/index";
 	}
 	
 	// EDIT Information
 	@GetMapping({"edit/{id}"})
 	public String edit(@PathVariable("id") int id, ModelMap modelMap) {
 		modelMap.put("user", userService.find(id));	
-		return "User/edit";
+		return "admin/user/edit";
 	}
 	
 	@PostMapping({ "edit" })
-	public String edit(@ModelAttribute("user") User User, RedirectAttributes redirectAttributes) {
-		
-		return "redirect:user/index";
+	public String edit(@ModelAttribute("user") User user, RedirectAttributes redirectAttributes) {
+		try {
+			
+			if (userService.save(user)) {
+				redirectAttributes.addFlashAttribute("msg", "Edit Success");
+			} else {
+				redirectAttributes.addFlashAttribute("msg", "Edit Failed");
+
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+			redirectAttributes.addFlashAttribute("msg", e.getMessage());
+		}
+		return "redirect:/admin/user/index";
 	}
 	
 }

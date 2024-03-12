@@ -1,6 +1,7 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org"
 	th:fragment="content(title, mainContent)"
 	xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+
 <!doctype html>
 <html lang="en">
 
@@ -102,19 +103,23 @@
 						</svg>
 					</a>
 				</div>
+				<p class="text-muted nav-heading mt-4 mb-1">
+						<span>Dashboard</span>
+					</p>
 				<ul class="navbar-nav flex-fill w-100 mb-2">
-						<li class="nav-item w-100"><a class="nav-link"
-							th:href="@{/admin/dashboard}"> <i
-								class="fe fe-user fe-24"></i> <span class="ml-3 item-text">Dashboard</span>
-						</a></li>
-					</ul>
-				
+					<li class="nav-item w-100"><a class="nav-link"
+						th:href="@{/admin/dashboard}"> <i class="fe fe-user fe-24"></i>
+							<span class="ml-3 item-text">Dashboard</span>
+					</a></li>
+				</ul>
+
 				<ul class="navbar-nav flex-fill w-100 mb-2">
-				
+
 					<p class="text-muted nav-heading mt-4 mb-1">
 						<span>Components</span>
 					</p>
-					<ul class="navbar-nav flex-fill w-100 mb-2">
+					
+					<ul class="navbar-nav flex-fill w-100 mb-2" sec:authorize="!hasRole('ROLE_ADMIN')">
 						<li class="nav-item w-100"><a class="nav-link"
 							th:href="@{/admin/account/index}"> <i
 								class="fe fe-user fe-24"></i> <span class="ml-3 item-text">Account</span>
@@ -128,16 +133,47 @@
 					</ul>
 					<ul class="navbar-nav flex-fill w-100 mb-2">
 						<li class="nav-item w-100"><a class="nav-link"
-							th:href="@{/branch/index}"> <i class="fe fe-24 fe-git-branch"></i>
-								<span class="ml-3 item-text">Branch</span>
+							th:href="@{/admin/branch/index}"> <i
+								class="fe fe-24 fe-git-branch"></i> <span class="ml-3 item-text">Branch</span>
+						</a></li>
+					</ul>
+					<ul class="navbar-nav flex-fill w-100 mb-2" sec:authorize="!hasRole('ROLE_ADMIN')">
+						<li class="nav-item w-100" >
+						<a class="nav-link"
+							th:href="@{/admin/table/index}"> <i
+								class="fe fe-table glyph__ico"></i> <span class="ml-3 item-text">Table</span>
 						</a></li>
 					</ul>
 					<ul class="navbar-nav flex-fill w-100 mb-2">
 						<li class="nav-item w-100"><a class="nav-link"
-							th:href="@{/table/index}"> <i class="fe fe-table glyph__ico"></i>
-								<span class="ml-3 item-text">Table</span>
+							th:href="@{/admin/promotions/index}"> <i
+								class="fe fe-table glyph__ico"></i> <span class="ml-3 item-text">Promotion</span>
 						</a></li>
 					</ul>
+					<ul class="navbar-nav flex-fill w-100 mb-2">
+						<li class="nav-item w-100"><a class="nav-link"
+							th:href="@{/admin/transaction/index}"> <i
+								class="fe fe-table glyph__ico"></i> <span class="ml-3 item-text">Transaction</span>
+						</a></li>
+					</ul>
+					<ul class="navbar-nav flex-fill w-100 mb-2">
+						<li class="nav-item w-100"><a class="nav-link"
+							th:href="@{/admin/menu/index}"> <i
+								class="fe fe-table glyph__ico"></i> <span class="ml-3 item-text">Menu</span>
+						</a></li>
+					</ul>
+					
+					
+					<p class="text-muted nav-heading mt-4 mb-1">
+						<span>For Contact</span>
+					</p>
+					<ul class="navbar-nav flex-fill w-100 mb-2">
+						<li class="nav-item w-100"><a class="nav-link"
+							th:href="@{/admin/contact/index}"> <i
+								class="fe fe-table glyph__ico"></i> <span class="ml-3 item-text">Contact</span>
+						</a></li>
+					</ul>
+					
 					<p class="text-muted nav-heading mt-4 mb-1">
 						<span>Other</span>
 					</p>
@@ -337,7 +373,21 @@
 	<script th:src="@{/admin/js/dropzone.min.js}"></script>
 	<script th:src="@{/admin/js/uppy.min.js}"></script>
 	<script th:src="@{/admin/js/quill.min.js}"></script>
-
+	
+	<script>
+		let toggle = document.querySelector(".toggle");
+		let text = document.querySelector(".text");
+		
+		function A(){
+			toggle.classList.toggle("checked");
+			
+			if(toggle.classList.contains("checked")){
+				text.innerHTML = "OPEN";
+			}else{
+				text.innerHTML = "CLOSE";
+			}
+		}
+	</script>
 	<script>
 		$('.select2').select2(
 			{
@@ -536,8 +586,8 @@
       {
         autoWidth: true,
         "lengthMenu": [
-          [16, 32, 64, -1],
-          [16, 32, 64, "All"]
+          [6, 10, 16, -1],
+          [6, 10, 16, "All"]
         ]
       });
     </script>

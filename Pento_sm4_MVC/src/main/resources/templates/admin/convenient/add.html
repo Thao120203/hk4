@@ -1,0 +1,46 @@
+<html xmlns:th="http://www.thymeleaf.org" th:replace="~{layout/admin :: content('Add convenient',~{this :: .aaa})}">
+
+<head>
+	<title th:text="${title}"></title>
+
+
+</head>
+
+<body>
+
+	<div class="aaa">
+		<div class="row">
+			<div class="col-md-12">
+				<div class="card shadow mb-4">
+					<div class="card-header">
+						<strong class="card-title">Add convenient</strong>
+					</div>
+					<div class="card-body">
+						<form class="needs-validation" method="post" th:action="@{/admin/convenient/add}" novalidate>
+							<div class="form-group">
+								<div class="form-group mb-3">
+									<label for="example-select">Branchs</label>
+									<select th:field="${convenient.branchs.id}" class="form-control"
+										id="example-select">
+										<option th:each="branch : ${branchs}" th:value="${branch.id}"
+											th:text="${branch.name}"></option>
+									</select>
+								</div>
+								<label for="inputAddress2">convenient</label>
+								<select th:field="${convenient.name}" class="form-control" id="example-select">
+									<option value="ban vip ">ban vip</option>
+									<option value="ban ngoai troi ">ban ngoai troi </option>
+									<option value="ghe tre em">ghe tre em</option>
+								</select>
+							</div>
+
+							<button type="submit" class="btn btn-primary">Add</button>
+							</formclass="needs-validation">
+					</div> <!-- /. card-body -->
+				</div> <!-- /. card -->
+			</div>
+		</div>
+	</div>
+</body>
+
+</html>

@@ -11,6 +11,7 @@
 	<div class="aaa">
 		<div col-12>
 			<h2 class="mb-2 page-title">List Account</h2>
+			
 			<div class="row my-4">
 				<!-- Small table -->
 				<div class="col-md-12">
@@ -23,6 +24,9 @@
 
 								<div class="row">
 									<div class="col-sm-12">
+									<a th:href="@{/admin/account/add}"><button class="btn btn-primary float-right ml-3" type="button">Add
+											more +</button></a>
+									
 										<table class="table datatables dataTable no-footer"
 											id="dataTable-1" role="grid"
 											aria-describedby="dataTable-1_info">
@@ -103,6 +107,7 @@
 
 											</tbody>
 										</table>
+										
 									</div>
 								</div>
 

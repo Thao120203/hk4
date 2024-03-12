@@ -16,7 +16,6 @@ public interface AccountService extends UserDetailsService{
 	public boolean save(Account account);
 	public boolean edit(int id);
 	public boolean delete(int id);
-	
 	// Find Pasword
 	public String findPassword(int id);
 	
