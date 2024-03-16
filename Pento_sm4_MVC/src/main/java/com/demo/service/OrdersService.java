@@ -1,5 +1,6 @@
 package com.demo.service;
 
+import java.util.List;
 import com.demo.entities.Orders;
 
 public interface OrdersService {
@@ -10,7 +11,8 @@ public interface OrdersService {
 	// CRUD
 	public boolean save(Orders Orders);
 	public boolean edit(int id);
-	public boolean delete(int id);
+	public boolean delete(int id);	
+	public List<Orders> findByTableId(int id);
 	
 	
 }

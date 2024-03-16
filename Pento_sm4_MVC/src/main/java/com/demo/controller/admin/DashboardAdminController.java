@@ -34,9 +34,14 @@ import jakarta.validation.constraints.NotBlank;
 @Controller
 @RequestMapping({ "admin", "admin/" })
 public class DashboardAdminController {
+	
+	@Autowired
+	private AccountService accountService;
 
 	@GetMapping({ "index", "", "/", "dashboard"})
 	public String index(ModelMap modelMap) {
+		modelMap.put("accounts", accountService.findAll());
+		
 		return "admin/dashboard/index";
 	}
 

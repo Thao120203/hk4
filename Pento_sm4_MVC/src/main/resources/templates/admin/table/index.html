@@ -10,7 +10,7 @@
 
 	<div class="aaa">
 		<div col-12>
-			<h2 class="mb-2 page-title">List Table in Branch [ <b th:text="${branchName ?: 'ALL'}"></b>]</h2>
+			<h2 class="mb-2 page-title">List Table in Branch - [ <b th:text="${branchName ?: 'ALL'}"></b>]</h2>
 			<div class="row my-4">
 				<!-- Small table -->
 				<div class="col-md-12">
@@ -23,7 +23,9 @@
 
 								<div class="row">
 									<div class="col-sm-12">
-									<a th:href="@{/admin/table/add}"><button class="btn btn-primary float-right ml-3" type="button">Add
+									<a th:href="@{/admin/table/add}" sec:authorize="!hasRole('ROLE_ADMIN')"><button class="btn btn-primary float-right ml-3" type="button">Add
+											more + All Branch</button></a>
+									<a th:if="${branchId} != null" th:href="@{'/admin/table/add/' + ${branchId}}"><button class="btn btn-primary float-right ml-3" type="button">Add
 											more +</button></a>
 										<table class="table datatables dataTable no-footer"
 											id="dataTable-1" role="grid"
@@ -69,9 +71,30 @@
 													<td th:text="${table.id}"></td>
 													<td th:text="${table.name}"></td>
 													<td th:text="${table.branchs.name}" sec:authorize="!hasRole('ROLE_ADMIN')"></td>
-													<td th:text="${table.tableType}"></td>
+													
+													
+													<td th:if="${table.tableType == 'Small Table'}"><span
+														class="badge badge-pill badge-success">Small Table</spans>
+													</td>
+													<td th:if="${table.tableType == 'Medium Table'}"><span
+														class="badge badge-pill badge-success">Medium Table</span>
+													</td>
+													<td th:if="${table.tableType == 'Large Table'}"><span
+														class="badge badge-pill badge-success">Large Table</span>
+													</td>
+													<td th:if="${table.tableType == 'VIP'}"><span
+														class="badge badge-pill badge-warning">VIP</span>
+													</td>
+														
+												
 													<td th:text="${table.numberOfSeat}"></td>
-													<td th:text="${table.status}"></td>
+													
+													<td th:if="${table.status == '0'}"><span
+														class="badge badge-pill badge-warning">Unbooked</span>
+													</td>
+													<td th:if="${table.status == '1'}"><span
+														class="badge badge-pill badge-success">Booked</span>
+													</td>
 													<td>
 														<div class="dropdown">
 															<button class="btn btn-sm dropdown-toggle" type="button"

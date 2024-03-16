@@ -50,10 +50,7 @@
 														aria-controls="dataTable-1" rowspan="1" colspan="1"
 														aria-label="Company: activate to sort column ascending"
 														style="width: 69.2px;">Role</th>
-													<th class="sorting" tabindex="0"
-														aria-controls="dataTable-1" rowspan="1" colspan="1"
-														aria-label="Address: activate to sort column ascending"
-														style="width: 162.675px;">Branchs</th>
+												
 													<th class="sorting" tabindex="0"
 														aria-controls="dataTable-1" rowspan="1" colspan="1"
 														aria-label="City: activate to sort column ascending"
@@ -75,8 +72,6 @@
 
 													<td th:text="${account.role.name}"></td>
 
-													<td
-														th:text="${account.branchs != null ? account.branchs.name : 'NULL'}"></td>
 
 													<td>
 														<div class="dropdown">
@@ -86,6 +81,11 @@
 																<span class="text-muted sr-only">Action</span>
 															</button>
 															<div class="dropdown-menu dropdown-menu-right" style="">
+															<a class="dropdown-item"
+																	th:href="@{'/admin/branch/view/' + ${account.id} } ">
+																	<button type="button"
+																		class="btn mb-2 btn-outline-warning">View Branch</button>
+																</a>
 																<a class="dropdown-item"
 																	th:href="@{'/admin/account/edit/' + ${account.id} }">
 																	<button type="button"
@@ -94,7 +94,8 @@
 																	th:href="@{'/admin/account/delete/' + ${account.id} } ">
 																	<button type="button"
 																		class="btn mb-2 btn-outline-danger">Remove</button>
-																</a> <a class="dropdown-item"
+																</a> 
+																<a class="dropdown-item"
 																	th:href="@{'/admin/account/updatePassword/' + ${account.id} } ">
 																	<button type="button"
 																		class="btn mb-2 btn-outline-warning">Change

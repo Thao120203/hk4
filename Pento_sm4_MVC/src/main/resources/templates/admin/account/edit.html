@@ -35,13 +35,7 @@
 											th:text="${role.name}"></option>
 									</select>
 								</div>
-								<div class="col-md-5 mb-4">
-									<label for="example-select">Branch</label> <select
-										th:field="${account.branchs.id}" class="form-control select2">
-										<option th:each="branch : ${branchs}" th:value="${branch.id}"
-											th:text="${branch.name}"></option>
-									</select>
-								</div>
+								
 							</div>
 							
 							<div class="col-md-12 mx-auto mb-4">

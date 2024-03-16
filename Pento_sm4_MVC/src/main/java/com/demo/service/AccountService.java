@@ -10,6 +10,8 @@ public interface AccountService extends UserDetailsService{
 	public Account find(int id);
 	public Account findByEmail(String email);
 	
+	public boolean findEmail(String email);
+	
 	// LOGIN
 	public Account login(String email, String password);
 	// CRUD

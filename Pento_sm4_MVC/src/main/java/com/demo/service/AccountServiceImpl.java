@@ -89,5 +89,10 @@ public class AccountServiceImpl implements AccountService{
 		}
 	}
 
+	@Override
+	public boolean findEmail(String email) {
+		return accountRepository.findEmail(email);
+	}
+
 
 }

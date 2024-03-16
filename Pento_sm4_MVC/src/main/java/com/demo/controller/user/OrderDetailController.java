@@ -18,7 +18,7 @@ import com.demo.entities.OrderDetail;
 import com.demo.service.OrderDetailService;
 
 @Controller
-@RequestMapping({ "OrderDetail", "OrderDetail/"})
+@RequestMapping({ "orderDetail", "orderDetail/"})
 public class OrderDetailController {
 	
 	@Autowired

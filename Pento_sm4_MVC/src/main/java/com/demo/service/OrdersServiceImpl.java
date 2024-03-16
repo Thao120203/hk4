@@ -1,5 +1,6 @@
 package com.demo.service;
 
+import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -47,6 +48,11 @@ public class OrdersServiceImpl implements OrdersService{
 			e.printStackTrace();
 			return false;
 		}
+	}
+	
+	@Override
+	public List<Orders> findByTableId(int id) {
+		return OrdersRepository.findByTableId(id);
 	}
 
 

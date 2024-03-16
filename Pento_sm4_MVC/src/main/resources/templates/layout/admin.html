@@ -125,7 +125,7 @@
 								class="fe fe-user fe-24"></i> <span class="ml-3 item-text">Account</span>
 						</a></li>
 					</ul>
-					<ul class="navbar-nav flex-fill w-100 mb-2">
+					<ul class="navbar-nav flex-fill w-100 mb-2" sec:authorize="!hasRole('ROLE_ADMIN')">
 						<li class="nav-item w-100"><a class="nav-link"
 							th:href="@{/admin/user/index}"> <i
 								class="fe fe-24 fe-git-branch"></i> <span class="ml-3 item-text">User</span>
@@ -146,16 +146,11 @@
 					</ul>
 					<ul class="navbar-nav flex-fill w-100 mb-2">
 						<li class="nav-item w-100"><a class="nav-link"
-							th:href="@{/admin/promotions/index}"> <i
-								class="fe fe-table glyph__ico"></i> <span class="ml-3 item-text">Promotion</span>
+							th:href="@{/admin/order/index}"> <i
+								class="fe fe-table glyph__ico"></i> <span class="ml-3 item-text">Order</span>
 						</a></li>
 					</ul>
-					<ul class="navbar-nav flex-fill w-100 mb-2">
-						<li class="nav-item w-100"><a class="nav-link"
-							th:href="@{/admin/transaction/index}"> <i
-								class="fe fe-table glyph__ico"></i> <span class="ml-3 item-text">Transaction</span>
-						</a></li>
-					</ul>
+					
 					<ul class="navbar-nav flex-fill w-100 mb-2">
 						<li class="nav-item w-100"><a class="nav-link"
 							th:href="@{/admin/menu/index}"> <i

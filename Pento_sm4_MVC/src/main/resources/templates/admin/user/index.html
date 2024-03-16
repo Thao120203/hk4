@@ -11,7 +11,7 @@
 	<div class="aaa">
 		<div col-12>
 			<h2 class="mb-2 page-title">List User</h2>
-			
+
 			<div class="row my-4">
 				<!-- Small table -->
 				<div class="col-md-12">
@@ -24,15 +24,16 @@
 
 								<div class="row">
 									<div class="col-sm-12">
-									<a th:href="@{/admin/user/add}"><button class="btn btn-primary float-right ml-3" type="button">Add
-											more +</button></a>
-									
+										<a th:href="@{/admin/user/add}"><button
+												class="btn btn-primary float-right ml-3" type="button">Add
+												more +</button></a>
+
 										<table class="table datatables dataTable no-footer"
 											id="dataTable-1" role="grid"
 											aria-describedby="dataTable-1_info">
 											<thead class="thead-dark">
 												<tr role="row">
-													
+
 													<th class="sorting" tabindex="0"
 														aria-controls="dataTable-1" rowspan="1" colspan="1"
 														aria-label="#: activate to sort column ascending"
@@ -41,12 +42,12 @@
 														aria-controls="dataTable-1" rowspan="1" colspan="1"
 														aria-label="Name: activate to sort column ascending"
 														style="width: 93.075px;">Email</th>
-													
+
 													<th class="sorting" tabindex="0"
 														aria-controls="dataTable-1" rowspan="1" colspan="1"
 														aria-label="Department: activate to sort column ascending"
 														style="width: 168.65px;">FullName</th>
-														<th class="sorting" tabindex="0"
+													<th class="sorting" tabindex="0"
 														aria-controls="dataTable-1" rowspan="1" colspan="1"
 														aria-label="Department: activate to sort column ascending"
 														style="width: 100.65px;">Phone Number</th>
@@ -58,11 +59,11 @@
 														aria-controls="dataTable-1" rowspan="1" colspan="1"
 														aria-label="Address: activate to sort column ascending"
 														style="width: 15.675px;">Gender</th>
-														<th class="sorting" tabindex="0"
+													<th class="sorting" tabindex="0"
 														aria-controls="dataTable-1" rowspan="1" colspan="1"
 														aria-label="Address: activate to sort column ascending"
 														style="width: 162.675px;">Role</th>
-														<th class="sorting" tabindex="0"
+													<th class="sorting" tabindex="0"
 														aria-controls="dataTable-1" rowspan="1" colspan="1"
 														aria-label="Address: activate to sort column ascending"
 														style="width: 10.675px;">Status</th>
@@ -73,18 +74,26 @@
 
 												</tr>
 											</thead>
-											
+
 											<tbody>
 												<tr th:each="user : ${users}">
 													<td th:text="${user.id}"></td>
-													<td th:text="${user.account != null ? user.account.email : 'EMPTY'}"></td>
-													<td th:text="(${user.firstName ?: ''}+ ' ' + ${user.lastName ?: 'EMPTY'})"></td>
+													<td
+														th:text="${user.account != null ? user.account.email : 'EMPTY'}"></td>
+													<td
+														th:text="(${user.firstName ?: ''}+ ' ' + ${user.lastName ?: 'EMPTY'})"></td>
 													<td th:text="${user.phoneNumber ?: 'EMPTY'}"></td>
-													<td th:text="${#dates.format(user.birthday, 'dd/MM/yyyy') ?: 'EMPTY'}"></td>
+													<td
+														th:text="${#dates.format(user.birthday, 'dd/MM/yyyy') ?: 'EMPTY'}"></td>
 													<td th:text="${user.gender ?: 'EMPTY'}"></td>
-													<td th:text="${user.account != null ? user.account.role.name : 'EMPTY'}"></td>
-													<td th:text="${user.account != null ? (user.account.status) : 'EMPTY'}"></td>
+													<td
+														th:text="${user.account != null ? user.account.role.name : 'EMPTY'}"></td>
 
+												<td th:text="${user.account != null 
+												? user.account.status == '1' 
+												? 'Active' : (user.account.status == '0' 
+												? 'Inactive' : 'EMPTY') : 'EMPTY'}"></td>
+													
 													<td>
 														<div class="dropdown">
 															<button class="btn btn-sm dropdown-toggle more-vertical"
@@ -101,7 +110,7 @@
 																	th:href="@{'/admin/user/delete/' + ${user.id} } ">
 																	<button type="button"
 																		class="btn mb-2 btn-outline-danger">Remove</button>
-																</a> 
+																</a>
 															</div>
 														</div>
 													</td>
@@ -109,7 +118,7 @@
 
 											</tbody>
 										</table>
-										
+
 									</div>
 								</div>
 

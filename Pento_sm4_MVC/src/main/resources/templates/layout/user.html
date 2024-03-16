@@ -5,167 +5,297 @@
 <html lang="en">
 
 <head>
-	<meta charset="utf-8">
-	<title th:text="${title}"></title>
-	<meta content="width=device-width, initial-scale=1.0" name="viewport">
-	<meta content="Free HTML Templates" name="keywords">
-	<meta content="Free HTML Templates" name="description">
-
-	<!-- Favicon -->
-	<link th:href="@{/users/img/favicon.ico}" rel="icon">
-
-	<!-- Google Web Fonts -->
-	<link rel="preconnect" href="https://fonts.gstatic.com">
-	<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
-	<!-- Font Awesome -->
-	<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css" rel="stylesheet">
-
-	<!-- Libraries Stylesheet -->
-	<link th:href="@{/users/lib/owlcarousel/assets/owl.carousel.min.css}" rel="stylesheet">
-	<link th:href="@{/users/lib/lightbox/css/lightbox.min.css}" rel="stylesheet">
-
-	<!-- Customized Bootstrap Stylesheet -->
-	<link th:href="@{/users/css/style.css}" rel="stylesheet">
+	<meta charset="UTF-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<title>Document</title>
+	<link rel="stylesheet" th:href="@{/user/assets/css/config.css}" />
+	<link rel="stylesheet" th:href="@{/user/assets/css/style.css}" />
+	<link rel="stylesheet" th:href="@{/user/assets/fontawesome-free-6.5.1-web/css/all.min.css}" />
+	<link rel="stylesheet" href="//code.jquery.com/ui/1.13.2/themes/base/jquery-ui.css">
+	<link rel="stylesheet" href="/resources/demos/style.css">
+	<script src="https://code.jquery.com/jquery-3.6.0.js"></script>
+	<script src="https://code.jquery.com/ui/1.13.2/jquery-ui.js"></script>
 </head>
 
 <body>
-	<!-- Topbar Start -->
-	<div class="container-fluid bg-primary py-3 d-none d-md-block">
-		<div class="container">
-			<div class="row">
-				<div class="col-md-6 text-center text-lg-left mb-2 mb-lg-0">
-					<div class="d-inline-flex align-items-center">
-						<a class="text-white pr-3" href="">FAQs</a>
-						<span class="text-white">|</span>
-						<a class="text-white px-3" href="">Help</a>
-						<span class="text-white">|</span>
-						<a class="text-white pl-3" href="">Support</a>
+	<div class="app bg-white">
+		<header>
+			<nav class="nav-top flex">
+				<div class="container">
+					<div class="wrapper flex">
+						<a class="nav-top_logo" href="">
+							<span class="logo"></span>
+						</a>
+						<ul class="flex justify-start-items-center menu">
+							<li class="menu-item"><a href=""> Gần bạn </a></li>
+							<li class="menu-item"><a href=""> Bộ sưu tập </a></li>
+							<li class="menu-item">
+								<a href="#">
+									Ăn uống
+									<span class="icon-menudown"></span>
+								</a>
+								<div class="menu-item_dropdown shadow">
+									<div class="container">
+										<ul class="menu-children">
+											<li class="menu-children-item">
+												<a href="">Nhà hàng</a>
+											</li>
+											<li class="menu-children-item">
+												<a href="">Lẩu</a>
+											</li>
+											<li class="menu-children-item">
+												<a href="">Buffet</a>
+											</li>
+											<li class="menu-children-item">
+												<a href="">Lẩu & Nướng</a>
+											</li>
+											<li class="menu-children-item">
+												<a href="">Quán Nhậu</a>
+											</li>
+											<li class="menu-children-item">
+												<a href="">Hải sản</a>
+											</li>
+											<li class="menu-children-item">
+												<a href="">Món chay</a>
+											</li>
+											<li class="menu-children-item">
+												<a href="">Đặt tiệc</a>
+											</li>
+											<li class="menu-children-item">
+												<a href="">Món chay</a>
+											</li>
+											<li class="menu-children-item">
+												<a href=""> Hàn Quốc</a>
+											</li>
+											<li class="menu-children-item">
+												<a href=""> Nhật Bản</a>
+											</li>
+											<li class="menu-children-item">
+												<a href="">Món Âu</a>
+											</li>
+											<li class="menu-children-item">
+												<a href="">Món Việt</a>
+											</li>
+											<li class="menu-children-item">
+												<a href="">Món Thái</a>
+											</li>
+											<li class="menu-children-item">
+												<a href="">Món Trung Hoa</a>
+											</li>
+											<li class="menu-children-item">
+												<a href="">Tiệc cưới</a>
+											</li>
+										</ul>
+									</div>
+								</div>
+							</li>
+							<li class="menu-item"><a href=""> Ưu đãi hot </a></li>
+							<li class="menu-item"><a href=""> Mới nhất </a></li>
+							<li class="menu-item"><a href=""> Bộ sưu tập </a></li>
+							<li class="menu-item"><a href=""> Bộ sưu tập </a></li>
+							<li class="menu-item">
+								<a href="#">
+									Tin tức & Blog
+									<span class="icon-menudown"></span>
+								</a>
+								<div class="menu-item_dropdown shadow">
+									<div class="container">
+										<ul class="menu-children">
+											<li class="menu-children-item">
+												<a href=""> Tất cả</a>
+											</li>
+											<li class="menu-children-item">
+												<a href=""> Địa Điểm</a>
+											</li>
+											<li class="menu-children-item">
+												<a href=""> Ăn Uống</a>
+											</li>
+											<li class="menu-children-item">
+												<a href=""> Món ngon & Công thức</a>
+											</li>
+											<li class="menu-children-item">
+												<a href="">Đặc sản vùng miền</a>
+											</li>
+											<li class="menu-children-item">
+												<a href="">Tiệc & Tổ chức tiệc</a>
+											</li>
+											<li class="menu-children-item">
+												<a href=""> Kinh doanh ăn uống</a>
+											</li>
+											<li class="menu-children-item">
+												<a href=""> Sức khỏe & Làm đẹp</a>
+											</li>
+											<li class="menu-children-item">
+												<a href=""> Bên lề ẩm thực</a>
+											</li>
+											<li class="menu-children-item">
+												<a href=""> Dinh dưỡng</a>
+											</li>
+										</ul>
+									</div>
+								</div>
+							</li>
+							<li class="menu-item">
+								<a href="#">
+									Video PasGo
+									<span class="icon-menudown"></span>
+								</a>
+								<div class="menu-item_dropdown shadow">
+									<div class="container">
+										<ul class="menu-children">
+											<li class="menu-children-item">
+												<a href="">Tất cảKý sự</a>
+											</li>
+											<li class="menu-children-item">
+												<a href="">Nhà hàng</a>
+											</li>
+											<li class="menu-children-item">
+												<a href=""> Ăn Uống</a>
+											</li>
+											<li class="menu-children-item">
+												<a href=""> Món ngon</a>
+											</li>
+											<li class="menu-children-item">
+												<a href="">Chuyện nhặt</a>
+											</li>
+										</ul>
+									</div>
+								</div>
+							</li>
+						</ul>
+						<div class="nav-top-right flex">
+							<div class="account dropdowns">
+								<a class="flex" href="">
+									<i class="fa-solid fa-user icon"></i>
+									<span> Tài khoản </span>
+								</a>
+								<div class="dropdowns-show acount-children">
+									<div class="item">
+										<a href="" class="btn btn-login">Đăng nhập</a>
+									</div>
+									<div class="item">
+										<a class="account-item_link" href="">Thanh viên mới</a>
+									</div>
+									<div class="item">
+										<a href="" class="btn btn-login">Đăng ký</a>
+									</div>
+								</div>
+							</div>
+							<div class="nav-top_serach">
+								<input type="text" placeholder="Tìm: Buffet, Lẩu, Nướng..." />
+								<button class="btn nav-top_serach-btn">
+									<i class="fa-solid fa-magnifying-glass"></i>
+								</button>
+							</div>
+						</div>
 					</div>
 				</div>
-				<div class="col-md-6 text-center text-lg-right">
-					<div class="d-inline-flex align-items-center">
-						<a class="text-white px-3" href="">
-							<i class="fab fa-facebook-f"></i>
-						</a>
-						<a class="text-white px-3" href="">
-							<i class="fab fa-twitter"></i>
-						</a>
-						<a class="text-white px-3" href="">
-							<i class="fab fa-linkedin-in"></i>
-						</a>
-						<a class="text-white px-3" href="">
-							<i class="fab fa-instagram"></i>
-						</a>
-						<a class="text-white pl-3" href="">
-							<i class="fab fa-youtube"></i>
-						</a>
+			</nav>
+			<nav class="nav-bottom">
+				<div class="container">
+					<div class="wrapper">
+						<div class="gird grid-cols-6">
+							<div class="col-span-5">
+								<div class="search">
+									<div class="location">
+										<i class="fa-solid fa-location-dot icon"></i>
+										<select class="select">
+											<option value="">Hồ chí minh</option>
+											<option value="">Hồ chí minh</option>
+											<option value="">Hồ chí minh</option>
+											<option value="">Hồ chí minh</option>
+										</select>
+									</div>
+									<input type="text" placeholder="Buffet, Lẩu & Nướng, Hải sản..." />
+									<div class="search-right">
+										<select class="select">
+											<option value="">Hồ chí minh</option>
+											<option value="">Hồ chí minh</option>
+											<option value="">Hồ chí minh</option>
+											<option value="">Hồ chí minh</option>
+										</select>
+										<button class="btn-search btn">
+											<i class="fa-solid fa-magnifying-glass"></i>
+											Tim kiếm
+										</button>
+									</div>
+								</div>
+							</div>
+							<div class="phone-number">
+								<span class="icon-phone"></span>
+								1900 6005
+							</div>
+						</div>
 					</div>
+				</div>
+			</nav>
+		</header>
+
+		<div th:replace="${mainContent}"></div>
+		<div class="footer-end">
+			<h4>
+				<span> © Copyright 2010 PasGo.jsc, All rights reserved</span>
+			</h4>
+			<div class="link-company">
+				<a href="http://online.gov.vn/Home/WebDetails/16887" rel="nofollow" target="_blank">CÔNG TY CỔ PHẦN
+					PASGO</a>
+			</div>
+			<p>
+				Văn phòng Hà Nội: Tầng 2 tòa nhà VTC Online, Số 18 Tam Trinh, Q.
+				Hai Bà Trưng, ​​Hà Nội
+			</p>
+			<p>
+				Văn Phòng TP.HCM: Lầu 13, Tòa nhà M-H, Số 728-730 Võ Văn Kiệt,
+				P.1, Quận 5, TP Hồ Chí Minh
+			</p>
+			<p>
+				Tổng đài: 1900 6005 | Email:<a style="color: #333333" href="mailto:cskh@pasgo.vn">
+					CSKH@pasgo.vn</a>
+			</p>
+			<p>
+				Mã số doanh nghiệp: 0106329034 do Sở Kế hoạch đầu tư TP Hà Nội cấp
+				ngày 08/10/2013
+			</p>
+			<div class="wap-help">
+				<p>
+					Mọi ý tưởng, đóng góp của bạn đều được chúng tôi ghi nhận và
+					trân trọng!
+				</p>
+				<div class="wap-help-link">
+					<a class="button-support btn" href="https://forms.gle/bbDhcKDfLSQg6eog8">
+						<svg width="24" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+							stroke-width="1.5" stroke="currentColor" class="button-support-icon">
+							<path stroke-linecap="round" stroke-linejoin="round"
+								d="M6 12L3.269 3.126A59.768 59.768 0 0121.485 12 59.77 59.77 0 013.27 20.876L5.999 12zm0 0h7.5">
+							</path>
+						</svg>
+						<span class="button-support-text">Gửi góp ý</span>
+					</a>
 				</div>
 			</div>
 		</div>
 	</div>
-	<!-- Topbar End -->
-
-
-	<!-- Navbar Start -->
-	<div class="container-fluid position-relative nav-bar p-0">
-		<div class="container-lg position-relative p-0 px-lg-3" style="z-index: 9;">
-			<nav class="navbar navbar-expand-lg bg-white navbar-light shadow p-lg-0">
-				<a th:href="index.html" class="navbar-brand d-block d-lg-none">
-					<h1 class="m-0 display-4 text-primary"><span class="text-secondary">i</span>CREAM</h1>
-				</a>
-				<button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navbarCollapse">
-					<span class="navbar-toggler-icon"></span>
-				</button>
-				<div class="collapse navbar-collapse justify-content-between" id="navbarCollapse">
-					<div class="navbar-nav ml-auto py-0">
-						<a th:href="index.html" class="nav-item nav-link active">Home</a>
-						<a th:href="about.html" class="nav-item nav-link">About</a>
-						<a th:href="product.html" class="nav-item nav-link">Product</a>
-					</div>
-					<a th:href="index.html" class="navbar-brand mx-5 d-none d-lg-block">
-						<h1 class="m-0 display-4 text-primary"><span class="text-secondary">i</span>CREAM</h1>
-					</a>
-					<div class="navbar-nav mr-auto py-0">
-						<a th:href="service.html" class="nav-item nav-link">Service</a>
-						<a th:href="gallery.html" class="nav-item nav-link">Gallery</a>
-						<a th:href="contact.html" class="nav-item nav-link">Contact</a>
-					</div>
-				</div>
-			</nav>
-		</div>
+	</footer>
 	</div>
-	<!-- Navbar End -->
-
-	<div class="container-fluid position-relative nav-bar p-0">
-		<div class="container-lg position-relative p-0 px-lg-3" style="z-index: 9;">
-			<nav class="navbar navbar-expand-lg bg-white navbar-light shadow p-lg-0">
-
-			</nav>
-		</div>
-	</div>
-
-
-	<div th:replace="${mainContent}"></div>
-
-
-	<!-- Footer Start -->
-	<div class="container-fluid footer bg-light py-5" style="margin-top: 90px;">
-		<div class="container text-center py-5">
-			<div class="row">
-				<div class="col-12 mb-4">
-					<a th:href="index.html" class="navbar-brand m-0">
-						<h1 class="m-0 mt-n2 display-4 text-primary"><span class="text-secondary">i</span>CREAM</h1>
-					</a>
-				</div>
-				<div class="col-12 mb-4">
-					<a class="btn btn-outline-secondary btn-social mr-2" href="#"><i class="fab fa-twitter"></i></a>
-					<a class="btn btn-outline-secondary btn-social mr-2" href="#"><i class="fab fa-facebook-f"></i></a>
-					<a class="btn btn-outline-secondary btn-social mr-2" href="#"><i class="fab fa-linkedin-in"></i></a>
-					<a class="btn btn-outline-secondary btn-social" href="#"><i class="fab fa-instagram"></i></a>
-				</div>
-				<div class="col-12 mt-2 mb-4">
-					<div class="row">
-						<div class="col-sm-6 text-center text-sm-right border-right mb-3 mb-sm-0">
-							<h5 class="font-weight-bold mb-2">Get In Touch</h5>
-							<p class="mb-2">123 Street, New York, USA</p>
-							<p class="mb-0">+012 345 67890</p>
-						</div>
-						<div class="col-sm-6 text-center text-sm-left">
-							<h5 class="font-weight-bold mb-2">Opening Hours</h5>
-							<p class="mb-2">Mon – Sat, 8AM – 5PM</p>
-							<p class="mb-0">Sunday: Closed</p>
-						</div>
-					</div>
-				</div>
-
-			</div>
-		</div>
-	</div>
-	<!-- Footer End -->
-
-
-	<!-- Back to Top -->
-	<a href="#" class="btn btn-secondary px-2 back-to-top"><i class="fa fa-angle-double-up"></i></a>
-
-
-	<!-- JavaScript Libraries -->
-	<script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
-	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.bundle.min.js"></script>
-	<script th:src="@{/users/lib/easing/easing.min.js}"></script>
-	<script th:src="@{/users/lib/waypoints/waypoints.min.js}"></script>
-	<script th:src="@{/users/lib/owlcarousel/owl.carousel.min.js}"></script>
-	<script th:src="@{/users/lib/isotope/isotope.pkgd.min.js}"></script>
-	<script th:src="@{/users/lib/lightbox/js/lightbox.min.js}"></script>
-
-	<!-- Contact Javascript File -->
-	<script th:src="@{/users/mail/jqBootstrapValidation.min.js}"></script>
-	<script th:src="@{/users/mail/contact.js}"></script>
-
-	<!-- Template Javascript -->
-	<script th:src="@{/users/js/main.js}"></script>
 </body>
+<script th:src="@{/user/assets/js/main.js}"></script>
+
+<script>
+	$(function () {
+		$("#datepicker").datepicker({
+			dateFormat: 'dd-mm-yy'
+		});
+	});
+</script>
+<script>
+	$(function () {
+		$("#datepicker1").datepicker({
+			dateFormat: 'dd-mm-yy'
+		});
+	});
+</script>
 
 </html>
+
 
 </html>

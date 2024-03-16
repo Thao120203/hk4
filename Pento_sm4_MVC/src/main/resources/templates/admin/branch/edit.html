@@ -37,9 +37,12 @@
 									<input class="form-control" id="example-time" type="time"  th:field="${branch.clossingHours}" name="time">
 								</div>
 							</div>
-							<div class="form-group">
-								<label for="inputAddress2">Status</label>
-								<input type="text" class="form-control"  th:field="${branch.status}" id="inputAddress6">
+								<div class="form-group toggle">
+								<div class="custom-control custom-switch">
+									<input type="checkbox" class="custom-control-input"
+										id="customSwitch1"  onclick="A()" name="status" th:checked="${branch.status == '1'}">
+									<label class="custom-control-label text" for="customSwitch1" >OPEN</label>
+								</div>
 							</div>
 							<button type="submit" class="btn btn-primary">Edit</button>
 							<input type="hidden" th:field="${branch.id}">

@@ -3,6 +3,9 @@ package com.demo.service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import com.demo.entities.Menu;
 import com.demo.repositories.MenuRepository;
 
@@ -50,5 +53,27 @@ public class MenuServiceImpl implements MenuService{
 	}
 
 
+	@Override
+	public List<Menu> findByKeyword(int id_category) {
+		return MenuRepository.findByKeyword(id_category);
+	}
+
+	@Override
+	public List<Menu> findBybranch_Category(int id_account) {
+		var a= 0;
+		List<Menu> menus = new ArrayList<>();
+		
+		for (Menu menu : MenuRepository.findBybranch_Category(id_account)) {
+			if(a != menu.getCategoryFood().getId()) {
+				menus.add(menu);
+				a = menu.getCategoryFood().getId();
+			}
+		}
+		return menus;
+	}
+	@Override
+	public List<Menu> findBybranch_Menu(int id_account) {
+		return MenuRepository.findBybranch_Category(id_account);
+	}
 
 }

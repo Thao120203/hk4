@@ -1,0 +1,89 @@
+<html xmlns:th="http://www.thymeleaf.org" th:replace="~{layout/user :: content('HomePage',~{this :: .aaa})}">
+
+<head>
+	<title th:text="${title}"></title>
+
+</head>
+
+<body>
+	<div class="aaa">
+
+		<div class="wrapper bg-white">
+			<div class="product-content bg-white">
+				<div class="header">
+					<div class="flex justify-between-items-center">
+						<h1 class="search-info">
+							<a class="keywork"><th:block th:text="${category.name}"></th:block></a>
+							<a><span>| Tìm thấy: </span> (<th:block th:text="${countbranch}"></th:block>) điểm đến</a>
+						</h1>
+						<div class="filter">
+							<form action="" class="flex justify-start-items-center">
+								<span class="mr-2 w-x-content inline-block title-filter">Sắp xếp:</span>
+								<select class="filter">
+									<option value="">Tất cả</option>
+									<option value="">Ngần bạn</option>
+								</select>
+							</form>
+						</div>
+					</div>
+				</div>
+				<ul class="tag-search">
+					<li class="tag-search-item">
+						<a class="tag-search-btn" href="https://pasgo.vn/tim-kiem?search=Lẩu Hongkong hotpot">Lẩu
+							Hongkong hotpot</a>
+					</li>
+				</ul>
+				<div class="gird grid-cols-4 gap-3 mt-20">
+					
+					<div  th:each="branch : ${branchs}" class="card card-product">
+						<a href="" class="card_link">
+							<div class="card_header">
+								<img th:src="@{'/images/' + ${branch.image}}"
+														>
+								<div class="card_header_footer">
+									<a href=""> <th:block th:text="${branch.name}"></th:block>  </a>
+									<div class="gird grid-cols-2">
+										<div class="rating-container-item">
+											<ul class="review flex">
+												
+											</ul>
+										</div>
+										<div class="rating-container-item">
+											<ul class="rating flex">
+												
+											</ul>
+										</div>
+									</div>
+									<p class="text-address">
+									  <th:block th:text="${branch.address}" ></th:block>
+									</p>
+								</div>
+							</div>
+							<div class="card_body">
+								<div class="wapsale">
+									<strong>Giảm tới 13%</strong>
+								</div>
+								<div class="waptag">Buffet nướng lẩu Hàn Quốc</div>
+								<div class="wapbooking">
+									<a class="btn-booking btn"
+										href="https://pasgo.vn/nha-hang/galbi-house-le-trong-tan-4589"
+										target="_blank">Đặt chỗ ngay</a>
+								</div>
+							</div>
+						</a>
+					</div>
+					<div class="navigation">
+						<ul class="pagination">
+							<li class="active">
+								<a
+									href="https://pasgo.vn/tim-kiem?search=L%u1ea9u&amp;fbclid=IwAR07JogECtakY0FaGZZ0AIvNsh2gLyP1OO_7HldOK5lstGt4JurYH1RSAFM">1</a>
+							</li>
+						</ul>
+					</div>
+				</div>
+			</div>
+		</div>
+
+</body>
+
+</html>

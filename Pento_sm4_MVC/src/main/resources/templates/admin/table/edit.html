@@ -31,11 +31,12 @@
 								</div>
 							</div>
 							<div class="form-group">
-								<label for="inputAddress2">Type Table</label>
-								<select th:field="${table.tableTypeId}" class="form-control" id="example-select">
-									<option value="small">small table</option>
-									<option value="medium ">medium table </option>
-									<option value="large">large table</option>
+								<label for="inputAddress2">Tabel Type</label>
+								<select th:field="${table.tableType}" class="form-control" id="example-select">
+									<option value="Small Tabel">Small Table</option>
+									<option value="Medium Table">Medium Table</option>
+									<option value="Large Table">Large Table</option>
+									<option value="VIP">VIP</option>
 
 								</select>
 							</div>
@@ -44,9 +45,13 @@
 								<input type="number" class="form-control" th:field="${table.numberOfSeat}"
 									id="inputAddress6">
 							</div>
-							<div class="form-group">
-								<label for="inputAddress2">Status</label>
-								<input type="text" class="form-control" th:field="${table.status}" id="inputAddress6">
+							<div class="col-md-12 mx-auto mb-4">
+								<p class="mb-3">Status</p>
+								<div class="custom-control custom-switch">
+									<input type="checkbox" class="custom-control-input"
+										id="customSwitch1" name="status" th:checked="${table.status == '1'}">
+									<label class="custom-control-label" for="customSwitch1">Active</label>
+								</div>
 							</div>
 							<button type="submit" class="btn btn-primary">Edit</button>
 							<input type="hidden" th:field="${table.id}">

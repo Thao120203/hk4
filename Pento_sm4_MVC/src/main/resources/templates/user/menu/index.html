@@ -1,0 +1,61 @@
+<html xmlns:th="http://www.thymeleaf.org" th:replace="~{layout/user :: content('HomePage',~{this :: .aaa})}">
+
+<head>
+	<title th:text="${title}"></title>
+
+</head>
+
+<body>
+	<div class="aaa">
+		<div class="gird grid-cols-4 gap-3 mt-20">
+
+			<div th:each="menu : ${menus}" class="card card-product">
+				<a href="" class="card_link">
+					<div class="card_header">
+						<img th:src="@{'/images/' + ${menu.images.name}}">
+						<div class="card_header_footer">
+							<a href="">
+								<th:block th:text="${menu.name}"></th:block>
+							</a>
+							<div class="gird grid-cols-2">
+								<div class="rating-container-item">
+									<ul class="review flex">
+
+									</ul>
+								</div>
+								<div class="rating-container-item">
+									<ul class="rating flex">
+
+									</ul>
+								</div>
+							</div>
+							<p class="text-address">
+								<th:block th:text="${menu.description}"></th:block>
+							</p>
+						</div>
+					</div>
+					<div class="card_body">
+						<div class="wapsale">
+							<strong th:text="${menu.price} + 'VND'"></strong>
+						</div>
+						<div class="waptag">Buffet nướng lẩu Hàn Quốc</div>
+						<div class="wapbooking">
+							<a class="btn-booking btn" href="https://pasgo.vn/nha-hang/galbi-house-le-trong-tan-4589"
+								target="_blank">Order now</a>
+						</div>
+					</div>
+				</a>
+			</div>
+			<div class="navigation">
+				<ul class="pagination">
+					<li class="active">
+						<a
+							href="https://pasgo.vn/tim-kiem?search=L%u1ea9u&amp;fbclid=IwAR07JogECtakY0FaGZZ0AIvNsh2gLyP1OO_7HldOK5lstGt4JurYH1RSAFM">1</a>
+					</li>
+				</ul>
+			</div>
+		</div>
+
+</body>
+
+</html>

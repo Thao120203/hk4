@@ -10,7 +10,7 @@
 
 	<div class="aaa">
 		<div col-12>
-			<h2 class="mb-2 page-title">List Branch</h2>
+			<h2 class="mb-2 page-title">List Branch - [<b th:text="${accountName ?: 'All'}"></b>]</h2>
 			<div class="row my-4">
 				<!-- Small table -->
 				<div class="col-md-12">
@@ -77,11 +77,11 @@
 													<td th:text="${branch.openingHours}"></td>
 													<td th:text="${branch.clossingHours}"></td>
 													<td th:if="${branch.status == '1'}"><span
-														class="badge badge-pill badge-success">Show</span></td>
+														class="badge badge-pill badge-success">OPEN</span></td>
 													<td th:if="${branch.status == '0'}"><span
-														class="badge badge-pill badge-warning">Hide</span></td>
+														class="badge badge-pill badge-warning">CLOSE</span></td>
 													<td th:if="${branch.status == '2'}"><span
-														class="badge badge-pill badge-warning">Pending</span></td>
+														class="badge badge-pill badge-warning">PENDING</span></td>
 													<td>
 														<div class="dropdown">
 															<button class="btn btn-sm dropdown-toggle" type="button"

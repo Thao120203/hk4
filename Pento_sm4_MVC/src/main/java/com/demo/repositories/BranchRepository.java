@@ -16,7 +16,10 @@ public interface BranchRepository extends CrudRepository<Branchs, Integer>{
 	@Query("from Branchs where status != '999' order by id desc")
 	public List<Branchs> findAllNew();
 	
-	@Query("SELECT b FROM Account a INNER JOIN Branchs b ON a.branchs.id = b.id WHERE a.email = :email")
-	public List<Branchs> findBranchNamesByEmail(@Param("email") String email);
+	@Query("from Branchs where account.id = :id")
+	public List<Branchs> findBranchNamesByAccountId(@Param("id") int id);
+	
+	@Query("from Branchs where account.id = :id_account")
+	public List<Branchs> findByidaccount(@Param("id_account") int id_account);
 	
 }
