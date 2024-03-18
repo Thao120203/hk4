@@ -65,7 +65,7 @@ public class TablesAdminController {
 	public String add(@ModelAttribute("table") Tables table, RedirectAttributes redirectAttributes) {
 		table.setStatus("0");
 		if(tablesService.save(table)) {
-			return "redirect:/admin/table/index";
+			return "redirect:/admin/table/find/" + table.getBranchs().getId();
 		}
 		return "redirect:/admin/table/add";
 	}

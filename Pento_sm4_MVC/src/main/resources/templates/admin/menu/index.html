@@ -72,9 +72,17 @@
 													<td th:text="${menu.name}"></td>
 													<td th:text="${menu.description}"></td>
 													<td th:text="${menu.price}"></td>
-													<th>Category</th>
-													<th><img th:src="@{'/images/' + ${menu.images}}"
-														width="120" height="100"></th>
+													<span th:if="${menu.categoryFood != null}">
+														<td th:text="${menu.categoryFood.name}"></td>
+													</span> 
+													<span th:unless="${menu.categoryFood != null}"> <td>EMPTY</td></span>
+													
+													<td>
+													<span th:if="${menu.images != null}">
+														<img th:src="@{'/images/' + ${menu.images.name}}"
+														width="120" height="100">
+													</span> 
+													<span th:unless="${menu.images != null}"> EMPTY </span></td>
 													<td>
 														<div class="dropdown">
 															<button class="btn btn-sm dropdown-toggle" type="button"

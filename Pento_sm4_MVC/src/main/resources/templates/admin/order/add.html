@@ -1,0 +1,69 @@
+<html xmlns:th="http://www.thymeleaf.org" th:replace="~{layout/admin :: content('Add Order',~{this :: .aaa})}">
+
+<head>
+		<title th:text="${title}"></title>
+
+
+</head>
+
+<body>
+
+	<div class="aaa">
+		<div class="row">
+			<div class="col-md-12">
+				<div class="card shadow mb-4">
+					<div class="card-header">
+						<strong class="card-title">Add order</strong>
+					</div>
+					<div class="card-body">
+						<form class="needs-validation" method="post" th:action="@{/admin/order/add}"  novalidate >
+							<div class="form-group">
+								<label for="example-select">User</label>
+									<select th:field="${order.user.id}" class="form-control" id="example-select">
+										<option th:each="user : ${users}" th:value="${user.id}"
+											th:text="${user.lastName}"></option>
+									</select>
+							</div>
+							<div class="form-group">
+								<label for="example-select">Table</label>
+									<select th:field="${order.tables.id}" class="form-control" id="example-select">
+										<option th:each="table : ${tables}" th:value="${table.id}"
+											th:text="${table.name+' - (' + table.branchs.name + ')' }"></option>
+									</select>
+							</div>
+							<div class="form-group">
+								<label for="inputAddress2">Seat</label>
+								<input type="number" class="form-control"  th:field="${order.totalMember}" id="inputAddress6">
+							</div>
+							<div class="form-group">
+								<label for="inputAddress2">Children</label>
+								<input type="checkbox" class="form-control"  th:field="${order.children}" id="inputAddress6">
+							</div>
+							<div class="form-group">
+								<label for="inputAddress2">Status</label>
+								<select th:field="${order.status}" class="form-control" id="example-select" disabled>
+										<option th:value="unpaid">unpaid</option>
+								</select>
+							</div>
+							<div class="form-group">
+					            <label for="date">Date</label>
+					            <input type="date" class="form-control" id="date" name="date" th:min="${#dates.format(#dates.createNow(), 'yyyy-MM-dd')}">
+					        </div>
+					        <div class="form-group">
+					            <label for="time">Time</label>
+					           <select class="form-control" id="time" name="time" >
+								    <option th:each="hour : ${#numbers.sequence(10, 23)}" th:value="${hour}" 
+								            th:text="${#strings.concat(hour, ':00')}"></option>
+								</select>
+					        </div>
+							
+							<button type="submit" class="btn btn-primary">Add</button>
+						</form>
+					</div> <!-- /. card-body -->
+				</div> <!-- /. card -->
+			</div>
+		</div>
+	</div>
+</body>
+
+</html>

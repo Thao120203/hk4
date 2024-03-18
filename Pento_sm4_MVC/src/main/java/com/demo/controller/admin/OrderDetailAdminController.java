@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.demo.entities.Menu;
 import com.demo.entities.OrderDetail;
 
 import com.demo.service.MenuService;
@@ -56,11 +57,13 @@ public class OrderDetailAdminController {
 	public String add(@ModelAttribute("orderDetail") OrderDetail orderDetail , RedirectAttributes redirectAttributes) {
 		
 		int id = orderDetail.getOrders().getId();
+		Menu menu = menuService.find(orderDetail.getMenu().getId());
+		orderDetail.setPrice(orderDetail.getQuantity() * menu.getPrice());
 		if(orderDetailService.save(orderDetail)) {
 			
-			return "redirect:/orderDetail/index/"+ id;
+			return "redirect:admin//orderDetail/index/"+ id;
 		}
-		return "redirect:/orderDetail/index/"+ id;
+		return "redirect:/admin/orderDetail/index/"+ id;
 	}
 	
 	// DELETE
@@ -71,7 +74,7 @@ public class OrderDetailAdminController {
 		} else {
 			redirectAtributes.addFlashAttribute("msg", "Delete Failed");
 		}
-		return "redirect:/order/index";
+		return "redirect:/admin/order/index";
 	}
 	
 	// EDIT Information
@@ -79,6 +82,8 @@ public class OrderDetailAdminController {
 	public String edit(@PathVariable("idOrder") int idOrder,@PathVariable("id") int id, ModelMap modelMap) {	
  		OrderDetail detail = orderDetailService.find(id);
 		detail.setOrders(ordersService.find(idOrder));
+		Menu menu = menuService.find(detail.getMenu().getId());
+		detail.setPrice(detail.getQuantity() * menu.getPrice());
 		modelMap.put("orderDetail", detail);
 		
 		modelMap.put("menus", menuService.findAll());	
@@ -89,9 +94,9 @@ public class OrderDetailAdminController {
 	public String edit(@ModelAttribute("orderDetail") OrderDetail orderDetail, RedirectAttributes redirectAttributes) {
 		int id = orderDetail.getOrders().getId();
 		if(orderDetailService.save(orderDetail)) {
-			return "redirect:/orderDetail/index/"+id;
+			return "redirect:/admin/orderDetail/index/"+id;
 		}
-		return "redirect:/orderDetail/index/"+id;
+		return "redirect:/admin/orderDetail/index/"+id;
 	}
 	
 }

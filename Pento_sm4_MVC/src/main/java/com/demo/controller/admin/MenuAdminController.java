@@ -7,9 +7,12 @@ import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.ClassPathResource;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -22,9 +25,11 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.demo.entities.Account;
 import com.demo.entities.Images;
 import com.demo.entities.Menu;
 import com.demo.helpers.FileHelper;
+import com.demo.service.AccountService;
 import com.demo.service.CategoryFoodService;
 import com.demo.service.ImagesService;
 import com.demo.service.MenuService;
@@ -34,17 +39,22 @@ import com.demo.service.MenuService;
 public class MenuAdminController {
 	
 	@Autowired
+	private CategoryFoodService categoryService;
+	@Autowired
+	private AccountService accountService;
+	@Autowired
 	private MenuService menuService;
 	@Autowired
-	private CategoryFoodService categoryFoodService;
-	
-	
-	@Autowired
 	private ImagesService imageService;
+	@Autowired
+	private AccountService accountservice;
 	
-	@GetMapping({ "index", "", "/" })
+	@GetMapping({ "index"})
 	public String index(ModelMap modelMap) {
-		modelMap.put("menus", menuService.findAll());
+		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+		Account account = accountservice.findByEmail(authentication.getName());
+		List<Menu> listmenu = menuService.findBybranch_Menu(account.getId());
+		modelMap.put("menus",listmenu);
 		return "admin/menu/index";
 	}
 	
@@ -52,7 +62,6 @@ public class MenuAdminController {
 	@GetMapping({ "add" })
 	public String add(ModelMap modelMap) {
 		Menu menu = new Menu();
-		modelMap.put("categories", categoryFoodService.findAll());
 		modelMap.put("menu", menu);
 		return "admin/menu/add";
 	}
@@ -61,15 +70,23 @@ public class MenuAdminController {
 	public String add(@ModelAttribute("menu") Menu menu, RedirectAttributes redirectAttributes,@RequestParam("file") MultipartFile file) {
 		
 		try {
+			Images images = new Images();
+			Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+			Account account = accountservice.findByEmail(authentication.getName());
 			if (file != null && file.getSize() > 0) {
-				File folderImage = new File(new ClassPathResource(".").getFile().getPath() + "/static/images");
 				String fileName = FileHelper.generateFileName(file.getOriginalFilename());
-				Path path = Paths.get(folderImage.getAbsolutePath() + File.separator + fileName);
+				File imagesFolder = new ClassPathResource("static/images").getFile();
+				Path path = Paths.get(imagesFolder.getAbsolutePath() + File.separator + fileName);
 				Files.copy(file.getInputStream(), path, StandardCopyOption.REPLACE_EXISTING);
-				menu.setImage(fileName);
+				images.setName(fileName);
+				
+				imageService.save(images);
+				menu.setImages(images);
+				menu.setAccount(account);
 			} else {
-				menu.setImage("no-image.jpg");
+				menu.setImages(new Images("noimage.png"));
 			}
+			menu.setImages(images);
 			if (menuService.save(menu)) {
 				redirectAttributes.addFlashAttribute("msg", "Success");
 			} else {
@@ -78,6 +95,7 @@ public class MenuAdminController {
 		} catch (Exception e) {
 			e.printStackTrace();
 			redirectAttributes.addFlashAttribute("msg", e.getMessage());
+			return "redirect:/accessDenied";
 		}
 		return "redirect:/admin/menu/index";
 	}
@@ -97,6 +115,8 @@ public class MenuAdminController {
 	@GetMapping({"edit/{id}"})
 	public String edit(@PathVariable("id") int id,@ModelAttribute("menu") Menu menu, ModelMap modelMap) {
 		modelMap.put("menu", menuService.find(id));	
+		modelMap.put("categories", categoryService.findAll());
+		modelMap.put("accounts", accountService.findAll());
 	
 		return "admin/menu/edit";
 	}
@@ -105,15 +125,21 @@ public class MenuAdminController {
 	public String edit(@ModelAttribute("menu") Menu menu,RedirectAttributes redirectAttributes,@RequestParam("file") MultipartFile file) {
 		try {
 			Images images = new Images();
+			Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+			Account account = accountservice.findByEmail(authentication.getName());
 			if (file != null && file.getSize() > 0) {
 				File folderImage = new File(new ClassPathResource(".").getFile().getPath() + "/static/images");
 				String fileName = FileHelper.generateFileName(file.getOriginalFilename());
 				Path path = Paths.get(folderImage.getAbsolutePath() + File.separator + fileName);
 				Files.copy(file.getInputStream(), path, StandardCopyOption.REPLACE_EXISTING);
 				images.setName(fileName);
+				
+				imageService.save(images);
 				menu.setImages(images);
+				menu.setAccount(account);
 			} else {
-				images.setName("no-image.jpg");
+				images.setName("noimage.png");
+				menu.setImages(new Images("noimage.png"));
 			}
 			if (menuService.save(menu)) {
 				redirectAttributes.addFlashAttribute("msg", "Success");
@@ -124,7 +150,7 @@ public class MenuAdminController {
 			e.printStackTrace();
 			redirectAttributes.addFlashAttribute("msg", e.getMessage());
 		}
-		return "redirect:/admin/menu/edit";
+		return "redirect:/admin/menu/index";
 	}
 	
 }

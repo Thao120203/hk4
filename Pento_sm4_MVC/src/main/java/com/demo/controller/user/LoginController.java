@@ -24,7 +24,7 @@ import jakarta.mail.Session;
 import jakarta.servlet.http.HttpSession;
 
 @Controller
-@RequestMapping({ "login" })
+@RequestMapping({ "account" })
 public class LoginController {
 
 	@Autowired

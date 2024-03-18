@@ -57,6 +57,7 @@ public class BranchsAdminController {
 	public String add(ModelMap modelMap) {
 		Branchs Branch = new Branchs();
 		modelMap.put("branch", Branch);
+		modelMap.put("accounts", accountService.findByRoleAdmin());
 		return "admin/branch/add";
 	}
 
@@ -87,6 +88,7 @@ public class BranchsAdminController {
 	@GetMapping({"edit/{id}"})
 	public String edit(@PathVariable("id") int id, ModelMap modelMap) {
 		modelMap.put("branch", branchService.find(id));	
+		modelMap.put("accounts", accountService.findByRoleAdmin());
 		return "admin/branch/edit";
 	}
 	

@@ -44,9 +44,9 @@ import com.demo.service.TimesService;
 import com.demo.service.UserService;
 
 @Controller
-@RequestMapping({ "admin/order", "admin/order/",""})
+@RequestMapping({ "admin/order", "admin/order/" })
 public class OrdersAdminController {
-	
+
 	@Autowired
 	private OrdersService OrdersService;
 	@Autowired
@@ -66,147 +66,201 @@ public class OrdersAdminController {
 	@Autowired
 	private BranchService branchService;
 
-	
-	@GetMapping({ "index" })
-	public String index(ModelMap modelMap ) {
-		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+	@GetMapping({ "index", "", "/" })
+	public String index(ModelMap modelMap, Authentication authentication) {
 		Account account = accountservice.findByEmail(authentication.getName());
-		List<Branchs> branchs = branchService.findBranchNamesByAccountId(account.getId());
-		List<Tables> listTable =new ArrayList<>();
-		for ( Branchs branch: branchs) {
-			List<Tables> tables = tablesService.findTableNamesByBranchId(branch.getId());
-			if(tables!= null) {
-				listTable.addAll(tables);
-			}
-		}
-		List<Orders> listorder = new ArrayList<>();
-		List<Tables> newlist = new ArrayList<>();
-		for ( Tables table: listTable) {
-			List<Orders> orders = OrdersService.findByTableId(table.getId());
-			for (Orders order : orders) {
-				Tables newTable =  tablesService.find(order.getTables().getId());
-				if(newTable!= null) {
-					newlist.add(newTable);
+		if (account.getId() != 1) {
+			List<Branchs> branchs = branchService.findBranchNamesByAccountId(account.getId());
+			List<Tables> listTable = new ArrayList<>();
+			for (Branchs branch : branchs) {
+				List<Tables> tables = tablesService.findTableNamesByBranchId(branch.getId());
+				if (tables != null) {
+					listTable.addAll(tables);
 				}
 			}
-			System.out.print(table.getBranchs().getName()+" ");
-			if(orders!= null) {
-				listorder.addAll(orders);
+			List<Orders> listorder = new ArrayList<>();
+			List<Tables> newlist = new ArrayList<>();
+			for (Tables table : listTable) {
+				List<Orders> orders = OrdersService.findByTableId(table.getId());
+				for (Orders order : orders) {
+					Tables newTable = tablesService.find(order.getTables().getId());
+					if (newTable != null) {
+						newlist.add(newTable);
+					}
+				}
+				System.out.print(table.getBranchs().getName() + " ");
+				if (orders != null) {
+					listorder.addAll(orders);
+				}
 			}
-		}
-		
-		modelMap.put("tables", newlist);
-		modelMap.put("orders", listorder);
-		List<Orders> listOrder = (List<Orders>) OrdersService.findAll();
-		List<Times> listTimes = new ArrayList<>();
-		for ( Orders order : listOrder) {
-			Times time = timesService.find(order.getTimes().getId());
-			if(time!= null) {
-				listTimes.add(time);
+
+			modelMap.put("tables", newlist);
+			modelMap.put("orders", listorder);
+			List<Orders> listOrder = (List<Orders>) OrdersService.findAll();
+			List<Times> listTimes = new ArrayList<>();
+			for (Orders order : listOrder) {
+				Times time = timesService.find(order.getTimes().getId());
+				if (time != null) {
+					listTimes.add(time);
+				}
 			}
+			modelMap.put("times", listTimes);
+		} else {
+			Iterable<Branchs> branchs = branchService.findAll();
+			List<Tables> listTable = new ArrayList<>();
+			for (Branchs branch : branchs) {
+				List<Tables> tables = tablesService.findTableNamesByBranchId(branch.getId());
+				if (tables != null) {
+					listTable.addAll(tables);
+				}
+			}
+			List<Orders> listorder = new ArrayList<>();
+			List<Tables> newlist = new ArrayList<>();
+			for (Tables table : listTable) {
+				List<Orders> orders = OrdersService.findByTableId(table.getId());
+				for (Orders order : orders) {
+					Tables newTable = tablesService.find(order.getTables().getId());
+					if (newTable != null) {
+						newlist.add(newTable);
+					}
+				}
+				System.out.print(table.getBranchs().getName() + " ");
+				if (orders != null) {
+					listorder.addAll(orders);
+				}
+			}
+
+			modelMap.put("tables", newlist);
+			modelMap.put("orders", listorder);
+			List<Orders> listOrder = (List<Orders>) OrdersService.findAll();
+			List<Times> listTimes = new ArrayList<>();
+			for (Orders order : listOrder) {
+				Times time = timesService.find(order.getTimes().getId());
+				if (time != null) {
+					listTimes.add(time);
+				}
+			}
+			modelMap.put("times", listTimes);
 		}
-		modelMap.put("times", listTimes);
+
 		return "admin/order/index";
 	}
-	
+
 	// ADD
 	@GetMapping({ "add" })
-	public String add(ModelMap modelMap) {
+	public String add(ModelMap modelMap, Authentication authentication) {
+		Account acc = accountservice.findByEmail(authentication.getName());
+
+		List<Branchs> listbranch = branchService.findBranchNamesByAccountId(acc.getId());
+		List<Tables> listtable = new ArrayList<>();
+		for (Branchs branch : listbranch) {
+			List<Tables> tables = tablesService.findTableNamesByBranchId(branch.getId());
+			if (tables != null) {
+				listtable.addAll(tables);
+			}
+		}
 		Orders Orders = new Orders();
 		modelMap.put("order", Orders);
-		modelMap.put("users", userservice.findAll()) ;
-		modelMap.put("tables", tablesService.findAll());
+		if (acc.getId() == 1) {
+			modelMap.put("users", userservice.findAll());
+			modelMap.put("tables", tablesService.findAll());
+		} else {
+			modelMap.put("users", userservice.findAll());
+			modelMap.put("tables", listtable);
+		}
 		return "admin/order/add";
 	}
 
 	@PostMapping({ "add" })
-	public String add(@ModelAttribute("order") Orders Orders,@RequestParam("date") @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate date,
-            @RequestParam("time") int time, RedirectAttributes redirectAttributes) {
+	public String add(@ModelAttribute("order") Orders Orders,
+			@RequestParam("date") @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate date,
+			@RequestParam("time") int time, RedirectAttributes redirectAttributes) {
 		Orders.setCreated(new Date());
-		
+
 		Days days = new Days();
-		String dateString = String.valueOf(date.getDayOfMonth()); 
+		String dateString = String.valueOf(date.getDayOfMonth());
 		days.setName(dateString);
 		daysService.save(days);
-		
+
 		Months months = new Months();
-		String monthString = String.valueOf(date.getMonthValue()); 
+		String monthString = String.valueOf(date.getMonthValue());
 		months.setName(monthString);
 		monthsService.save(months);
-		
+
 		Hours hours = new Hours();
-		String hourString = String.format("%02d:00", time); 
+		String hourString = String.format("%02d:00", time);
 		hours.setName(hourString);
 		hoursService.save(hours);
-		
+
 		Times times = new Times();
 		times.setDays(days);
 		times.setMonths(months);
 		times.setHours(hours);
 		timesService.save(times);
-		
+
 		Orders.setTimes(times);
 		Orders.setStatus("unpaid");
-		if(OrdersService.save(Orders)) {
-			return "redirect:/order/index";
+		if (OrdersService.save(Orders)) {
+			return "redirect:/admin/order/index";
 		}
-		
-		return "redirect:/order/index";
+
+		return "redirect:/admin/order/index";
 	}
-	
+
 	// DELETE
-	@GetMapping({"delete/{id}"})
+	@GetMapping({ "delete/{id}" })
 	public String delete(RedirectAttributes redirectAtributes, @PathVariable("id") int id) {
-		if(OrdersService.delete(id)) {
+		if (OrdersService.delete(id)) {
 			redirectAtributes.addFlashAttribute("msg", "Delete Sucess");
 		} else {
 			redirectAtributes.addFlashAttribute("msg", "Delete Failed");
 		}
-		return "redirect:/order/index";
+		return "redirect:/admin/order/index";
 	}
-	
+
 	// EDIT Information
-	@GetMapping({"edit/{id}"})
+	@GetMapping({ "edit/{id}" })
 	public String edit(@PathVariable("id") int id, ModelMap modelMap) {
-		modelMap.put("order", OrdersService.find(id));	
-		modelMap.put("users", userservice.findAll()) ;
+		modelMap.put("order", OrdersService.find(id));
+		modelMap.put("users", userservice.findAll());
 		modelMap.put("tables", tablesService.findAll());
 		Times time = timesService.find(OrdersService.find(id).getTimes().getId());
 		modelMap.put("booked", time);
 		return "admin/order/edit";
 	}
-	
+
 	@PostMapping({ "edit" })
-	public String edit(@ModelAttribute("order") Orders Orders, RedirectAttributes redirectAttributes,@RequestParam("date") @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate date,
-            @RequestParam("time") int time) {
+	public String edit(@ModelAttribute("order") Orders Orders, RedirectAttributes redirectAttributes,
+			@RequestParam("date") @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate date,
+			@RequestParam("time") int time) {
 		Orders.setCreated(new Date());
-		
+
 		Days days = new Days();
-		String dateString = String.valueOf(date.getDayOfMonth()); 
+		String dateString = String.valueOf(date.getDayOfMonth());
 		days.setName(dateString);
 		daysService.save(days);
-		
+
 		Months months = new Months();
-		String monthString = String.valueOf(date.getMonthValue()); 
+		String monthString = String.valueOf(date.getMonthValue());
 		months.setName(monthString);
 		monthsService.save(months);
-		
+
 		Hours hours = new Hours();
-		String hourString = String.format("%02d:00", time); 
+		String hourString = String.format("%02d:00", time);
 		hours.setName(hourString);
 		hoursService.save(hours);
-		
+
 		Times times = new Times();
 		times.setDays(days);
 		times.setMonths(months);
 		times.setHours(hours);
 		timesService.save(times);
-		
+
 		Orders.setTimes(times);
-		if(OrdersService.save(Orders)) {
-			return "redirect:/order/index";
+		if (OrdersService.save(Orders)) {
+			return "redirect:/admin/order/index";
 		}
-		return "redirect:/order/edit";
+		return "redirect:/admin/order/edit";
 	}
-	 
+
 }

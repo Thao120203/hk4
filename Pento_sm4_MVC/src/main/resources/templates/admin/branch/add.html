@@ -31,13 +31,22 @@
 								<input type="text" class="form-control"  th:field="${branch.phoneNumber}" id="inputAddress6">
 							</div>
 							<div class="form-row">
+								<div class="col-md-4 mb-4" sec:au>
+									<label for="example-select">Management account</label>
+									<select th:field="${branch.account.id}" class="form-control select2" >
+										<option  th:each="account : ${accounts}" th:value="${account.id}" th:text="${account.email}" ></option>
+									</select>
+								</div>
+							</div>
+							
+							<div class="form-row">
 								<div class="form-group col-md-6">
 									<label for="inputEmail4">Opening Hours</label>
-									<input type="text" class="form-control time-input" id="time-input2" th:field="${branch.openingHours}" placeholder="" aria-describedby="button-addon2">
+									<input class="form-control" id="example-time"  th:field="${branch.openingHours}" type="time" name="time">
 								</div>
 								<div class="form-group col-md-6">
 									<label for="inputPassword4">Clossing Hours</label>
-									<input type="text" class="form-control time-input" id="time-input2"  th:field="${branch.clossingHours}" placeholder="" aria-describedby="button-addon2">
+									<input class="form-control" id="example-time" type="time"  th:field="${branch.clossingHours}" name="time">
 								</div>
 							</div>
 							

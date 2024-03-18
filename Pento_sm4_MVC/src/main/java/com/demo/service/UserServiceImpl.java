@@ -48,6 +48,12 @@ public class UserServiceImpl implements UserService{
 			return false;
 		}
 	}
+	
+	@Override
+	public User findAccoutId(int account_id) {
+		// TODO Auto-generated method stub
+		return userRepository.findAccountId(account_id);
+	}
 
 
 

@@ -7,6 +7,7 @@ import java.util.Date;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -17,35 +18,50 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.demo.entities.Account;
+import com.demo.entities.Days;
 import com.demo.entities.Hours;
+import com.demo.entities.Months;
 import com.demo.entities.Orders;
 import com.demo.entities.Tables;
 import com.demo.entities.Times;
+import com.demo.entities.User;
+import com.demo.service.AccountService;
 import com.demo.service.BranchService;
+import com.demo.service.DaysService;
 import com.demo.service.HoursService;
 import com.demo.service.MenuService;
+import com.demo.service.MonthsService;
 import com.demo.service.OrdersService;
+import com.demo.service.TablesService;
 import com.demo.service.TimesService;
+import com.demo.service.UserService;
 
 
 @Controller
-@RequestMapping({ "user/orders" })
+@RequestMapping({ "orders" })
 public class UserOrdersController {
 	
 	@Autowired
-	private BranchService branchService;
-	
-	@Autowired
 	private MenuService menuService;
-	
 	@Autowired
-	private TimesService timesService;
-	
+	private OrdersService OrdersService;
 	@Autowired
-	private OrdersService ordersService;
-	
+	private TablesService tablesService;
+	@Autowired
+	private DaysService daysService;
+	@Autowired
+	private MonthsService monthsService;
 	@Autowired
 	private HoursService hoursService;
+	@Autowired
+	private TimesService timesService;
+	@Autowired
+	private UserService userservice;
+	@Autowired
+	private AccountService accountservice;
+	@Autowired
+	private BranchService branchService;
 	
 	
 	@GetMapping({ "add/{id}" })
@@ -59,11 +75,22 @@ public class UserOrdersController {
 		return "user/orders/add";
 	}
 
-	@PostMapping({ "add" })
-	public String add(@ModelAttribute("order") Orders Orders,@RequestParam("date") @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate date,
-            @RequestParam("time") int time, RedirectAttributes redirectAttributes) {
+	@PostMapping({ "addoder" })
+	String addoder(@ModelAttribute("order") Orders Orders,@RequestParam("date") @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate date,
+            @RequestParam("time") int time, RedirectAttributes redirectAttributes, Authentication authentication) {
+		Account account = accountservice.findByEmail(authentication.getName());
+		User user = userservice.findAccoutId(account.getId());
 		Orders.setCreated(new Date());
 		
+		Days days = new Days();
+		String dateString = String.valueOf(date.getDayOfMonth()); 
+		days.setName(dateString);
+		daysService.save(days);
+		
+		Months months = new Months();
+		String monthString = String.valueOf(date.getMonthValue()); 
+		months.setName(monthString);
+		monthsService.save(months);
 		
 		Hours hours = new Hours();
 		String hourString = String.format("%02d:00", time); 
@@ -71,15 +98,18 @@ public class UserOrdersController {
 		hoursService.save(hours);
 		
 		Times times = new Times();
-		
+		times.setDays(days);
+		times.setMonths(months);
 		times.setHours(hours);
 		timesService.save(times);
-		
+		Orders.setUser(user);
 		Orders.setTimes(times);
-		if(ordersService.save(Orders)) {
-			return "redirect:/user/home/index";
+		Orders.setStatus("unpaid");
+		if(OrdersService.save(Orders)) {
+			return "redirect:/home/index";
 		}
-		return "redirect:/user/home/index";
+		
+		return "redirect:/home/index";
 	}
 	
 	

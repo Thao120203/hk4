@@ -9,6 +9,7 @@ public interface AccountService extends UserDetailsService{
 	public Iterable<Account> findAll();
 	public Account find(int id);
 	public Account findByEmail(String email);
+	public Iterable<Account> findByRoleAdmin();
 	
 	public boolean findEmail(String email);
 	

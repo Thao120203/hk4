@@ -1,4 +1,4 @@
-<html xmlns:th="http://www.thymeleaf.org" th:replace="~{layout/admin :: content('Eidt Branch',~{this :: .aaa})}">
+<html xmlns:th="http://www.thymeleaf.org" th:replace="~{layout/admin :: content('Edit Branch',~{this :: .aaa})}">
 
 <head>
 		<title th:text="${title}"></title>
@@ -27,6 +27,16 @@
 								<label for="inputAddress2">Phone Number</label>
 								<input type="text" class="form-control"  th:field="${branch.phoneNumber}" id="inputAddress6">
 							</div>
+							
+							<div class="form-row">
+								<div class="col-md-4 mb-4" sec:au>
+									<label for="example-select">Management account</label>
+									<select th:field="${branch.account.id}" class="form-control select2" >
+										<option  th:each="account : ${accounts}" th:value="${account.id}" th:text="${account.email}" ></option>
+									</select>
+								</div>
+							</div>
+							
 							<div class="form-row">
 								<div class="form-group col-md-6">
 									<label for="inputEmail4">Opening Hours</label>
@@ -46,6 +56,7 @@
 							</div>
 							<button type="submit" class="btn btn-primary">Edit</button>
 							<input type="hidden" th:field="${branch.id}">
+							<input type="hidden" th:field="${branch.account.id}">
 						</form>
 					</div> <!-- /. card-body -->
 				</div> <!-- /. card -->

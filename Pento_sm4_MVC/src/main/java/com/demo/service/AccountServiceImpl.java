@@ -94,5 +94,10 @@ public class AccountServiceImpl implements AccountService{
 		return accountRepository.findEmail(email);
 	}
 
+	@Override
+	public Iterable<Account> findByRoleAdmin() {
+		return accountRepository.findByAdmin();
+	}
+
 
 }

@@ -18,7 +18,7 @@ import com.demo.entities.User;
 import com.demo.service.UserService;
 
 @Controller
-@RequestMapping({ "", "/" ,"dashboard", "dashboard/" })
+@RequestMapping({ "dashboard", "dashboard/" })
 public class DashboardController {
 	
 	@GetMapping({ "index", "index/", "", "/"})

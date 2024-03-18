@@ -1,0 +1,75 @@
+<html xmlns:th="http://www.thymeleaf.org" th:replace="~{layout/admin :: content('Eidt Order',~{this :: .aaa})}">
+
+<head>
+		<title th:text="${title}"></title>
+
+</head>
+
+<body>
+	<div class="aaa">
+		<div class="row">
+			<div class="col-md-12">
+				<div class="card shadow mb-4">
+					<div class="card-header">
+						<strong class="card-title">Edit order</strong>
+					</div>
+					<div class="card-body">
+						<form method="post" th:action="@{/admin/order/edit}">
+							<div class="form-group">
+								<label for="example-select">User</label>
+									<select th:field="${order.user.id}" class="form-control" id="example-select">
+										<option th:each="user : ${users}" th:value="${user.id}"
+											th:text="${user.lastName}"></option>
+									</select>
+							</div>
+							<div class="form-group">
+								<label for="example-select">Table</label>
+									<select th:field="${order.tables.id}" class="form-control" id="example-select">
+										<option th:each="table : ${tables}" th:value="${table.id}"
+											th:text="${table.name}"></option>
+									</select>
+							</div>
+							<div class="form-group">
+								<label for="inputAddress2">Seat</label>
+								<input type="number" class="form-control"  th:field="${order.totalMember}" id="inputAddress6">
+							</div>
+							<div class="form-group">
+								<label for="inputAddress2">Children</label>
+								<input type="checkbox" class="form-control"  th:field="${order.children}" id="inputAddress6">
+							</div>
+							<div class="form-group">
+								<label for="inputAddress2">Booked</label>
+									<span class="form-control" th:text="${booked.hours.name + ' ' + booked.days.name+'/'+booked.months.name+'/2024'}"></span>
+
+							</div>
+							<div class="form-group">
+								<label for="inputAddress2">Status</label>
+								<select th:field="${order.status}" class="form-control" id="example-select" >
+										<option th:value="paid">paid</option>
+										<option th:value="unpaid">unpaid</option>
+										<option th:value="cancelled">cancelled</option>
+								</select>
+							</div>
+							<div class="form-group">
+					            <label for="date">Date</label>
+					            <input type="date" class="form-control" id="date" name="date" th:min="${#dates.format(#dates.createNow(), 'yyyy-MM-dd')}">
+					        </div>
+					        <div class="form-group">
+					            <label for="time">Time</label>
+					           <select class="form-control" id="time" name="time" >
+								    <option th:each="hour : ${#numbers.sequence(10, 23)}" th:value="${hour}" 
+								            th:text="${#strings.concat(hour, ':00')}"></option>
+								</select>
+					        </div>
+							
+							<button type="submit" class="btn btn-primary">Edit</button>
+							<input type="hidden" th:field="${order.id}">
+						</form>
+					</div> <!-- /. card-body -->
+				</div> <!-- /. card -->
+			</div>
+		</div>
+	</div>
+</body>
+
+</html>

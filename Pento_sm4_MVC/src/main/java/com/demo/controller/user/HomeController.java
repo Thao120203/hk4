@@ -10,7 +10,7 @@ import com.demo.service.BranchService;
 import com.demo.service.CategoryFoodService;
 
 @Controller
-@RequestMapping({ "home", "home/" })
+@RequestMapping({ "home", "home/", "/", "" })
 public class HomeController {
 	
 	@Autowired

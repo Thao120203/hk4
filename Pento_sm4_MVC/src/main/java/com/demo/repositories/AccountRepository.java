@@ -22,6 +22,9 @@ public interface AccountRepository extends CrudRepository<Account, Integer>{
 	@Query("from Account where email like %:email%")
 	public Account findByEmail(@Param("email") String email);
 	
+	@Query("from Account where role.id = 2")
+	public List<Account> findByAdmin();
+	
 	@Query("from Account where email like %:email%")
 	public boolean findEmail(@Param("email") String email);
 	

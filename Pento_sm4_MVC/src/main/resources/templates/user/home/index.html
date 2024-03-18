@@ -9,6 +9,7 @@
 	<div class="aaa">
 		<div class="wapper-desktop">
 			<div class="container-sm py-2xl">
+				<a th:href="@{/account/edit}">ppp</a>
 				<h2 class="title">Danh mục</h2>
 				<div class="category-product">
 					<div class="slider">
@@ -31,7 +32,7 @@
 								<div th:each="category : ${categories}" class="slider-item catogry-item">
 									<div class="catogry-item__header">
 										<div class="image">
-											<a th:href="@{'/user/category/index/' + ${category.id} }">
+											<a th:href="@{'/category/index/' + ${category.id} }">
 												<img src="https://pastaxi-manager.onepas.vn/Upload/DanhMucHienThi/Avatar/638036438488453397-lau-pasgo.vn.png?Width=70&Type=webp"
 													alt="" />
 											</a>
@@ -93,7 +94,7 @@
 							<div class="slider-wrapper">
 								<div th:each="branch : ${branchs}" class="slider-item slider_item">
 									<div class="card">
-										<a th:href="@{'/user/branch/details/' + ${branch.id}}" 
+										<a th:href="@{'/branch/details/' + ${branch.id}}" 
 											class="card_link">
 											<div class="card_header">
 												<img th:src="@{'/images/' + ${branch.image}}">

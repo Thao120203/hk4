@@ -3,6 +3,7 @@
 
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+
 	<link rel="alternate" type="application/json+oembed"
 		href="https://www.jotform.com/oembed/?format=json&amp;url=https%3A%2F%2Fform.jotform.com%2F240735485454462"
 		title="oEmbed Form">
@@ -16,7 +17,7 @@
 	<meta property="og:image" content="https://cdn.jotfor.ms/assets/img/landing/opengraph.png" />
 	<link rel="shortcut icon" href="https://cdn.jotfor.ms/assets/img/favicons/favicon-2021-light%402x.png">
 	<link rel="apple-touch-icon" href="https://cdn.jotfor.ms/assets/img/favicons/favicon-2021-light%402x.png">
-	>
+
 	<link rel="canonical" href="https://form.jotform.com/240735485454462" />
 	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=2.0, user-scalable=1" />
 	<meta name="HandheldFriendly" content="true" />
@@ -47,6 +48,8 @@
 			}
 		}
 	</style>
+
+
 	<link type="text/css" rel="stylesheet"
 		href="https://cdn02.jotfor.ms/themes/CSS/5e6b428acc8c4e222d1beb91.css?v=3.3.52358&themeRevisionID=5eb3b4ae85bd2e1e2966db96" />
 	<link type="text/css" rel="stylesheet"
@@ -55,6 +58,8 @@
 		href="https://cdn01.jotfor.ms/css/styles/payment/payment_feature.css?3.3.52358" />
 	<link type="text/css" rel="stylesheet"
 		href="https://cdn02.jotfor.ms/stylebuilder/static/donationBox.css?v=3.3.52358">
+
+
 	<style type="text/css" id="form-designer-style">
 		/* Injected CSS Code */
 
@@ -1008,6 +1013,8 @@
 		/* Injected CSS Code */
 	</style>
 
+
+
 	<script src="https://cdn03.jotfor.ms/static/prototype.forms.js?v=3.3.52358" type="text/javascript"></script>
 	<!--<script src="https://cdn01.jotfor.ms/static/jotform.forms.js?v=3.3.52358" type="text/javascript"></script>-->
 	<script src="https://cdn02.jotfor.ms/js/punycode-1.4.1.min.js?v=3.3.52358" type="text/javascript" defer></script>
@@ -1233,21 +1240,18 @@
 				}]);
 		}, 20);
 	</script>
+
+
 </head>
 
 <body>
-	<form class="jotform-form" onsubmit="return typeof testSubmitFunction !== 'undefined' && testSubmitFunction();"
-		action="https://submit.jotform.com/submit/240735485454462" method="post" name="form_240735485454462"
-		id="240735485454462" accept-charset="utf-8" autocomplete="on"><input type="hidden" name="formID"
-			value="240735485454462" /><input type="hidden" id="JWTContainer" value /><input type="hidden"
-			id="cardinalOrderNumber" value /><input type="hidden" id="jsExecutionTracker" name="jsExecutionTracker"
-			value="build-date-1710441790541" /><input type="hidden" id="submitSource" name="submitSource"
-			value="unknown" /><input type="hidden" id="buildDate" name="buildDate" value="1710441790541" />
+	<form class="jotform-form" th:action="@{/orders/addoder}" method="post" name="form_240735485454462"
+		id="240735485454462" accept-charset="utf-8" autocomplete="on">
 		<div role="main" class="form-all">
 			<ul class="form-section page-section">
 
-				<li class="form-line card-2col" data-type="control_stripe" id="id_24" data-payment="true"><label
-						class="form-label form-label-top search-enabled p-filter-one-column" id="label_24"
+				<li class="form-line card-2col" data-type="control_stripe" id="id_24" data-payment="true">
+					<label class="form-label form-label-top search-enabled p-filter-one-column" id="label_24"
 						for="input_24" aria-hidden="false"> Menu </label>
 					<div id="cid_24" class="form-input-wide" data-layout="full">
 						<div data-wrapper-react="true" class="stripe-payment-wrapper" data-stripe-currency="USD">
@@ -1296,19 +1300,22 @@
 											</li>
 										</ul>
 									</span></div>
-								<div data-wrapper-react="true" >
+								<div data-wrapper-react="true">
 									<span th:each="menu : ${menus}"
 										class="form-product-item hover-product-item on_col1 show_image show_desc show_option show_subtotal new_ui"
 										categories="non-categorized" pid="1001" aria-labelledby="label_24">
 										<div data-wrapper-react="true" class="form-product-item-detail new_ui">
 											<div class="p_col">
 												<div class="p_checkbox"><input type="checkbox"
-														class="form-checkbox  form-product-input" id="input_24_1001"
+														class="product-checkbox  form-product-input" id="input_24_1001"
 														name="q24_menu[][id]" data-inputname="q24_menu[][id]"
 														value="1001" readonly
 														aria-label="Select Product: 5 Single Entrees"
 														data-is-default-required="false"
-														data-is-default-selected="false" />
+														data-is-default-selected="false"
+														th:data-product-id="'menu' + iterStat.index"
+														th:data-product-price="${menu.price}" />
+
 													<div class="checked"></div>
 													<div class="select_border"></div>
 												</div>
@@ -1316,26 +1323,31 @@
 											<div class="p_image">
 												<div class="image_area form-product-image-with-options">
 													<div style="position:absolute;width:100%;height:100%"><img
-															loading="lazy" role="img" aria-label="5 Single Entrees"
-															alt="5 Single Entrees Product Image"
-															style="width:100%;height:100%;object-fit:cover"
-															th:src="@{'/images/'+${menu.images.name}}" />
+															 th:src="@{'/images/' + ${menu.images.name}}" />
 													</div>
 												</div>
-											</div>  	 	
+											</div>
 											<div for="input_24_1001" class="form-product-container"><span
 													data-wrapper-react="true">
 													<div class="title_description"><span class="form-product-name"
-															id="product-name-input_24_1001"><th:block th:text="${menu.name}"></th:block></span><span class="form-product-description"
+															id="product-name-input_24_1001">
+															<th:block th:text="${menu.name}"></th:block>
+														</span>
+														<span>Quantity: <input type="number" class="quantity-input"
+																value="1" min="1" max="10" /></span>
+														<span class="form-product-description"
 															id="product-name-description-input_24_1001">
-															</span></div><span
-														class="form-product-details"><b><span
+														</span>
+													</div><span class="form-product-details"><b><span
 																data-wrapper-react="true">$<span
-																	id="input_24_1001_price"><th:block th:text="${menu.price}"></th></span></span>
+																	id="input_24_1001_price">
+																	<th:block th:text="${menu.price}">
+																		</th>
+																</span></span>
+
 														</b>
 													</span>
-												</span>
-												
+
 											</div>
 											<div class="focus_action_button_container">
 												<a class="btn-inline-product-delete"> </a>
@@ -1344,14 +1356,14 @@
 										</div>
 									</span>
 									<div class="p_item_separator "></div>
-									
-									
+
+
 									<div class="payment_footer new_ui ">
 										<div class="total_area">
 											<div class="form-payment-total">
 												<div id="total-text">Total</div>
 												<div class="form-payment-price"><span data-wrapper-react="true">$<span
-															id="payment_total">0.00</span></span>
+															id="total">0.00</span></span>
 												</div>
 											</div>
 										</div>
@@ -1359,47 +1371,124 @@
 								</div>
 								<hr />
 							</div>
-							<div id="stripe-templates">
-								<div class="stripe-sca-template">
-									<div>
-										<table class="payment-up-form-table" style="border:0;margin-bottom:10px"
-											cellPadding="0" cellSpacing="0">
-											<tbody>
-												<tr>
-													<td width="50%"></td>
-												</tr>
-											</tbody>
-										</table>
-										<table class="form-address-table payment-form-table" style="border:0"
-											cellPadding="0" cellSpacing="0">
-											<tbody>
-												
-												</tr>
-											</tbody>
-										</table>
-										<div id="payment-element" class="payment-element" style="border:0;display:none">
-										</div><input id="stripePe_dummy" style="display:none" />
-									</div>
-								</div>
-							</div>
 						</div>
 					</div>
 				</li>
 
-				<li class="form-line" data-type="control_button" id="id_2">
+				<li class="form-line" data-type="control_address" id="id_17"><label
+						class="form-label form-label-top form-label-auto" id="label_17" for="input_17_addr_line1"
+						aria-hidden="false"> Order Table </label>
+					<div id="cid_17" class="form-input-wide" data-layout="full">
+						<div summary="" class="form-address-table jsTest-addressField">
+							<div class="form-address-line-wrapper jsTest-address-line-wrapperField">
+								<span class="form-address-line form-address-street-line jsTest-address-lineField">
+									<span class="form-sub-label-container" style="vertical-align:top">
+										<select th:field="${order.totalMember}"
+											class="form-dropdown form-address-country" name="q17_address17[country]"
+											id="input_17_country" data-component="country" required=""
+											aria-labelledby="label_17 sublabel_17_country"
+											autocomplete="section-input_17 country">
+											<option value="1">1</option>
+											<option value="2">2</option>
+											<option value="3">3</option>
+											<option value="4">4</option>
+											<option value="5">5</option>
+											<option value="6">6</option>
+											<option value="7">7</option>
+											<option value="8">8</option>
+											<option value="9">9</option>
+											<option value="10">10</option>
+											<option value="11">11</option>
+											<option value="12">12</option>
+											<option value="13">13</option>
+											<option value="14">14</option>
+											<option value="15">15</option>
+										</select>
+										<label class="form-sub-label" for="input_17_addr_line1"
+											id="sublabel_17_addr_line1" style="min-height:13px">Total
+											Member</label>
+									</span>
+								</span>
+							</div>
+							<div class="form-address-line-wrapper jsTest-address-line-wrapperField">
+								<span class="form-address-line form-address-city-line jsTest-address-lineField ">
+									<span class="form-sub-label-container" style="vertical-align:top">
+										<input type="date" id="date" name="date" class="form-textbox form-address-city"
+											th:min="${#dates.format(#dates.createNow(), 'yyyy-MM-dd')}" maxlength="60">
+										<label class="form-sub-label" for="input_17_city" id="sublabel_17_city"
+											style="min-height:13px">Date</label>
+									</span>
+								</span>
+								<span class="form-address-line form-address-state-line jsTest-address-lineField ">
+									<span class="form-sub-label-container" style="vertical-align:top">
+										<select id="time"
+											class="form-dropdown form-address-country" name="time">
+											<option th:each="hour : ${#numbers.sequence(10, 23)}" th:value="${hour}" 
+								            th:text="${#strings.concat(hour, ':00')}"></option>
+										</select>
+										<label class="form-sub-label" for="input_17_state" id="sublabel_17_state"
+											style="min-height:13px">hours</label>
+									</span>
+								</span>
+							</div>
+
+
+						</div>
+					</div>
+				</li>
+
+				<li class="form-line">
 					<div id="cid_2" class="form-input-wide" data-layout="full">
 						<div data-align="center"
 							class="form-buttons-wrapper form-buttons-center   jsTest-button-wrapperField"><button
-								id="input_2" type="submit"
+								type="submit"
 								class="form-submit-button form-submit-button-simple_rose submit-button jf-form-buttons jsTest-submitField"
-								data-component="button" data-content>Order</button></div>
+								data-component="button" data-content>Order</button>
+						</div>
 					</div>
 				</li>
-				<!-- <li style="display:none">Should be Empty: <input type="text" name="website" value type="hidden" /></li>-->
+
 			</ul>
 		</div>
 
 	</form>
+	<link rel="stylesheet" href="//code.jquery.com/ui/1.13.2/themes/base/jquery-ui.css">
+	<link rel="stylesheet" href="/resources/demos/style.css">
+	<script src="https://code.jquery.com/jquery-3.6.0.js"></script>
+	<script src="https://code.jquery.com/ui/1.13.2/jquery-ui.js"></script>
+	<script>
+		$(function () {
+			$("#datepicker1").datepicker({
+				dateFormat: 'dd-mm-yy'
+			});
+		});
+	</script>
+	<script>
+		document.addEventListener('DOMContentLoaded', function () {
+			// Lấy tất cả các checkbox và số lượng
+			var checkboxes = document.querySelectorAll('.product-checkbox');
+			var quantityInputs = document.querySelectorAll('.quantity-input');
+
+			// Bắt sự kiện khi checkbox hoặc số lượng thay đổi
+			checkboxes.forEach(function (checkbox, index) {
+				checkbox.addEventListener('change', updateTotal);
+				quantityInputs[index].addEventListener('input', updateTotal);
+			});
+
+			// Hàm cập nhật tổng tiền
+			function updateTotal() {
+				var total = 0;
+				checkboxes.forEach(function (checkbox, index) {
+					if (checkbox.checked) {
+						var price = parseFloat(checkbox.dataset.productPrice);
+						var quantity = parseInt(quantityInputs[index].value);
+						total += price * quantity;
+					}
+				});
+				document.getElementById('total').innerText = total.toFixed(2);
+			}
+		});
+	</script>
 </body>
 
 </html>

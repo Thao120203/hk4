@@ -43,6 +43,7 @@ public class BranchController {
 		modelMap.put("hours", hoursService.findAll());
 		var branch = branchService.find(id);
 		modelMap.put("branch",branch);
+		
 		modelMap.put("menus_categorys", menuService.findBybranch_Category(branch.getAccount().getId()));
 		modelMap.put("menus",menuService.findBybranch_Menu(branch.getAccount().getId()));
 		return "user/branch/details";

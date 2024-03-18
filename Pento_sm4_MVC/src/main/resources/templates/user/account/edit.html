@@ -1,0 +1,162 @@
+<html xmlns:th="http://www.thymeleaf.org" th:replace="~{layout/a :: content('HomePage',~{this :: .aaa})}">
+
+<body>
+	<div class="aaa">
+
+		<div class="wapper-content">
+
+
+			<div class="loader-center" id="loadermodal">
+				<div class="loader-box">
+					<div class="loader-group">
+						<div class="loader loader--steps icon-loader" aria-hidden="true"></div>
+					</div>
+				</div>
+			</div>
+
+			<div class="container">
+				<div class="wapper wap-account">
+					<div class="wapcontent">
+						<div class="row">
+							<div class="col-md-12">
+								<ul class="breadcrumb" itemscope itemtype="http://schema.org/BreadcrumbList">
+									<li itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
+										<a itemprop="item" href="https://pasgo.vn/ho-chi-minh"> <span
+												itemprop="name">Trang
+												chủ</span></a> <span>></span>
+										<meta itemprop="position" content="1" />
+									</li>
+									<li itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
+										<span itemprop="name"> Thông tin tài khoản</span>
+										<meta itemprop="position" content="2" />
+									</li>
+								</ul>
+							</div>
+						</div>
+						<form th:action="@{/account/edit}" class="form-group" data-ajax="true"
+							data-ajax-method="POST" data-ajax-mode="replace" data-ajax-success="onSuccess"
+							data-ajax-update="#formAccountUpdate" enctype="multipart/form-data" id="formAccountUpdate"
+							method="post">
+							<div class="row content-acount">
+								<div class="col-md-4">
+									<ul>
+										<li class="acount-info">
+											<div class="row">
+												<div class="col-md-4 category-profile">
+													<img src="https://pasgo.vn/Assets/Images/webp/no_avatar.webp"
+														id="img-avatar-profile" class="img-circle img-responsive"
+														alt="aaaa" />
+													<span class="file-input btn btn-primary btn-file">
+														
+													</span>
+												</div>
+												<div class="col-md-8">
+													<div class="text-manage"><span>ID PasGo : </span>K3ZLFM</div>
+													<div class="text-manage"><span>SDT : </span>+84397768799</div>
+													<button onclick="cancelImage();" type="button"
+														id="btn-delete">Xóa</button>
+												</div>
+											</div>
+										</li>
+										<li class="acount-info" style="display: none">
+											<div class="row">
+												<div class="col-md-12">
+													<div class="input-group">
+														<div class="btn-group">
+															<p class="text-otp-confirm">Xác thực Email để bảo mật tài
+																khoản
+																bạn nhé</p>
+															<button class="btn-otp-confirm text-color-white"
+																type="button" onclick="activeEmail()">Xác thực</button>
+														</div>
+													</div>
+												</div>
+											</div>
+										</li>
+										<li class="acount-info">
+											<a class="acount-menu" href="https://pasgo.vn/lich-su-dat-cho"><span
+													class="glyphicon glyphicon-calendar"></span><span
+													class="text-menu-acount">Lịch sử giao dịch</span><span
+													class="pasgo-icondesktop-menublack"></span></a>
+										</li>
+										<li class="acount-info">
+											<a class="acount-menu" href="https://pasgo.vn/dang-xuat"><span
+													class="glyphicon glyphicon-log-out"></span><span
+													class="text-menu-acount">Thoát</span><span
+													class="pasgo-icondesktop-menublack"></span></a>
+										</li>
+									</ul>
+								</div>
+								<div class="col-md-8">
+									<div class="content-right">
+										<h1>Thông tin tài khoản</h1>
+										<input data-val="true" data-val-required="The Id field is required." id="Id"
+											name="Id" type="hidden" value="f1095cc2-db00-4deb-854b-bd84a3124a58" />
+										<input id="AreaCareNames" name="AreaCareNames" type="hidden" value="" />
+
+										<div class="input-group">
+											<span class="input-group-addon">fist Name: </span>
+											<input class="form-control text-box single-line" required="required" type="text"
+												th:field="${user.firstName}" />
+											<span class="field-validation-valid text-danger" data-valmsg-for="Name"
+												data-valmsg-replace="true"></span>
+										</div>
+										<div class="input-group">
+											<span class="input-group-addon">last Name: </span>
+											<input class="form-control text-box single-line" required="required" type="text"
+												th:field="${user.lastName}" />
+											<span class="field-validation-valid text-danger" data-valmsg-for="Name"
+												data-valmsg-replace="true"></span>
+										</div>
+										<div class="input-group">
+											<span class="input-group-addon">Email: </span>
+											<input class="form-control text-box single-line" id="Email"
+												name="Email" placeholder="Email..." required="required" type="email"
+												th:field="${account.email}" />
+												
+											<span class="field-validation-valid text-danger" data-valmsg-for="Email"
+												data-valmsg-replace="true"></span>
+										</div>
+										<div class="input-group">
+											<span class="input-group-addon">Phone: </span>
+											<input class="form-control text-box single-line" data-val="true"
+												
+												 placeholder="Phone Number..." required="required" type="text"
+												th:field="${user.phoneNumber}" />
+											<span class="field-validation-valid text-danger" data-valmsg-for="Email"
+												data-valmsg-replace="true"></span>
+										</div>
+										
+										<div class="input-group">
+											<span class="input-group-addon">Birthday: </span>
+											<input class="form-control text-box single-line" id="datepicker" data-val="true"
+												 
+												  required="required" type="text"
+												th:field="${user.birthday}" />
+											<span class="field-validation-valid text-danger" data-valmsg-for="Email"
+												data-valmsg-replace="true"></span>
+										</div>
+										
+										<div class="text-center content-update">
+											<input type="submit" class="btn btn-register" value="Cập nhật"
+												onclick="$('#loadermodal').show()" />
+												
+										</div>
+									</div>
+								</div>
+							</div>
+							<input type="hidden" name="id_user" th:value="${user.id}">
+							<input type="hidden" th:field="${account.id}">
+							<input type="hidden" th:field="${account.password}">
+						</form>
+
+
+					</div>
+				</div>
+
+			</div>
+		</div>
+	</div>
+</body>
+
+</html>

@@ -1,0 +1,4692 @@
+<html lang="en" xmlns:th="http://www.thymeleaf.org" th:fragment="content(title, mainContent)"
+	xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+
+
+<head>
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link rel="shortcut icon" href="https://pasgo.vn/faviconv2.ico" />
+	<link rel="stylesheet" href="//code.jquery.com/ui/1.13.2/themes/base/jquery-ui.css">
+	<link rel="stylesheet" href="/resources/demos/style.css">
+	<script src="https://code.jquery.com/jquery-3.6.0.js"></script>
+	<script src="https://code.jquery.com/ui/1.13.2/jquery-ui.js"></script>
+
+	<!--meta seo-->
+	<title th:text="${title}"></title>
+	<meta name="description"
+		content="Bạn có thể cập nhật, thêm và xóa một số thông tin cơ bản trong tài khoản của mình. Chỉnh sửa tên của bạn Để thay đổi tên hiển thị trên Tài khoản PasGo." />
+	<link rel="canonical" href="https://pasgo.vn/thong-tin-tai-khoan" />
+	<meta name="DC.title" content="Thông tin tài khoản - PasGo Hỗ trợ khách hàng" />
+	<!--share twitter-->
+	<meta name="twitter:url" content="https://pasgo.vn/thong-tin-tai-khoan" />
+	<meta name="twitter:title" content="Thông tin tài khoản - PasGo Hỗ trợ khách hàng" />
+	<meta name="twitter:description"
+		content="Bạn có thể cập nhật, thêm và xóa một số thông tin cơ bản trong tài khoản của mình. Chỉnh sửa tên của bạn Để thay đổi tên hiển thị trên Tài khoản PasGo." />
+
+	<!--share facebook -->
+	<meta property="og:url" content="https://pasgo.vn/thong-tin-tai-khoan" />
+	<meta property="og:title" content="Thông tin tài khoản - PasGo Hỗ trợ khách hàng" />
+	<meta property="og:description"
+		content="Bạn có thể cập nhật, thêm và xóa một số thông tin cơ bản trong tài khoản của mình. Chỉnh sửa tên của bạn Để thay đổi tên hiển thị trên Tài khoản PasGo." />
+	<meta property="og:image" content="https://pasgo.vn/Assets/Images/logo/thong-tin-tai-khoan.PNG" />
+	<!--thiếu ảnh share-->
+	<meta name="robots" content="follow,index" />
+	<!--setup data struct-->
+	<script type="application/ld+json">
+        {
+        "@context" : "http://schema.org",
+        "@type" : "FoodEstablishment",
+        "name" : "Thông tin tài khoản - PasGo Hỗ trợ khách hàng",
+        "url" : "https://pasgo.vn/thong-tin-tai-khoan",
+        "image" : "https://pasgo.vn/Assets/Images/logo/thong-tin-tai-khoan.PNG",
+        "priceRange" : "Xem ngay!",
+        "servesCuisine": [
+        "Đông nam á",
+        "Việt Nam"
+        ],
+        "telephone": "1900 6005",
+        "aggregateRating" : {
+        "@type" : "AggregateRating",
+        "ratingValue" : "4.1",
+        "reviewCount" : "100"
+        },
+        "address" : {
+        "@type" : "PostalAddress",
+        "streetAddress" : "Tầng 2 tòa nhà VTC Online, Số 18 Tam Trinh, Q. Hai Bà Trưng, ​​Hà Nội",
+        "addressLocality" : "Hà Nội",
+        "addressRegion" : "​​Q. Hai Bà Trưng",
+        "postalCode" : "",
+        "addressCountry" : {
+        "@type" : "Country",
+        "name" : "Việt Nam"
+        }
+        }
+        }
+    </script>
+
+	<meta name="msvalidate.01" content="620A159A1964104173AA8028E443F628" />
+	<meta name="COPYRIGHT" content="Copyright (C) 2013 pasgo.vn" />
+	<meta name="geo.region" content="VN-HN" />
+	<meta name="geo.placename" content="ha noi" />
+	<meta name="geo.position" content="21.0030946,105.8635121" />
+	<meta name="ICBM" content="21.0030946,105.8635121" />
+
+	<meta name="revisit-after" content="1 month">
+	<meta name="googlebot" content="code">
+	<meta name="googlebot" content="noodp">
+	<meta name="language" content="Vietnamese" />
+	<meta name="reply-to" content="kinhdoanh@pasgo.vn">
+	<meta name="web_author" content="pasgo">
+
+	<meta name="author" content="pasgo.vn" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+	<meta property="fb:app_id" content="583040483565440" />
+	<meta property="fb:pages" content="1431096153846072" />
+	<meta name="twitter:card" content="summary" />
+	<meta name="twitter:site" content="pasgo.vn" />
+	<meta name="twitter:creator" content="pasgo" />
+	<meta property="og:type" content="website" />
+	<meta name="msvalidate.01" content="B0BE48D52478550E91D402009F2AC80E" /><!--Bing-->
+	<meta name="google-site-verification" content="SaAQCo9S5jUuId5v_alvakE5AWHMvsxySnGzRit0iu8" />
+
+	<style type="text/css">
+		@charset "UTF-8";
+
+		.modal-dialog {
+			margin-top: 0;
+			margin-bottom: 0;
+			height: 100vh;
+			display: -webkit-box;
+			display: -webkit-flex;
+			display: -ms-flexbox;
+			display: flex;
+			-webkit-box-orient: vertical;
+			-webkit-box-direction: normal;
+			-webkit-flex-direction: column;
+			-ms-flex-direction: column;
+			flex-direction: column;
+			-webkit-box-pack: center;
+			-webkit-justify-content: center;
+			-ms-flex-pack: center;
+			justify-content: center
+		}
+
+		.modal.fade .modal-dialog {
+			-webkit-transform: translate(0, 100%);
+			transform: translate(0, 100%)
+		}
+
+		.modal.in .modal-dialog {
+			-webkit-transform: translate(0, 0);
+			transform: translate(0, 0)
+		}
+
+		#phone-call-close-btn {
+			opacity: 1 !important;
+			background-color: transparent !important;
+			border: 0;
+			font-size: xx-large;
+			margin: 0 auto;
+			padding: 0
+		}
+
+		.phone-number-link {
+			display: block;
+			border-radius: 2%;
+			border-color: #333;
+			margin-bottom: 4px;
+			color: #000;
+			border: #ddd solid 1px;
+			border-radius: 2px
+		}
+
+		#phone-call-title {
+			font-weight: bold
+		}
+
+		.pasgo-icon-phonecall {
+			background-image: url(/Assets/Images/webp/phone-call-icon.webp);
+			background-repeat: no-repeat;
+			width: 16px;
+			height: 17px;
+			display: inline-block;
+			vertical-align: text-bottom;
+			margin-right: 10px
+		}
+
+		#phone-call .modal-header {
+			position: relative
+		}
+
+		#phone-call .modal-header>.modal-title {
+			position: absolute;
+			top: 50%;
+			left: 50%;
+			transform: translate(-50%, -50%)
+		}
+
+		.btn-detail-phone-call {
+			padding: 6px 20px;
+			border: 1px solid #d02028;
+			margin: 10px 0;
+			display: inline-block;
+			color: #fff !important;
+			background: #d02028;
+			text-align: center;
+			text-decoration: none;
+			border-radius: 20px;
+			min-width: 80%
+		}
+
+		.btn-detail-phone-call.desktop-detail {
+			position: absolute;
+			left: 50%;
+			transform: translate(-50%, 0)
+		}
+
+		@font-face {
+			font-family: "glyphicons-halflings-regular";
+			src: url("/Assets/fonts/glyphicons-halflings-regular.ttf") format("truetype");
+			font-display: swap
+		}
+
+		@font-face {
+			font-family: "glyphicons-halflings-regular";
+			src: url("/Assets/fonts/glyphicons-halflings-regular.woff") format("woff");
+			font-display: swap
+		}
+
+		@font-face {
+			font-family: "glyphicons-halflings-regular";
+			src: url("/Assets/fonts/glyphicons-halflings-regular.eot?") format("embedded-opentype");
+			font-display: swap
+		}
+
+		@font-face {
+			font-family: "glyphicons-halflings-regular";
+			src: url("/Assets/fonts/glyphicons-halflings-regular.svg") format("svg")
+		}
+
+		@font-face {
+			font-family: "pasgo-fonts-regular";
+			src: url("/Assets/fonts/fontlexend/lexend-regular.ttf") format("truetype")
+		}
+
+		@font-face {
+			font-family: "pasgo-fonts-medium";
+			src: url("/Assets/fonts/fontlexend/lexend-medium.ttf") format("truetype")
+		}
+
+		@font-face {
+			font-family: "pasgo-fonts-semibold";
+			src: url("/Assets/fonts/fontlexend/lexend-semibold.ttf") format("truetype")
+		}
+
+		@font-face {
+			font-family: "pasgo-fonts-bold";
+			src: url("/Assets/fonts/fontlexend/lexend-bold.ttf") format("truetype")
+		}
+
+		@font-face {
+			font-family: "pasgo-fonts-extrabold";
+			src: url("/Assets/fonts/fontlexend/lexend-extrabold.ttf") format("truetype")
+		}
+
+		@font-face {
+			font-family: "pasgo-fonts-black";
+			src: url("/Assets/fonts/fontlexend/lexend-black.ttf") format("truetype")
+		}
+
+		body {
+			font-size: 14px;
+			font-weight: 400;
+			font-family: "pasgo-fonts-regular", sans-serif;
+			color: #000;
+			background-color: #eee;
+			margin: 0;
+			text-rendering: optimizeLegibility;
+			-webkit-font-smoothing: antialiased;
+			-moz-osx-font-smoothing: grayscale;
+			overflow-x: hidden
+		}
+
+		.glyphicon {
+			font-family: glyphicons-halflings-regular !important
+		}
+
+		.glyphicon-remove:before {
+			content: ""
+		}
+
+		.glyphicon-time:before {
+			content: ""
+		}
+
+		.glyphicon-facetime-video:before {
+			content: ""
+		}
+
+		.glyphicon-star-empty:before {
+			content: ""
+		}
+
+		.glyphicon-info-sign:before {
+			content: ""
+		}
+
+		.glyphicon-usd:before {
+			content: ""
+		}
+
+		.glyphicon-star:before {
+			content: ""
+		}
+
+		.glyphicon-search:before {
+			content: ""
+		}
+
+		.glyphicon-user:before {
+			content: ""
+		}
+
+		.glyphicon-calendar:before {
+			content: "📅"
+		}
+
+		.glyphicon-time:before {
+			content: ""
+		}
+
+		.glyphicon-lock:before {
+			content: "🔒"
+		}
+
+		.glyphicon-calendar:before {
+			content: "📅"
+		}
+
+		.glyphicon-log-out:before {
+			content: ""
+		}
+
+		.glyphicon-check:before {
+			content: ""
+		}
+
+		.glyphicon-th:before {
+			content: ""
+		}
+
+		.glyphicon-th-large:before {
+			content: ""
+		}
+
+		.glyphicon-chevron-right:before {
+			content: ""
+		}
+
+		.glyphicon-chevron-left:before {
+			content: ""
+		}
+
+		.glyphicon-heart:before {
+			content: ""
+		}
+
+		.glyphicon-heart-empty:before {
+			content: ""
+		}
+
+		.glyphicon-pencil:before {
+			content: "✏"
+		}
+
+		.glyphicon-envelope:before {
+			content: "✉"
+		}
+
+		.glyphicon-home:before {
+			content: ""
+		}
+
+		.glyphicon-phone-alt:before {
+			content: ""
+		}
+
+		.glyphicon-glyphicon-map-marker {
+			content: ""
+		}
+
+		.glyphicon-glyphicon-usd {
+			content: ""
+		}
+
+		.glyphicon-glyphicon-tag {
+			content: ""
+		}
+
+		.glyphicon-earphone:before {
+			content: ""
+		}
+
+		.glyphicon-globe:before {
+			content: ""
+		}
+
+		.glyphicon-link:before {
+			content: ""
+		}
+
+		.text-loading {
+			margin: 0 auto;
+			display: block;
+			width: 100px;
+			font-size: 13px
+		}
+
+		.rightside .pasgo-dropdown-menu {
+			margin-left: -51px
+		}
+
+		.fix-hover {
+			position: relative;
+			z-index: 1200
+		}
+
+		header {
+			background: #fff
+		}
+
+		header .wapper {
+			padding: 0 !important
+		}
+
+		header .affix {
+			background: #d02028;
+			width: 100%;
+			z-index: 999
+		}
+
+		header .affix #menu li {
+			overflow: hidden;
+			font: normal 500 13px/1.5 "pasgo-fonts-medium", sans-serif
+		}
+
+		header .affix #menu li .pasgo-dropdown-menu {
+			background-color: #fff
+		}
+
+		header .affix #menu li a {
+			color: #fff
+		}
+
+		header .affix #menu li a .pasgo-icondesktop-logo {
+			background-position: -84px 0
+		}
+
+		header .affix #menu li a .pasgo-icondesktop-menudown {
+			background-position: -178px -12px
+		}
+
+		header .affix #menu li .container ul {
+			padding: 0;
+			position: relative
+		}
+
+		header .affix #menu li .container ul li {
+			padding: 10px 0
+		}
+
+		header .affix #menu li .container ul li a {
+			color: #000;
+			padding-right: 10px;
+			padding-left: 10px;
+			border-right: 1px solid #eee
+		}
+
+		header .affix #menu li .container ul li:first-child {
+			padding-left: 0
+		}
+
+		header .affix #menu li .container ul li:last-child a {
+			border-right: 0
+		}
+
+		header .affix #menu li .container ul li:hover {
+			border-bottom: 2px solid #d02028;
+			background: #eee;
+			cursor: pointer
+		}
+
+		header .affix #menu li .container ul li:first-child a:hover {
+			border-bottom: 0;
+			text-decoration: none
+		}
+
+		header .affix #menu li:first-child:hover {
+			border-bottom: 0;
+			text-decoration: none
+		}
+
+		header .affix #menu li:first-child:hover a {
+			border-bottom: 0;
+			text-decoration: none
+		}
+
+		header .affix #menu li:hover {
+			padding-bottom: 10px;
+			border-bottom: 2px solid #fff
+		}
+
+		header .affix #menu li:hover .pasgo-dropdown-menu {
+			display: block
+		}
+
+		header .affix .menu-right {
+			display: none
+		}
+
+		header .affix .search-fixed {
+			display: block
+		}
+
+		header .img-search {
+			position: absolute;
+			left: 4px;
+			top: 12px;
+			display: none
+		}
+
+		#menu {
+			float: left;
+			display: block;
+			margin: 0;
+			padding: 0;
+			height: 42px;
+			width: 80%
+		}
+
+		#menu li:first-child {
+			padding: 6px 10px 11px 0
+		}
+
+		#menu li:first-child:hover {
+			border-bottom: 0
+		}
+
+		#menu li {
+			float: left;
+			list-style: none;
+			padding: 11px 10px;
+			position: static;
+			font: normal 500 13px/1.5 "pasgo-fonts-medium", sans-serif
+		}
+
+		#menu li a {
+			text-decoration: none;
+			color: #000
+		}
+
+		#menu li .pasgo-dropdown-menu {
+			display: none;
+			position: absolute;
+			width: 100%;
+			top: 42px;
+			left: 0;
+			z-index: 1000;
+			background: #fff;
+			height: 42px;
+			overflow: hidden;
+			box-shadow: rgba(9, 30, 66, .25) 0 4px 8px -2px, rgba(9, 30, 66, .08) 0 0 0 1px
+		}
+
+		#menu li .pasgo-dropdown-menu .container ul {
+			padding: 0;
+			position: relative
+		}
+
+		#menu li .pasgo-dropdown-menu .container ul li {
+			padding: 10px 0
+		}
+
+		#menu li .pasgo-dropdown-menu .container ul li a {
+			border-right: 1px solid #eee;
+			padding-right: 10px;
+			padding-left: 10px
+		}
+
+		#menu li .pasgo-dropdown-menu .container ul li:first-child {
+			padding-left: 0
+		}
+
+		#menu li .pasgo-dropdown-menu .container ul li:last-child a {
+			border-right: 0
+		}
+
+		#menu li .pasgo-dropdown-menu .container ul li:hover {
+			border-bottom: 2px solid #d02028;
+			background: #eee;
+			cursor: pointer
+		}
+
+		#menu li:hover {
+			border-bottom: 2px solid #d02028
+		}
+
+		#menu li:hover .pasgo-dropdown-menu {
+			display: block
+		}
+
+		#menu li:hover a {
+			border-right: 0
+		}
+
+		.search-fixed {
+			position: relative;
+			display: none;
+			float: right
+		}
+
+		.search-fixed .input-group {
+			top: 6px;
+			width: 228px
+		}
+
+		.search-fixed .input-group .form-control {
+			border-bottom-left-radius: 20px;
+			border-top-left-radius: 20px;
+			height: 30px;
+			border-right: 0
+		}
+
+		.search-fixed .input-group .btn-default {
+			height: 30px;
+			background-color: #fff;
+			border: 1px solid #ccc;
+			border-left: 0;
+			border-bottom-right-radius: 20px;
+			border-top-right-radius: 20px
+		}
+
+		.search-fixed .input-group .p-normal {
+			padding: 1px 6px
+		}
+
+		.menu-right {
+			float: right;
+			position: relative;
+			display: block;
+			margin: 0;
+			padding: 0;
+			width: 20%
+		}
+
+		.menu-right li:first-child a {
+			display: inline-flex;
+			align-items: center;
+			gap: 8px;
+			color: #000;
+			padding-right: 5px;
+			white-space: nowrap
+		}
+
+		.menu-right img.img-avatar {
+			display: block;
+			width: 30px;
+			height: 30px;
+			border-radius: 30px;
+			object-fit: cover
+		}
+
+		.menu-right li {
+			list-style: none;
+			float: left;
+			padding: 8px 0 8px 10px;
+			width: 100%;
+			text-align: right;
+			font-size: 14px;
+			font-weight: 500;
+			font-family: "pasgo-fonts-medium", sans-serif
+		}
+
+		.menu-right li a {
+			color: #000;
+			text-decoration: none;
+			cursor: pointer
+		}
+
+		.menu-right li a span {
+			position: relative;
+			top: 2px;
+			color: #444
+		}
+
+		.menu-right li a .tex-indent {
+			margin-top: 4px
+		}
+
+		.menu-right li .login {
+			display: none;
+			position: absolute;
+			top: 37px;
+			background: #fff;
+			right: 0;
+			z-index: 99;
+			min-width: 200px;
+			padding: 0;
+			box-shadow: 0 2px 3px rgba(0, 0, 0, .25)
+		}
+
+		.menu-right li .login li {
+			padding: 6px 5px;
+			margin: 2px 0;
+			position: relative;
+			display: block;
+			float: none;
+			width: 100%;
+			text-align: center;
+			font-size: 14px;
+			font-weight: 500;
+			font-family: "pasgo-fonts-medium", sans-serif
+		}
+
+		.menu-right li .login li a {
+			color: #000;
+			width: 100%;
+			display: inline-block;
+			border-right: 0;
+			text-align: center
+		}
+
+		.menu-right li .login li .btn {
+			padding: 6px 6px;
+			border-radius: 20px;
+			background-color: #d02028;
+			color: #fff;
+			font-size: 14px;
+			font-weight: 500;
+			font-family: "pasgo-fonts-medium", sans-serif;
+			width: 150px
+		}
+
+		.menu-right li .login li .link {
+			color: #3a77e5
+		}
+
+		.menu-right li:hover .login {
+			display: block
+		}
+
+		[class^=pasgo-icondesktop-],
+		[class*=pasgo-icondesktop-] {
+			background-image: url("/Assets/Images/2x-desktop-v2.webp");
+			background-repeat: no-repeat;
+			display: inline-block;
+			height: 30px;
+			width: 30px;
+			line-height: 30px;
+			vertical-align: middle;
+			background-size: 266px 280px;
+			clear: both
+		}
+
+		.pasgo-icondesktop-hotline {
+			background-position: 0 -24px;
+			width: 32px;
+			margin-top: 1px;
+			height: 30px
+		}
+
+		.pasgo-icondesktop-dowloadchplay {
+			background-position: -136px -82px;
+			width: 129px;
+			margin-top: 0;
+			height: 38px
+		}
+
+		.pasgo-icondesktop-dowloadapplestore {
+			background-position: -7px -82px;
+			width: 129px;
+			margin-top: 0;
+			height: 40px
+		}
+
+		.pasgo-icondesktop-logo {
+			background-position: 0 0;
+			width: 84px;
+			margin-top: 1px;
+			height: 24px
+		}
+
+		.pasgo-icondesktop-logodmca {
+			background-position: -152px -212px;
+			width: 62px;
+			height: 14px
+		}
+
+		.pasgo-icondesktop-menudown {
+			background-position: -166px -12px;
+			width: 14px;
+			height: 16px
+		}
+
+		.pasgo-icondesktop-menured {
+			background-position: -119px -34px;
+			width: 13px;
+			height: 20px
+		}
+
+		.pasgo-icondesktop-menublack {
+			background-position: -107px -34px;
+			width: 14px;
+			height: 20px
+		}
+
+		.pasgo-icondesktop-language {
+			background-position: -245px 0;
+			width: 21px;
+			margin-top: -9px;
+			height: 20px
+		}
+
+		.pasgo-icondesktop-facebook {
+			background-position: 0 -131px;
+			width: 50px;
+			margin-top: 0;
+			height: 42px
+		}
+
+		.pasgo-icondesktop-apple {
+			background-position: -192px -33px;
+			width: 20px;
+			margin-right: 5px;
+			height: 20px
+		}
+
+		.pasgo-icondesktop-android {
+			background-position: -213px -30px;
+			width: 20px;
+			margin-right: 5px;
+			height: 20px
+		}
+
+		.pasgo-icondesktop-googleplus {
+			background-position: -49px -130px;
+			width: 50px;
+			margin-top: 0;
+			height: 42px
+		}
+
+		.pasgo-icondesktop-youtube {
+			background-position: -102px -130px;
+			width: 50px;
+			margin-top: 0;
+			height: 42px
+		}
+
+		.pasgo-icondesktop-tiktok {
+			background-position: -54px -130px;
+			width: 50px;
+			margin-top: 0;
+			height: 42px
+		}
+
+		.pasgo-icondesktop-dkbocongthuong {
+			background-position: 2px -178px;
+			width: 154px;
+			margin-top: 0;
+			height: 46px
+		}
+
+		.pasgo-icondesktop-search {
+			background-position: -216px -5px;
+			width: 19px;
+			height: 20px
+		}
+
+		.pasgo-icondesktop-province {
+			background-position: -203px 0;
+			width: 13px;
+			height: 26px
+		}
+
+		.pasgo-icondesktop-district {
+			background-position: -203px 0;
+			width: 13px;
+			height: 26px
+		}
+
+		.pasgo-icondesktop-prev {
+			background-position: -29px -27px;
+			width: 19px;
+			margin-top: 16px;
+			margin-left: 6px;
+			height: 27px
+		}
+
+		.pasgo-icondesktop-next {
+			background-position: -46px -27px;
+			width: 17px;
+			margin-top: 16px;
+			margin-left: 10px;
+			height: 27px
+		}
+
+		.pasgo-icondesktop-filter {
+			background-position: -91px -34px;
+			width: 17px;
+			height: 20px
+		}
+
+		.pasgo-icondesktop-category {
+			background-position: -61px -30px;
+			width: 16px;
+			height: 26px
+		}
+
+		.pasgo-icondesktop-play {
+			background-position: -235px -12px;
+			width: 15px;
+			height: 10px;
+			margin-top: 0
+		}
+
+		.pasgo-icondesktop-video {
+			background-position: -233px -22px;
+			width: 32px;
+			height: 32px
+		}
+
+		.pasgo-icondesktop-modalclose {
+			background-position: -239px -55px;
+			width: 25px;
+			height: 25px;
+			margin: 0;
+			position: relative
+		}
+
+		.pasgo-icondesktop-topbuffet {
+			background-position: 0 -54px;
+			width: 36px;
+			height: 30px
+		}
+
+		.pasgo-icondesktop-toplaunuong {
+			background-position: -36px -54px;
+			width: 36px;
+			height: 30px
+		}
+
+		.pasgo-icondesktop-tophaisan {
+			background-position: -72px -54px;
+			width: 36px;
+			height: 30px
+		}
+
+		.pasgo-icondesktop-topdattiec {
+			background-position: -104px -54px;
+			width: 31px;
+			height: 30px
+		}
+
+		.pasgo-icondesktop-topanchay {
+			background-position: -156px -54px;
+			width: 26px;
+			height: 30px
+		}
+
+		.pasgo-icondesktop-topkhuvuc {
+			background-position: -132px -54px;
+			width: 26px;
+			height: 30px
+		}
+
+		.pasgo-icondesktop-topthuonghieu {
+			background-position: -183px -54px;
+			width: 23px;
+			height: 30px
+		}
+
+		.pasgo-icondesktop-topnhahangkhac {
+			background-position: -204px -54px;
+			width: 37px;
+			height: 30px
+		}
+
+		.pasgo-icondesktop-amthuc {
+			background-position: -214px -173px;
+			width: 25px;
+			height: 22px
+		}
+
+		.pasgo-icondesktop-blog-topbuffet {
+			background-position: 0 -54px;
+			width: 36px;
+			height: 30px
+		}
+
+		.pasgo-icondesktop-blog-toplaunuong {
+			background-position: -36px -54px;
+			width: 36px;
+			height: 30px
+		}
+
+		.pasgo-icondesktop-blog-tophaisan {
+			background-position: -72px -54px;
+			width: 36px;
+			height: 30px
+		}
+
+		.pasgo-icondesktop-blog-topdattiec {
+			background-position: -104px -54px;
+			width: 31px;
+			height: 30px
+		}
+
+		.input-group {
+			position: relative;
+			display: table;
+			border-collapse: separate
+		}
+
+		.input-group-addon,
+		.input-group-btn,
+		.input-group .form-control {
+			display: table-cell
+		}
+
+		.input-group-addon,
+		.input-group-btn {
+			width: 1%;
+			white-space: nowrap;
+			vertical-align: middle
+		}
+
+		.input-group-addon {
+			font-size: 14px;
+			font-weight: normal;
+			line-height: 1;
+			text-align: center
+		}
+
+		.form-control {
+			display: block;
+			width: 100%;
+			height: 34px;
+			padding: 6px 12px;
+			font-size: 14px;
+			line-height: 1.428571429;
+			color: #555;
+			vertical-align: middle;
+			background-color: #fff;
+			border: 1px solid #ccc;
+			outline: 0;
+			-webkit-appearance: none;
+			border-radius: 0;
+			box-shadow: none
+		}
+
+		.btn {
+			display: inline-block;
+			padding: 6px 12px;
+			margin-bottom: 0;
+			font-size: 14px;
+			font-weight: normal;
+			line-height: 1.428571429;
+			text-align: center;
+			white-space: nowrap;
+			vertical-align: middle;
+			cursor: pointer;
+			border: 1px solid transparent
+		}
+
+		.pasgo-search {
+			position: relative;
+			display: block;
+			min-height: 70px;
+			background: #f7f6f4;
+			float: left;
+			width: 100%
+		}
+
+		.pasgo-search .pasgo-icondesktop-menudown {
+			position: absolute;
+			top: 14px;
+			right: 5px
+		}
+
+		.pasgo-search .selectedtinh {
+			padding-right: 0;
+			padding-left: 0
+		}
+
+		.pasgo-search .header-search {
+			display: flex;
+			flex-direction: row;
+			align-items: center;
+			width: 100%;
+			margin-top: 3px
+		}
+
+		.pasgo-search .header-search .header-search-left,
+		.pasgo-search .header-search .header-search-right {
+			width: 15%
+		}
+
+		.pasgo-search .header-search .header-search-center {
+			width: 70%
+		}
+
+		.pasgo-search .col-md-8 {
+			padding-left: 0
+		}
+
+		.pasgo-search select.first {
+			width: 100%;
+			border-bottom-left-radius: 20px !important;
+			border-top-left-radius: 20px !important
+		}
+
+		.pasgo-search .input-group-addon {
+			position: relative
+		}
+
+		.pasgo-search .input-group-addon select {
+			line-height: 34px;
+			text-indent: 15px;
+			padding: 0;
+			border-radius: 0;
+			-webkit-appearance: none;
+			box-shadow: none;
+			color: #000
+		}
+
+		.pasgo-search .input-group-addon select#provinceId {
+			background-color: transparent;
+			position: relative;
+			z-index: 2;
+			padding-left: 30px;
+			color: #000
+		}
+
+		.pasgo-search .pasgo-icondesktop-province {
+			position: absolute;
+			top: 5px;
+			left: 10px;
+			z-index: 10
+		}
+
+		.pasgo-search .form-control {
+			border-right: 0;
+			height: 40px;
+			padding-left: 25px;
+			color: #000
+		}
+
+		.pasgo-search .input-group {
+			top: 12px;
+			background: #fff;
+			border-radius: 20px
+		}
+
+		.pasgo-search .input-group form {
+			background: #fff;
+			border-top-left-radius: 20px;
+			border-bottom-left-radius: 20px
+		}
+
+		.pasgo-search .input-group .filter {
+			position: absolute;
+			margin-top: 4px
+		}
+
+		.pasgo-search .input-group .selected {
+			width: 124px;
+			color: rgba(0, 0, 0, .8);
+			position: relative;
+			z-index: 2;
+			background-color: transparent
+		}
+
+		.pasgo-search .btn {
+			border-radius: 20px;
+			color: #fff;
+			background-color: #d02028;
+			padding: 4px 10px
+		}
+
+		.pasgo-search .frm-search {
+			background: #fff;
+			border: 1px solid #ccc;
+			border-left: 0;
+			width: 113px;
+			border-top-right-radius: 20px;
+			border-bottom-right-radius: 20px
+		}
+
+		.pasgo-search .pasgo-phone {
+			position: relative;
+			top: 15px;
+			color: #d02028;
+			font-size: 20px;
+			float: right;
+			white-space: nowrap
+		}
+
+		.pasgo-search #result {
+			display: none;
+			position: absolute;
+			top: 51px;
+			left: 0;
+			z-index: 999;
+			min-height: 200px;
+			width: 702px;
+			background: #fff;
+			border-radius: 3px;
+			box-shadow: 0 0 2px 2px rgba(0, 0, 0, .1)
+		}
+
+		.pasgo-search #result .wappersearch {
+			margin-right: auto;
+			margin-left: auto;
+			padding-left: 6px;
+			padding-right: 6px;
+			display: block;
+			position: relative;
+			background-color: #eee
+		}
+
+		.pasgo-search #result .wappersearch .row {
+			border-bottom: 1px solid #e5e5e5
+		}
+
+		.pasgo-search #result .wappersearch .row h4 {
+			font-size: 15px;
+			text-transform: uppercase
+		}
+
+		.pasgo-search #result .wappersearch .row .col-md-9 {
+			background: #fff;
+			min-height: 100px
+		}
+
+		.pasgo-search #result .wappersearch .row .col-md-9 #get-tag-search .pasgo-text-search {
+			text-decoration: none;
+			color: #494949;
+			cursor: pointer;
+			padding: 4px 10px;
+			display: inline-block;
+			text-overflow: ellipsis;
+			overflow: hidden;
+			white-space: nowrap;
+			width: 100%
+		}
+
+		.pasgo-search #result .wappersearch .row .col-md-9 #get-tag-search a:first-child {
+			margin-top: 12px
+		}
+
+		.pasgo-search #result .wappersearch .row .col-md-9 #get-tag-search a:hover {
+			color: #fff;
+			background: #d02028
+		}
+
+		.pasgo-search #result .wappersearch .row .col-md-9 #get-name-restaurant a {
+			position: relative;
+			display: inline-block;
+			width: 100%;
+			color: #000;
+			text-decoration: none;
+			border-bottom: 1px solid #eaeaea;
+			margin: 5px 0;
+			padding: 6px 0 6px 10px;
+			clear: both
+		}
+
+		.pasgo-search #result .wappersearch .row .col-md-9 #get-name-restaurant a p {
+			font-size: 14px;
+			line-height: 18px;
+			margin: 0
+		}
+
+		.pasgo-search #result .wappersearch .row .col-md-9 #get-name-restaurant a .img-circle {
+			width: 40px;
+			float: left;
+			margin-right: 10px;
+			border-radius: 0;
+			min-height: 40px
+		}
+
+		.pasgo-search #result .wappersearch .row .col-md-9 #get-name-restaurant a .text-address {
+			color: #797979;
+			font-size: 12px
+		}
+
+		.pasgo-search #result .wappersearch .row .col-md-9 #get-name-restaurant a:hover {
+			background: #eee
+		}
+
+		.pasgo-search #result .wappersearch .row .col-md-9 #get-name-restaurant a:hover p {
+			color: #d02028
+		}
+
+		.pasgo-search #result .wappersearch .row .col-md-9 #get-name-restaurant a:last-child {
+			border-bottom: 0
+		}
+
+		.pasgo-search .custom-khampha #get-name-restaurant a .img-circle {
+			width: 80px !important
+		}
+
+		.text-history {
+			font-size: 20px;
+			font-weight: 500;
+			font-family: "pasgo-fonts-medium", sans-serif;
+			padding-bottom: 10px;
+			color: #000;
+			border-bottom: 1px solid #eee;
+			margin: 20px 0 10px 0
+		}
+
+		.text-history span {
+			border-bottom: 2px solid #d02028;
+			padding-bottom: 6px
+		}
+
+		.carousel {
+			position: relative
+		}
+
+		.carousel-inner {
+			position: relative;
+			width: 100%;
+			overflow: hidden
+		}
+
+		.carousel-inner>.item {
+			position: relative;
+			display: none;
+			-webkit-transition: .6s ease-in-out left;
+			transition: .6s ease-in-out left
+		}
+
+		.carousel-inner>.item>img,
+		.carousel-inner>.item>a>img {
+			display: block;
+			height: auto;
+			max-width: 100%;
+			line-height: 1
+		}
+
+		.carousel-inner>.active,
+		.carousel-inner>.next,
+		.carousel-inner>.prev {
+			display: block
+		}
+
+		.carousel-inner>.active {
+			left: 0
+		}
+
+		.carousel-inner>.next,
+		.carousel-inner>.prev {
+			position: absolute;
+			top: 0;
+			width: 100%
+		}
+
+		.carousel-inner>.next {
+			left: 100%
+		}
+
+		.carousel-inner>.prev {
+			left: -100%
+		}
+
+		.carousel-inner>.next.left,
+		.carousel-inner>.prev.right {
+			left: 0
+		}
+
+		.carousel-inner>.active.left {
+			left: -100%
+		}
+
+		.carousel-inner>.active.right {
+			left: 100%
+		}
+
+		.carousel-control {
+			position: absolute;
+			top: 38%;
+			bottom: 0;
+			left: 6px;
+			width: 40px;
+			height: 60px;
+			z-index: 11
+		}
+
+		.carousel-control.left {
+			background: rgba(255, 255, 255, .8);
+			border-top-right-radius: 4px;
+			border-bottom-right-radius: 4px
+		}
+
+		.carousel-control.right {
+			right: 6px;
+			left: auto;
+			background: rgba(255, 255, 255, .8);
+			border-top-left-radius: 4px;
+			border-bottom-left-radius: 4px
+		}
+
+		.carousel-control:hover,
+		.carousel-control:focus {
+			color: #fff;
+			text-decoration: none;
+			opacity: .9;
+			filter: alpha(opacity=90)
+		}
+
+		.carousel-indicators {
+			position: absolute;
+			bottom: 10px;
+			left: 50%;
+			z-index: 15;
+			width: 60%;
+			padding-left: 0;
+			margin-left: -30%;
+			text-align: center;
+			list-style: none
+		}
+
+		.carousel-indicators li {
+			display: inline-block;
+			width: 10px;
+			height: 10px;
+			margin: 1px;
+			text-indent: -999px;
+			cursor: pointer;
+			border: 1px solid #fff;
+			border-radius: 10px
+		}
+
+		.carousel-indicators .active {
+			width: 12px;
+			height: 12px;
+			margin: 0;
+			background-color: #fff
+		}
+
+		@media screen and (min-width:768px) {
+			.carousel-indicators {
+				bottom: 20px
+			}
+		}
+
+		html {
+			-ms-text-size-adjust: 100%;
+			-webkit-text-size-adjust: 100%;
+			font-size: 14px;
+			line-height: 18px
+		}
+
+		article,
+		aside,
+		details,
+		figcaption,
+		figure,
+		footer,
+		header,
+		hgroup,
+		main,
+		menu,
+		nav,
+		section,
+		summary {
+			display: block
+		}
+
+		audio,
+		canvas,
+		progress,
+		video {
+			display: inline-block;
+			vertical-align: baseline
+		}
+
+		audio:not([controls]) {
+			display: none;
+			height: 0
+		}
+
+		[hidden],
+		template {
+			display: none
+		}
+
+		a {
+			background-color: transparent
+		}
+
+		a:active,
+		a:hover {
+			outline: 0
+		}
+
+		abbr[title] {
+			border-bottom: 1px dotted
+		}
+
+		b,
+		strong {
+			font-weight: bold
+		}
+
+		dfn {
+			font-style: italic
+		}
+
+		h1 {
+			font-size: 2em;
+			margin: .67em 0
+		}
+
+		mark {
+			background: #ff0;
+			color: #000
+		}
+
+		small {
+			font-size: 80%
+		}
+
+		sub,
+		sup {
+			font-size: 75%;
+			line-height: 0;
+			position: relative;
+			vertical-align: baseline
+		}
+
+		sup {
+			top: -.5em
+		}
+
+		sub {
+			bottom: -.25em
+		}
+
+		img {
+			border: 0;
+			display: block;
+			max-width: 100%
+		}
+
+		svg:not(:root) {
+			overflow: hidden
+		}
+
+		figure {
+			margin: 1em 40px
+		}
+
+		hr {
+			-webkit-box-sizing: content-box;
+			-moz-box-sizing: content-box;
+			box-sizing: content-box;
+			height: 0
+		}
+
+		pre {
+			overflow: auto
+		}
+
+		code,
+		kbd,
+		pre,
+		samp {
+			font-family: monospace, monospace;
+			font-size: 1em
+		}
+
+		button,
+		input,
+		optgroup,
+		select,
+		textarea {
+			color: inherit;
+			font: inherit;
+			margin: 0
+		}
+
+		button {
+			overflow: visible
+		}
+
+		button,
+		select {
+			text-transform: none
+		}
+
+		button,
+		html input[type=button],
+		input[type=reset],
+		input[type=submit] {
+			-webkit-appearance: button;
+			cursor: pointer
+		}
+
+		button[disabled],
+		html input[disabled] {
+			cursor: default
+		}
+
+		button::-moz-focus-inner,
+		input::-moz-focus-inner {
+			border: 0;
+			padding: 0
+		}
+
+		input {
+			line-height: normal
+		}
+
+		input[type=checkbox],
+		input[type=radio] {
+			-webkit-box-sizing: border-box;
+			-moz-box-sizing: border-box;
+			box-sizing: border-box;
+			padding: 0
+		}
+
+		input[type=number]::-webkit-inner-spin-button,
+		input[type=number]::-webkit-outer-spin-button {
+			height: auto
+		}
+
+		input[type=search] {
+			-webkit-appearance: textfield;
+			-webkit-box-sizing: content-box;
+			-moz-box-sizing: content-box;
+			box-sizing: content-box
+		}
+
+		input[type=search]::-webkit-search-cancel-button,
+		input[type=search]::-webkit-search-decoration {
+			-webkit-appearance: none
+		}
+
+		fieldset {
+			border: 1px solid silver;
+			margin: 0 2px;
+			padding: .35em .625em .75em
+		}
+
+		legend {
+			border: 0;
+			padding: 0
+		}
+
+		textarea {
+			overflow: auto
+		}
+
+		optgroup {
+			font-weight: bold
+		}
+
+		table {
+			border-collapse: collapse;
+			border-spacing: 0
+		}
+
+		td,
+		th {
+			padding: 0
+		}
+
+		* {
+			-webkit-box-sizing: border-box;
+			-moz-box-sizing: border-box;
+			box-sizing: border-box
+		}
+
+		*:before,
+		*:after {
+			-webkit-box-sizing: border-box;
+			-moz-box-sizing: border-box;
+			box-sizing: border-box
+		}
+
+		input,
+		button,
+		select,
+		textarea {
+			font-family: inherit;
+			font-size: inherit;
+			line-height: inherit
+		}
+
+		a {
+			color: #337ab7;
+			text-decoration: none
+		}
+
+		a:hover,
+		a:focus {
+			color: #23527c;
+			text-decoration: underline
+		}
+
+		a:focus {
+			outline: 5px auto -webkit-focus-ring-color;
+			outline-offset: -2px
+		}
+
+		figure {
+			margin: 0
+		}
+
+		img {
+			vertical-align: middle
+		}
+
+		.img-responsive,
+		.carousel-inner>.item>img,
+		.carousel-inner>.item>a>img {
+			display: block;
+			max-width: 100%;
+			height: auto
+		}
+
+		.img-rounded {
+			border-radius: 6px
+		}
+
+		.img-thumbnail {
+			padding: 4px;
+			line-height: 1.42857143;
+			background-color: #fff;
+			border: 1px solid #ddd;
+			border-radius: 4px;
+			-webkit-transition: all .2s ease-in-out;
+			-o-transition: all .2s ease-in-out;
+			transition: all .2s ease-in-out;
+			display: inline-block;
+			max-width: 100%;
+			height: auto
+		}
+
+		.img-circle {
+			border-radius: 50%
+		}
+
+		hr {
+			margin-top: 20px;
+			margin-bottom: 20px;
+			border: 0;
+			border-top: 1px solid #eee
+		}
+
+		.container {
+			margin-right: auto;
+			margin-left: auto;
+			padding-left: 6px;
+			padding-right: 6px
+		}
+
+		.container .wapper {
+			margin-right: auto;
+			margin-left: auto;
+			padding-left: 6px;
+			padding-right: 6px
+		}
+
+		.wapcontent {
+			margin-right: auto;
+			margin-left: auto;
+			padding-left: 6px;
+			padding-right: 6px
+		}
+
+		.container:before,
+		.container:after,
+		.wapcontent:before,
+		.wapcontent:after {
+			content: " ";
+			display: table
+		}
+
+		.container:after,
+		.wapcontent:after {
+			clear: both
+		}
+
+		.container .wapper:before,
+		.container .wapper:after {
+			content: " ";
+			display: table
+		}
+
+		.container:after .wapper {
+			clear: both
+		}
+
+		@media(min-width:992px) {
+			.container {
+				width: 970px
+			}
+
+			#notifypasgo .modal-dialog {
+				width: 1029px
+			}
+
+			#notifypasgo .modal-dialog .modal-content {
+				width: 1029px
+			}
+		}
+
+		@media(min-width:1140px)and (max-width:1200px) {
+			.container {
+				width: 1130px;
+				padding: 0
+			}
+
+			.wapcontent {
+				width: 1130px;
+				padding: 0
+			}
+
+			.search-fixed .input-group {
+				top: 6px;
+				width: 160px
+			}
+
+			#notifypasgo .modal-dialog {
+				width: 1130px
+			}
+
+			#notifypasgo .modal-dialog .modal-content {
+				width: 1130px
+			}
+		}
+
+		@media(min-width:1200px)and (max-width:1300px) {
+			.container {
+				width: 1200px
+			}
+
+			.wapcontent {
+				width: 1180px
+			}
+
+			#notifypasgo .modal-dialog {
+				width: 1180px
+			}
+
+			#notifypasgo .modal-dialog .modal-content {
+				width: 1180px
+			}
+		}
+
+		@media(min-width:1300px) {
+			.container {
+				width: 1280px
+			}
+
+			.wapcontent {
+				width: 1200px
+			}
+
+			#notifypasgo .modal-dialog {
+				width: 1200px
+			}
+
+			#notifypasgo .modal-dialog .modal-content {
+				width: 1200px
+			}
+		}
+
+		.container-fluid .wapper {
+			margin-right: auto;
+			margin-left: auto;
+			padding-left: 24px;
+			padding-right: 24px
+		}
+
+		.container-fluid .wapper:before,
+		.container-fluid .wapper:after {
+			content: " ";
+			display: table
+		}
+
+		.container-fluid .wapper:after {
+			clear: both
+		}
+
+		.row {
+			margin-right: 0;
+			margin-left: 0
+		}
+
+		.row:before,
+		.row:after {
+			display: table;
+			content: " "
+		}
+
+		.row:after {
+			clear: both
+		}
+
+		.row:before,
+		.row:after {
+			display: table;
+			content: " "
+		}
+
+		.row:after {
+			clear: both
+		}
+
+		.col-md-1,
+		.col-md-2,
+		.col-md-3,
+		.col-md-4,
+		.col-md-5,
+		.col-md-6,
+		.col-md-7,
+		.col-md-8,
+		.col-md-9,
+		.col-md-10,
+		.col-md-11,
+		.col-md-12 {
+			position: relative;
+			min-height: 1px;
+			padding-left: 6px;
+			padding-right: 6px
+		}
+
+		@media(min-width:768px) {
+
+			.col-md-1,
+			.col-md-2,
+			.col-md-3,
+			.col-md-4,
+			.col-md-5,
+			.col-md-6,
+			.col-md-7,
+			.col-md-8,
+			.col-md-9,
+			.col-md-10,
+			.col-md-11,
+			.col-md-12 {
+				float: left
+			}
+
+			.col-md-1 {
+				width: 8.33333%
+			}
+
+			.col-md-2 {
+				width: 16.66667%
+			}
+
+			.col-md-3 {
+				width: 25%
+			}
+
+			.col-md-4 {
+				width: 33.33333%
+			}
+
+			.col-md-5 {
+				width: 41.66667%
+			}
+
+			.col-md-6 {
+				width: 50%
+			}
+
+			.col-md-7 {
+				width: 58.33333%
+			}
+
+			.col-md-8 {
+				width: 66.66667%
+			}
+
+			.col-md-9 {
+				width: 75%
+			}
+
+			.col-md-10 {
+				width: 83.33333%
+			}
+
+			.col-md-11 {
+				width: 91.66667%
+			}
+
+			.col-md-12 {
+				width: 100%
+			}
+		}
+
+		.modal-open {
+			overflow: hidden
+		}
+
+		.modal {
+			display: none;
+			overflow: hidden;
+			position: fixed;
+			top: 0;
+			right: 0;
+			bottom: 0;
+			left: 0;
+			z-index: 1050;
+			-webkit-overflow-scrolling: touch;
+			outline: 0
+		}
+
+		.modal.fade .modal-dialog {
+			-webkit-transform: translate(0, -25%);
+			-ms-transform: translate(0, -25%);
+			-o-transform: translate(0, -25%);
+			transform: translate(0, -25%);
+			-webkit-transition: -webkit-transform .3s ease-out;
+			-o-transition: -o-transform .3s ease-out;
+			transition: transform .3s ease-out
+		}
+
+		.modal.in .modal-dialog {
+			-webkit-transform: translate(0, 0);
+			-ms-transform: translate(0, 0);
+			-o-transform: translate(0, 0);
+			transform: translate(0, 0)
+		}
+
+		.modal-open .modal {
+			overflow-x: hidden;
+			overflow-y: auto
+		}
+
+		.modal-dialog {
+			position: relative;
+			width: auto;
+			margin: 10px
+		}
+
+		.modal-content {
+			position: relative;
+			background-color: #fff;
+			border: 1px solid #999;
+			border: 1px solid rgba(0, 0, 0, .2);
+			border-radius: 6px;
+			-webkit-box-shadow: 0 3px 9px rgba(0, 0, 0, .5);
+			box-shadow: 0 3px 9px rgba(0, 0, 0, .5);
+			-webkit-background-clip: padding-box;
+			background-clip: padding-box;
+			outline: 0
+		}
+
+		.modal-backdrop {
+			position: fixed;
+			top: 0;
+			right: 0;
+			bottom: 0;
+			left: 0;
+			z-index: 1040;
+			background-color: #000
+		}
+
+		.modal-backdrop.fade {
+			opacity: 0;
+			filter: alpha(opacity=0)
+		}
+
+		.modal-backdrop.show {
+			opacity: .5;
+			filter: alpha(opacity=50)
+		}
+
+		.modal-header {
+			padding: 15px;
+			border-bottom: 1px solid #e5e5e5
+		}
+
+		.modal-header .close {
+			margin-top: -2px
+		}
+
+		.modal-title {
+			margin: 0;
+			line-height: 1.42857143
+		}
+
+		.modal-body {
+			position: relative;
+			padding: 15px
+		}
+
+		.modal-footer {
+			padding: 15px;
+			text-align: right;
+			border-top: 1px solid #e5e5e5
+		}
+
+		.modal-footer .btn+.btn {
+			margin-left: 5px;
+			margin-bottom: 0
+		}
+
+		.modal-footer .btn-group .btn+.btn {
+			margin-left: -1px
+		}
+
+		.modal-footer .btn-block+.btn-block {
+			margin-left: 0
+		}
+
+		.modal-scrollbar-measure {
+			position: absolute;
+			top: -9999px;
+			width: 50px;
+			height: 50px;
+			overflow: scroll
+		}
+
+		@media(min-width:768px) {
+			.modal-dialog {
+				width: 600px;
+				margin: 30px auto
+			}
+
+			.modal-content {
+				-webkit-box-shadow: 0 5px 15px rgba(0, 0, 0, .5);
+				box-shadow: 0 5px 15px rgba(0, 0, 0, .5)
+			}
+
+			.modal-sm {
+				width: 300px
+			}
+		}
+
+		@media screen and (max-width:992px) {
+
+			.col-md-1,
+			.col-md-2,
+			.col-md-3,
+			.col-md-4,
+			.col-md-5,
+			.col-md-6,
+			.col-md-7,
+			.col-md-8,
+			.col-md-9,
+			.col-md-10,
+			.col-md-11,
+			.col-md-12 {
+				float: left
+			}
+
+			.col-md-1 {
+				width: 8.333333333%
+			}
+
+			.col-md-2 {
+				width: 16.66666666%
+			}
+
+			.col-md-3 {
+				width: 25%
+			}
+
+			.col-md-4 {
+				width: 33.33333333%
+			}
+
+			.col-md-5 {
+				width: 41.66666666%
+			}
+
+			.col-md-6 {
+				width: 50%
+			}
+
+			.col-md-7 {
+				width: 58.333333333%
+			}
+
+			.col-md-8 {
+				width: 66.666666666%
+			}
+
+			.col-md-9 {
+				width: 75%
+			}
+
+			.col-md-10 {
+				width: 83.33333333%
+			}
+
+			.col-md-11 {
+				width: 91.6666666666%
+			}
+
+			.col-md-12 {
+				width: 100%
+			}
+
+			.img-dt {
+				width: 100%;
+				height: 100%;
+				aspect-ratio: 0/1
+			}
+		}
+
+		@media(min-width:992px) {
+			.modal-lg {
+				width: 900px
+			}
+		}
+
+		.clearfix:before,
+		.clearfix:after,
+		.container:before,
+		.container:after,
+		.wapcontent:after,
+		.wapcontent:before,
+		.container-fluid:before,
+		.container-fluid:after,
+		.row:before,
+		.row:after,
+		.modal-header:before,
+		.modal-header:after,
+		.modal-footer:before,
+		.modal-footer:after {
+			content: " ";
+			display: table
+		}
+
+		.clearfix:after,
+		.container:after,
+		.wapcontent:after,
+		.container-fluid:after,
+		.row:after,
+		.modal-header:after,
+		.modal-footer:after {
+			clear: both
+		}
+
+		.hide {
+			display: none !important
+		}
+
+		.show {
+			display: block !important
+		}
+
+		.invisible {
+			visibility: hidden
+		}
+
+		.text-hide {
+			font: 0/0 a;
+			color: transparent;
+			text-shadow: none;
+			background-color: transparent;
+			border: 0
+		}
+
+		.hidden {
+			display: none !important
+		}
+
+		.affix {
+			position: fixed
+		}
+
+		@-ms-viewport {
+			width: device-width;
+		}
+
+		#footer {
+			padding: 40px 0;
+			background: #fff;
+			width: 100%;
+			float: left;
+			font: normal 400 14px/1.5 "pasgo-fonts-regular", sans-serif
+		}
+
+		#footer .text-info div {
+			padding-top: 10px;
+			text-align: justify;
+			font-size: 14px;
+			line-height: 22px;
+			color: #606060;
+			word-spacing: -1px
+		}
+
+		#footer .dk-mail div {
+			text-align: justify;
+			font-size: 14px;
+			line-height: 22px;
+			color: #7e7e7e;
+			word-spacing: -1px
+		}
+
+		#footer h3 {
+			font-weight: normal;
+			line-height: 22px;
+			font-size: 16px;
+			text-align: center;
+			margin-top: 0
+		}
+
+		#footer h4 {
+			font-weight: normal;
+			line-height: 22px;
+			font-size: 14px;
+			text-align: left;
+			margin-top: 30px;
+			text-transform: uppercase
+		}
+
+		#footer .footer-content .col-md-2,
+		#footer .footer-content .col-md-3,
+		#footer .footer-content .col-md-12 {
+			padding: 0
+		}
+
+		#footer ul li {
+			list-style: none;
+			line-height: 24px
+		}
+
+		#footer ul li a {
+			text-decoration: none;
+			color: #606060;
+			padding: 5px 0;
+			line-height: 18px
+		}
+
+		#footer ul li a:hover {
+			color: #d02028
+		}
+
+		#footer .pasgo-social {
+			text-align: center;
+			margin-bottom: 12px
+		}
+
+		#footer .link-bct {
+			display: inline-block;
+			text-align: center;
+			width: 100%
+		}
+
+		#footer .dmca-badge span {
+			margin: 15px auto 0 auto;
+			display: block
+		}
+
+		#footer .input-group {
+			background: #e8e8e8;
+			border-radius: 20px;
+			height: 42px;
+			margin-top: 30px;
+			padding-left: 4px
+		}
+
+		#footer .form-control {
+			height: 34px;
+			background-color: #f9f9f9;
+			-webkit-box-shadow: none;
+			box-shadow: none;
+			-o-transition: none;
+			transition: none;
+			border: 0;
+			margin-top: 4px;
+			border-bottom-left-radius: 20px;
+			border-top-left-radius: 20px;
+			padding-left: 10px;
+			outline: 0
+		}
+
+		#footer .input-group-btn {
+			position: relative;
+			font-size: 0;
+			white-space: nowrap
+		}
+
+		#footer .btn-send-mail {
+			border-radius: 20px;
+			margin: -1px 0 0 10px;
+			padding: 0 25px;
+			margin-right: 4px;
+			background-color: #d02028;
+			border-color: #d02028;
+			border: 1px solid transparent;
+			white-space: nowrap;
+			font-size: 14px;
+			height: 36px;
+			top: 1px;
+			color: #fff
+		}
+
+		#footer .link-company a {
+			font-size: 14px;
+			text-decoration: none;
+			color: #0049b9
+		}
+
+		#footer .input-group-btn>.btn {
+			position: relative
+		}
+
+		#footer .col-md-12 p {
+			padding-top: 10px;
+			text-align: justify;
+			font-size: 12px;
+			line-height: 18px;
+			color: #757575;
+			word-spacing: -1px;
+			margin: 0
+		}
+
+		#footer .col-md-12 p span {
+			color: #147fc3
+		}
+
+		#footer .col-md-12 .wap-help {
+			display: flex;
+			flex-direction: column;
+			gap: 8px
+		}
+
+		#footer .col-md-12 .wap-help p {
+			color: #000
+		}
+
+		#footer .col-md-12 .wap-help .wap-help-link {
+			display: block;
+			width: 100%;
+			height: auto
+		}
+
+		#footer .col-md-12 .wap-help .wap-help-link .button-support {
+			display: flex;
+			position: relative;
+			background-color: #fff;
+			color: #d02028;
+			border: 1px solid #d02028;
+			border-radius: 12px;
+			padding: 7px 12px;
+			max-width: 130px;
+			transition: all .2s linear;
+			outline: 0
+		}
+
+		#footer .col-md-12 .wap-help .wap-help-link .button-support-icon {
+			position: absolute;
+			top: 50%;
+			left: 15px;
+			transform: translateY(-50%);
+			width: 24px;
+			height: 24px;
+			pointer-events: none
+		}
+
+		#footer .col-md-12 .wap-help .wap-help-link .button-support-text {
+			font-size: 14px;
+			color: #d02028;
+			padding-left: 35px
+		}
+
+		#footer .col-md-12 .wap-help .wap-help-link .button-support:hover,
+		#footer .col-md-12 .wap-help .wap-help-link .button-support:active {
+			background-color: #d02028;
+			color: #fff
+		}
+
+		#footer .col-md-12 .wap-help .wap-help-link .button-support:hover span,
+		#footer .col-md-12 .wap-help .wap-help-link .button-support:active span {
+			color: #fff
+		}
+
+		.smoothscroll-top.show {
+			visibility: visible;
+			cursor: pointer;
+			opacity: 1;
+			bottom: 60px
+		}
+
+		.smoothscroll-top {
+			position: fixed;
+			opacity: 0;
+			text-align: center;
+			z-index: 99;
+			background-color: #fff;
+			width: 45px;
+			height: 45px;
+			right: 15px;
+			bottom: -25px;
+			transition: all .2s ease-in-out;
+			border-radius: 50%;
+			box-shadow: 0 2px 5px #a7a7a7
+		}
+
+		.smoothscroll-top span {
+			font-size: 25px;
+			font-weight: bold;
+			color: #d02028;
+			padding: 5px 2px;
+			display: block;
+			overflow: hidden
+		}
+
+		.smoothscroll-top:hover {
+			background-color: #d02028
+		}
+
+		.smoothscroll-top:hover span {
+			color: #fff
+		}
+
+		.modal-backdrop {
+			position: relative !important
+		}
+
+		#notifypasgo {
+			background-color: rgba(0, 0, 0, .3);
+			overflow: hidden
+		}
+
+		#notifypasgo .modal-dialog {
+			position: absolute;
+			top: 0;
+			left: 0;
+			bottom: 0;
+			right: 0;
+			transform: translate(0, 0);
+			display: flex;
+			justify-content: center;
+			align-items: center;
+			width: 100%;
+			height: 100%;
+			margin: 0 auto;
+			border: 0;
+			padding: 30px
+		}
+
+		#notifypasgo .modal-dialog .modal-content {
+			position: absolute;
+			top: 50%;
+			left: 50%;
+			height: 90%;
+			transform: translate(-50%, -50%);
+			display: flex;
+			justify-content: center;
+			flex-direction: column;
+			box-shadow: none;
+			background-color: transparent;
+			overflow: hidden;
+			border: 0
+		}
+
+		#notifypasgo .modal-dialog .modal-content .modal-header {
+			position: relative;
+			display: block;
+			background-color: transparent;
+			width: 100%;
+			border: 0
+		}
+
+		#notifypasgo .modal-dialog .modal-content .modal-header .close {
+			position: absolute;
+			top: 10px;
+			right: 10px;
+			z-index: 9;
+			padding: 0;
+			padding: 6px;
+			background-color: #fff;
+			border-radius: 50%;
+			cursor: pointer;
+			outline: 0
+		}
+
+		#notifypasgo .modal-dialog .modal-content .modal-body {
+			padding: 0;
+			width: 100%;
+			overflow: hidden;
+			padding: 0 20px
+		}
+
+		#notifypasgo .modal-dialog .modal-content .modal-body .popup-tracking {
+			position: relative
+		}
+
+		#notifypasgo .modal-dialog .modal-content .modal-body .popup-tracking img {
+			display: block;
+			width: 100%;
+			height: 100%;
+			aspect-ratio: 5/3;
+			border-radius: 5px
+		}
+
+		.qctags {
+			margin-top: 10px;
+			padding: 0
+		}
+
+		.qctags a {
+			text-decoration: none;
+			display: block;
+			padding: 0 10px;
+			font-size: 12px;
+			color: #555;
+			width: auto;
+			float: left;
+			border-right: 1px solid #dedede
+		}
+
+		.color-alice {
+			background-color: #f0f8ff !important
+		}
+
+		.dialog-ovelay {
+			position: fixed;
+			top: 0;
+			left: 0;
+			right: 0;
+			bottom: 0;
+			background-color: rgba(0, 0, 0, .5);
+			z-index: 999999
+		}
+
+		.dialog-ovelay .dialog {
+			max-width: 400px;
+			width: auto;
+			margin: 150px auto 0;
+			background-color: #fff;
+			box-shadow: 0 0 20px rgba(0, 0, 0, .2);
+			border-radius: 3px;
+			overflow: hidden
+		}
+
+		.dialog-ovelay .dialog header {
+			padding: 10px 8px;
+			background-color: #f6f7f9;
+			border-bottom: 1px solid #e5e5e5
+		}
+
+		.dialog-ovelay .dialog header .icon-close {
+			float: right
+		}
+
+		.dialog-ovelay .dialog header h3 {
+			font-size: 14px;
+			margin: 0;
+			color: #555;
+			display: inline-block
+		}
+
+		.dialog-ovelay .dialog header .fa-close {
+			float: right;
+			color: #c4c5c7;
+			cursor: pointer;
+			transition: all .5s ease;
+			padding: 0 2px;
+			border-radius: 1px
+		}
+
+		.dialog-ovelay .dialog header .fa-close:hover {
+			color: #b9b9b9
+		}
+
+		.dialog-ovelay .dialog header .fa-close:active {
+			box-shadow: 0 0 5px #673ab7;
+			color: #a2a2a2
+		}
+
+		.dialog-ovelay .dialog .dialog-msg {
+			padding: 12px 10px
+		}
+
+		.dialog-ovelay .dialog .dialog-msg .fix-title {
+			padding: 6px 0
+		}
+
+		.dialog-ovelay .dialog .dialog-msg p {
+			margin: 0;
+			font-size: 15px;
+			color: #333
+		}
+
+		.dialog-ovelay .dialog footer {
+			border-top: 1px solid #e5e5e5;
+			padding: 8px 10px
+		}
+
+		.dialog-ovelay .dialog footer .controls {
+			direction: rtl
+		}
+
+		.dialog-ovelay .dialog footer .controls .button {
+			padding: 5px 15px;
+			border-radius: 3px
+		}
+
+		.dialog-select {
+			max-height: 300px;
+			overflow-y: auto
+		}
+
+		.form-radio {
+			display: block;
+			width: 100%;
+			margin: 6px 0;
+			padding: .375rem .75rem;
+			font-size: 1rem;
+			line-height: 1.5;
+			color: #495057;
+			background-color: #fff;
+			background-clip: padding-box;
+			border: 1px solid #ced4da;
+			border-radius: .25rem;
+			transition: border-color .15s ease-in-out, box-shadow .15s ease-in-out
+		}
+
+		.form-radio input {
+			margin-right: 10px
+		}
+
+		.button {
+			cursor: pointer
+		}
+
+		.button-default {
+			background-color: #f8f8f8;
+			border: 1px solid rgba(204, 204, 204, .5);
+			color: #5d5d5d
+		}
+
+		.button-danger {
+			background-color: #d02028;
+			border: 1px solid #d32f2f;
+			color: #f5f5f5
+		}
+
+		.link {
+			padding: 5px 10px;
+			cursor: pointer
+		}
+
+		a:link {
+			text-decoration: none
+		}
+
+		.img-dt {
+			width: 100%;
+			height: 100%;
+			aspect-ratio: 0/1
+		}
+
+		.common-detail-love {
+			display: none;
+			position: absolute;
+			top: 10px;
+			right: 15px;
+			z-index: 1;
+			cursor: pointer;
+			transition: all .35s ease-in-out;
+			text-shadow: -1px 1px 2px #333;
+			fill: #d02028;
+			height: 24px;
+			width: 24px;
+			stroke: #fff;
+			stroke-width: 2;
+			overflow: visible
+		}
+
+		.wapitem:hover .common-detail-love {
+			display: block
+		}
+
+		.wapitem:hover .common-detail-not-love {
+			display: block
+		}
+
+		.common-detail-not-love {
+			display: none;
+			position: absolute;
+			top: 10px;
+			right: 15px;
+			z-index: 1;
+			cursor: pointer;
+			fill: rgba(0, 0, 0, .5);
+			height: 24px;
+			width: 24px;
+			stroke: #fff;
+			stroke-width: 2;
+			overflow: visible
+		}
+
+		#FilterModal {
+			font-family: Pas-Sans-Regular;
+			font-weight: normal;
+			overflow-y: hidden;
+			background-color: rgba(0, 0, 0, .75)
+		}
+
+		#FilterModal .col-md-6,
+		#FilterModal .col-md-4,
+		#FilterModal .col-md-3 {
+			padding-left: 0
+		}
+
+		#FilterModal .close {
+			position: absolute;
+			border: 0;
+			background: none;
+			top: 8px;
+			right: 16px
+		}
+
+		#FilterModal .close span {
+			color: #2f4f4f;
+			font-size: 24px
+		}
+
+		#FilterModal .modal-dialog {
+			width: 700px;
+			margin-inline: auto;
+			margin-block: 0
+		}
+
+		#FilterModal .modal-dialog .modal-body {
+			height: 550px;
+			overflow-y: scroll
+		}
+
+		#FilterModal .btn input {
+			position: absolute;
+			opacity: 0;
+			cursor: pointer;
+			height: 0;
+			width: 0
+		}
+
+		#FilterModal .btn-outline {
+			display: inline-block;
+			border-radius: 8px;
+			border: 1px solid #dae1f5;
+			padding: 8px 16px;
+			font-size: 16px;
+			background: #fff;
+			color: #000
+		}
+
+		#FilterModal .btn-outline.active {
+			box-shadow: none;
+			-webkit-box-shadow: none;
+			border: 1px solid #f01b23;
+			color: #f01b23
+		}
+
+		#FilterModal .btn-outline.focus {
+			outline: 0 !important
+		}
+
+		#FilterModal .btn-outline:focus {
+			box-shadow: none !important
+		}
+
+		#FilterModal h2 {
+			font-size: 20px;
+			font-style: normal;
+			font-weight: 600;
+			line-height: 28px;
+			text-align: center
+		}
+
+		#FilterModal h3 {
+			font-size: 16px;
+			font-style: normal;
+			font-weight: 700;
+			line-height: 20px
+		}
+
+		#FilterModal .checkbox {
+			display: inline-block;
+			-webkit-user-select: none;
+			-moz-user-select: none;
+			-ms-user-select: none;
+			user-select: none;
+			position: relative;
+			margin-bottom: 16px
+		}
+
+		#FilterModal .checkbox input {
+			position: absolute;
+			opacity: 0;
+			cursor: pointer;
+			height: 0;
+			width: 0
+		}
+
+		#FilterModal .checkmark {
+			position: absolute;
+			top: -4px;
+			left: 0;
+			width: 20px;
+			height: 20px;
+			background-color: #fff;
+			border: 2px solid #e8e8e8;
+			border-radius: 2px;
+			box-shadow: none !important;
+			margin-top: 4px !important
+		}
+
+		#FilterModal .checkbox input:checked~.checkmark {
+			background-color: #f01b23;
+			border-color: #f01b23
+		}
+
+		#FilterModal .checkmark:after {
+			content: "";
+			position: absolute;
+			display: none
+		}
+
+		#FilterModal .checkbox input:checked~.checkmark:after {
+			display: block
+		}
+
+		#FilterModal .checkbox .checkmark:after {
+			left: 5px;
+			top: 1px;
+			width: 6px;
+			height: 12px;
+			border: solid #fff;
+			border-width: 0 2px 2px 0;
+			-webkit-transform: rotate(45deg);
+			-ms-transform: rotate(45deg);
+			transform: rotate(45deg)
+		}
+
+		#FilterModal .checkbox-text {
+			margin-left: 24px;
+			margin-right: 10px
+		}
+
+		#FilterModal .type-label h3 {
+			margin-top: 0
+		}
+
+		#FilterModal label {
+			font-weight: normal
+		}
+
+		#FilterModal .quantity input::-webkit-outer-spin-button,
+		#FilterModal .quantity input::-webkit-inner-spin-button {
+			-webkit-appearance: none;
+			margin: 0
+		}
+
+		#FilterModal .quantity input[type=number] {
+			-moz-appearance: textfield
+		}
+
+		#FilterModal .quantity .number-input {
+			width: 150px
+		}
+
+		#FilterModal .time .day-select {
+			position: relative;
+			display: inline-block
+		}
+
+		#FilterModal .time .day-select svg {
+			position: absolute;
+			pointer-events: none
+		}
+
+		#FilterModal .time .day-select .bi-calendar {
+			top: 10px;
+			left: 15px
+		}
+
+		#FilterModal .time .day-select .bi-chevron-down {
+			top: 12px;
+			right: 10px
+		}
+
+		#FilterModal .time .day-select .calendar {
+			padding-left: 45px;
+			padding-right: 30px
+		}
+
+		#FilterModal .time .hour-select {
+			position: relative;
+			display: inline-block;
+			margin-left: 16px
+		}
+
+		#FilterModal .time .hour-select svg {
+			position: absolute;
+			top: 10px;
+			left: 15px
+		}
+
+		#FilterModal .time .hour-select select {
+			padding-left: 40px
+		}
+
+		#FilterModal .sm-text {
+			color: #939db5;
+			font-size: 14px;
+			margin-left: 8px
+		}
+
+		#FilterModal .btn-more {
+			background: none;
+			border: 0;
+			color: #1673ff;
+			font-size: 16px
+		}
+
+		#FilterModal .btn-more:hover {
+			text-decoration: underline
+		}
+
+		#FilterModal .btn-clear {
+			border-radius: 6px;
+			border: 1px solid #2b2f33;
+			padding: 10px 14px;
+			background-color: #fff;
+			font-size: 16px;
+			margin-right: 8px
+		}
+
+		#FilterModal .btn-apply {
+			border-radius: 6px;
+			background: #f01b23;
+			padding: 10px 14px;
+			color: #fff;
+			font-size: 16px;
+			border: 0
+		}
+
+		#FilterModal .pricerange .pricerange-select-number {
+			text-align: center;
+			margin-top: 16px
+		}
+
+		#FilterModal .slider-container {
+			border-radius: 5px;
+			background: #c0dbfb;
+			height: 10px !important
+		}
+
+		#FilterModal .slider-container .slider {
+			border-radius: 5px;
+			background: #2280ef;
+			height: 10px
+		}
+
+		#FilterModal .slider-container .slider .handle {
+			border-radius: 50%;
+			height: 16px;
+			width: 16px;
+			background-color: #fff
+		}
+
+		#FilterModal .slider-container .slider .WW,
+		#FilterModal .slider-container .slider .EE {
+			margin-top: -8px
+		}
+
+
+
+		@font-face {
+			font-family: "glyphicons-halflings-regular";
+			src: url("/Assets/fonts/glyphicons-halflings-regular.ttf") format("truetype");
+			font-display: swap
+		}
+
+		@font-face {
+			font-family: "glyphicons-halflings-regular";
+			src: url("/Assets/fonts/glyphicons-halflings-regular.woff") format("woff");
+			font-display: swap
+		}
+
+		@font-face {
+			font-family: "glyphicons-halflings-regular";
+			src: url("/Assets/fonts/glyphicons-halflings-regular.eot?") format("embedded-opentype");
+			font-display: swap
+		}
+
+		@font-face {
+			font-family: "glyphicons-halflings-regular";
+			src: url("/Assets/fonts/glyphicons-halflings-regular.svg") format("svg")
+		}
+
+		@font-face {
+			font-family: "pasgo-fonts-regular";
+			src: url("/Assets/fonts/fontlexend/lexend-regular.ttf") format("truetype")
+		}
+
+		@font-face {
+			font-family: "pasgo-fonts-medium";
+			src: url("/Assets/fonts/fontlexend/lexend-medium.ttf") format("truetype")
+		}
+
+		@font-face {
+			font-family: "pasgo-fonts-semibold";
+			src: url("/Assets/fonts/fontlexend/lexend-semibold.ttf") format("truetype")
+		}
+
+		@font-face {
+			font-family: "pasgo-fonts-bold";
+			src: url("/Assets/fonts/fontlexend/lexend-bold.ttf") format("truetype")
+		}
+
+		@font-face {
+			font-family: "pasgo-fonts-extrabold";
+			src: url("/Assets/fonts/fontlexend/lexend-extrabold.ttf") format("truetype")
+		}
+
+		@font-face {
+			font-family: "pasgo-fonts-black";
+			src: url("/Assets/fonts/fontlexend/lexend-black.ttf") format("truetype")
+		}
+
+		.wapper-content {
+			position: relative;
+			float: left;
+			display: block;
+			width: 100%;
+			clear: both;
+			background: #eee
+		}
+
+		.wap-account {
+			position: relative;
+			display: block;
+			width: 100%;
+			clear: both;
+			background: #fff;
+			min-height: 200px;
+			margin-top: 10px
+		}
+
+		.wap-account .col-md-4 ul {
+			display: block;
+			width: 100%;
+			float: left;
+			padding: 0;
+			margin: 0;
+			background: #fff
+		}
+
+		.wap-account .col-md-4 ul li:first-child .col-md-4 {
+			text-align: center
+		}
+
+		.wap-account .col-md-4 ul li {
+			position: relative;
+			padding: 10px;
+			float: left;
+			width: 100%;
+			border-bottom: 1px solid #ccc;
+			list-style: none
+		}
+
+		.wap-account .col-md-4 ul li .input-group {
+			display: flex;
+			padding: 0 !important;
+			margin: 0 !important
+		}
+
+		.wap-account .col-md-4 ul li .input-group .btn-group {
+			width: 100%;
+			display: flex;
+			flex-direction: row;
+			align-items: center;
+			gap: 6px;
+			margin: 10px 0 0 0;
+			padding: 0 15px;
+			border-radius: 100px;
+			background: #d02028
+		}
+
+		.wap-account .col-md-4 ul li .input-group .btn-group .text-otp-confirm {
+			font-size: 14px;
+			line-height: 24px;
+			width: 85%;
+			margin: 8px 0;
+			color: #fff
+		}
+
+		.wap-account .col-md-4 ul li .input-group .btn-group .btn-otp-confirm {
+			background-color: transparent;
+			padding: 8px 0;
+			margin: 8px 0;
+			width: 25%;
+			border-radius: 100px;
+			outline: 0;
+			cursor: pointer;
+			border: 1px solid #fff;
+			box-shadow: 0 4px 4px 0 rgba(0, 0, 0, .25)
+		}
+
+		.wap-account .col-md-4 ul li .input-group.active .btn-group {
+			background: #545454
+		}
+
+		.wap-account .col-md-4 ul li .input-group.active .btn-group .text-otp-confirm {
+			color: #000
+		}
+
+		.wap-account .col-md-4 ul li .input-group.active .btn-group .btn-otp-confirm {
+			background: #007aff;
+			border: 0
+		}
+
+		.wap-account .col-md-4 ul li #btn-delete {
+			border: 1px solid #d02028;
+			padding: 2px 12px;
+			background: #d02028;
+			color: #fff;
+			border-radius: 20px;
+			font-size: 13px;
+			opacity: 0
+		}
+
+		.wap-account .col-md-4 ul li img {
+			width: 60px;
+			height: 60px;
+			margin: 0 auto;
+			object-fit: cover
+		}
+
+		.wap-account .col-md-4 ul li a {
+			text-decoration: none;
+			color: #000;
+			font-size: 14px;
+			padding: 5px 5px;
+			display: flex;
+			align-items: center
+		}
+
+		.wap-account .col-md-4 ul li a .pasgo-icondesktop-menublack {
+			position: absolute;
+			right: 10px
+		}
+
+		.wap-account .col-md-4 ul li a .text-menu-acount {
+			padding: 3px 0 0 5px
+		}
+
+		.wap-account .col-md-4 ul li a span {
+			color: #000
+		}
+
+		.wap-account .col-md-4 ul li a:hover {
+			color: #d02028
+		}
+
+		.wap-account .col-md-4 ul li a:hover span {
+			color: #d02028
+		}
+
+		.wap-account .col-md-4 ul li .text-manage {
+			display: block;
+			padding: 5px 0
+		}
+
+		.wap-account .col-md-4 ul li .text-manage span {
+			color: gray;
+			font-size: 14px;
+			font-weight: bold;
+			padding: 5px 0
+		}
+
+		.wap-account .col-md-4 ul li .btn-file {
+			margin-top: 5px;
+			margin-top: 5px
+		}
+
+		.wap-account .col-md-4 ul li .btn-file label {
+			border: 1px solid #3d7ff8;
+			padding: 4px 5px;
+			border-radius: 16px;
+			background: #3d7ff8;
+			color: #fff;
+			font-size: 13px;
+			box-shadow: 0 1px 2px #aaa
+		}
+
+		.wap-account .col-md-4 ul li .btn-file label #file {
+			width: .5px;
+			display: none
+		}
+
+		.wap-account .col-md-4 ul .acount-info.active {
+			color: #d02028
+		}
+
+		.wap-account .col-md-4 ul .col-md-8 {
+			background-color: transparent
+		}
+
+		.wap-account .col-md-8 .content-right {
+			display: flex;
+			flex-direction: column;
+			background-color: #fff;
+			margin: 1px 0
+		}
+
+		.wap-account .col-md-8 .content-right .validation-summary-errors ul {
+			padding: 0;
+			margin: 10px 0
+		}
+
+		.wap-account .col-md-8 .content-right .validation-summary-errors ul li {
+			font: normal 600 16px/1.5 "pasgo-fonts-regular", sans-serif;
+			list-style: none;
+			text-align: center
+		}
+
+		.wap-account .col-md-8 .facebook {
+			position: absolute;
+			padding: 11px 25px;
+			font-size: 25px;
+			font-weight: bold;
+			color: #191db0;
+			border-right: 1px solid #c5c5c5
+		}
+
+		.wap-account .breadcrumb {
+			padding: 0 10px;
+			margin: 0
+		}
+
+		.wap-account .breadcrumb li {
+			list-style: none;
+			float: left;
+			padding: 15px 10px 15px 0
+		}
+
+		.wap-account .breadcrumb li a {
+			text-decoration: none;
+			color: #797878
+		}
+
+		.wap-account .breadcrumb li a:hover {
+			color: #d02028
+		}
+
+		.wap-account .breadcrumb li:last-child span {
+			color: #d02028;
+			font-weight: bold
+		}
+
+		.wap-account h1 {
+			font: normal 500 20px/1.5 "pasgo-fonts-regular", sans-serif;
+			margin: 20px 0;
+			text-align: center;
+			text-transform: uppercase
+		}
+
+		.wap-account .form-group {
+			width: auto;
+			margin: 0 auto;
+			display: block;
+			position: relative
+		}
+
+		.wap-account .form-group .input-group-addon {
+			padding-left: 10px;
+			color: #000;
+			border: 0;
+			width: 100px;
+			text-align: left
+		}
+
+		.wap-account .form-group .input-group {
+			margin-bottom: 12px;
+			width: 100%;
+			padding: 0 10px
+		}
+
+		.wap-account .form-group .sex {
+			padding: 0 22px !important
+		}
+
+		.wap-account .form-group .content-info {
+			padding: 0 15px
+		}
+
+		.wap-account .form-group .form-control {
+			height: 40px;
+			max-width: 340px
+		}
+
+		.wap-account .form-group .txt-list {
+			line-height: 36px !important;
+			padding: 0 10px !important
+		}
+
+		.wap-account .form-group .content-update {
+			display: flex;
+			justify-content: center
+		}
+
+		.wap-account .form-group .content-update .btn-register {
+			display: inline-block;
+			background: #d02028;
+			border-radius: 5px;
+			font-size: 14px;
+			color: #fff;
+			padding: 10px 40px;
+			text-align: center;
+			margin: 15px 0 30px 0
+		}
+
+		.wap-account .form-group .row .col-md-12 {
+			padding-left: 15px;
+			color: #797878
+		}
+
+		.wap-account .form-group .row .col-md-3 {
+			margin: 5px 0
+		}
+
+		.wap-account .form-group .row .col-md-3 label {
+			display: inline-block;
+			width: 100%;
+			padding: 5px 10px
+		}
+
+		.wap-account .form-group .row .col-md-3 input {
+			position: relative;
+			margin-right: 10px;
+			top: 2px;
+			cursor: pointer
+		}
+
+		.wapper {
+			position: relative;
+			display: block;
+			float: left;
+			width: 100%;
+			clear: both;
+			background: #eee;
+			min-height: 200px;
+			margin-bottom: 8px
+		}
+
+		.wapper .content-acount {
+			margin: 15px 0 20px 0
+		}
+
+		.wapper .waphuongdan {
+			margin: 0;
+			text-align: center;
+			background: #fff
+		}
+
+		.wapper .waphuongdan h2 {
+			font-size: 18px;
+			font-weight: normal;
+			line-height: 22px;
+			margin: 10px 0
+		}
+
+		.wapper .waphuongdan .line-tutorial {
+			margin: 15px auto;
+			display: block;
+			width: 120px;
+			border: 0;
+			border-top: 1px solid #545454
+		}
+
+		.wapper .waphuongdan img {
+			margin: 30px 0;
+			display: block
+		}
+
+		.text-danger {
+			color: #d02028
+		}
+
+		.text-success {
+			color: #04aa6d
+		}
+
+		@media(min-width:1300px) {
+			.wapcontent {
+				width: 1265px
+			}
+		}
+
+		[class^=icon-],
+		[class*=" icon-"] {
+			font-family: "icomoon";
+			speak: none;
+			font-style: normal;
+			font-weight: normal;
+			font-variant: normal;
+			text-transform: none;
+			line-height: 1;
+			-webkit-font-smoothing: antialiased;
+			-moz-osx-font-smoothing: grayscale
+		}
+
+		@font-face {
+			font-family: "icomoon";
+			src: url("data:application/x-font-ttf;charset=utf-8;base64,AAEAAAALAIAAAwAwT1MvMghi9pwAAAC8AAAAYGNtYXAgVsCNAAABHAAAAFRnYXNwAAAAEAAAAXAAAAAIZ2x5ZqNqZaUAAAF4AAAIFGhlYWQaRAp1AAAJjAAAADZoaGVhA+IB7AAACcQAAAAkaG10eBEAADQAAAnoAAAALGxvY2EGkAkoAAAKFAAAABhtYXhwABgA0AAACiwAAAAgbmFtZZlKCfsAAApMAAABhnBvc3QAAwAAAAAL1AAAACAAAwHgAZAABQAAAUwBZgAAAEcBTAFmAAAA9QAZAIQAAAAAAAAAAAAAAAAAAAABEAAAAAAAAAAAAAAAAAAAAABAAADgBgHg/+AAIAHgACAAAAABAAAAAAAAAAAAAAAgAAAAAAADAAAAAwAAABwAAQADAAAAHAADAAEAAAAcAAQAOAAAAAoACAACAAIAAQAg4Ab//f//AAAAAAAg4AD//f//AAH/4yAEAAMAAQAAAAAAAAAAAAAAAQAB//8ADwABAAAAAAAAAAAAAgAANzkBAAAAAAEAAAAAAAAAAAACAAA3OQEAAAAAAQAAAAAAAAAAAAIAADc5AQAAAAAIABwAAAHgAeAACwAXACMALwBIAGEAegCGAAATNDYzMhYVFAYjIiYXNDYzMhYVFAYjIiYXNDYzMhYVFAYjIiYHNDYzMhYVFAYjIiYHOAExNDYzMhYVOAExOAExFAYjIiY1OAExJzgBMTQ2MzIWFTgBMTgBMRQGIyImNTgBMQM4ATE0NjMyFhU4ATE4ATEUBiMiJjU4ATEHNDYzMhYVFAYjIibAJRsbJSUbGyWIJRsaJiYaGyVYEw0NExMNDRM4Ew0NExMNDROIEw0NExMNDROIEw0NExMNDRMQHBQUHBwUFBwsFQ8PFRUPDxUBoBslJRsbJSUdGiYmGhslJW0NExMNDRMTew0TEw0NExMrDRMTDQ0TEw04DRMTDQ0TEw0BEBQcHBQUHBwUiA8VFQ8PFRUAAgAQ//gCAAHYADoAcgAAJTQmJy4BJy4BJy4BByIGBw4BBw4BBw4BFxQWFx4BFx4BFx4BNzI2Nz4BNz4BNz4BNzoBMTI2NTwBNTEHDgEHDgEHDgEnIiYnLgEnLgEnLgE3NDY3PgE3PgE3PgEXMhYXHgEXHgEXHgEHMRwBFRQWFw4BBwIACwoKHRISKRcXMRgYMBYWKBEQGgkICQELCQkbEREnFRYtFxcsFRUlDxAYCAUGAgEBDRMzCRkPECUUFCoVFSoTEyMODhcHCAcBCQkIFw8OIhMSJxQUJhISHw4NFAcHBwERDAMIBeAZMRcXKRERGwkJCQELCgkcERIoFhcuGBguFRYmEBAZCAkIAQoJChoQECYUDRoNEw0BAQFVFCQPDhgHCAgBCggJGA8PIxQTKRQUKBMSIQ4OFgcHBwEJCAgWDg4hEhIlEwEBAQwSAQ4ZDAAAAAUAAP/gAgAB3gANABsAJAAsADsAADc0NjUnDgEVFBYXNy4BJRQGBxc+ATU0JicHFBYnHgEXNy4BJxUHPgE3NQ4BBwUOASMiJicHHgEzMjY3J2ABXAMCLCU5FBYBQBYUOSUsAgNcAYAiOBFdHGpCqxE4IkJqHAEqDyESEiEPORs+IiI+GzngBQkEHgwYDDdhI08VOB8fOBVPI2E3DBgMHgQJmAcpHh46TwhhTh4pB2EITzr/BwcHB04PEREPTgAAAAMAAP/gAgAB4AAbACcASgAAASIHDgEHBhUUFx4BFxYzMjc+ATc2NTQnLgEnJgcyFhUUBiMiJjU0NhMOASMiJicuATU0NjcXOAExBhQXHgEzMjY3NjQnNx4BFRQGAQA1Ly5GFBQUFEYuLzU1Ly5GFBQUFEYuLzU1S0s1NUtLzh9PKytPHx4hIR4iMTEYPSIiPRgxMSIeISEB4BQURi4vNTUvLkYUFBQURi4vNTUvLkYUFIBLNTVLSzU1S/7nHiEhHh9PKytPHyIxjDEYGRkYMYwxIh9PKytPAAIAAP/gAgAB4AAhAEMAAAEiBw4BBwYHNjc+ATc2MzIXHgEXFhUUFjMyNjU0Jy4BJyYDMjc+ATc2NwYHDgEHBiMiJy4BJyY1NCYjIgYVFBceARcWAQA0Li5GFBUBAREROCUmKismJjgREBwUFBwUFEYuLzU0Li5GFBUBAREROCUmKismJjgREBwUFBwUFEYuLwHgFBNELS40LSgoOxEREhE9KSkuFBwcFDUvLkYUFP4AFBNELS40LSgoOxEREhE9KSkuFBwcFDUvLkYUFAAAAAABAAD/4AIAAeAALQAAASM3LgEjIgYHDgEVFBYXHgEzMjY3PgE3Fw4BIyInLgEnJjU0Nz4BNzYzMhYXNwIAwEgbRyYmRxsbHR0bG0cmJkcbAgQCMSRjOjUvLkYUFBQURi4vNTVdI0sBIEgbHR0bG0cmJkcbGx0dGwMEAysoLxQURi4vNTUvLkYUFCgjSwAAAAAMAAj/7gHvAd4ADQAbAC0APwBQAGIAcACFAJcAqQC7AM0AAAEiJj0BNDYzMhYdARQGAyImPQE0NjMyFh0BFAYDIiYvASY2NzYWHwEWBgcOASMTIiYvASY2NzYWHwEWBgcOASMnIiYvAS4BNz4BHwEeAQcOAQUiJi8BLgE3PgEfAR4BBw4BIyUjIiY1NDY7ATIWFRQGJTgBMSMiJjU0NjM4ATEzMhYVFAYjBSImJyY2PwE2FhcWBg8BDgEjJSImJyY2PwE2FhcWBg8BDgEjAyImJy4BPwE+ARceAQ8BDgEjEyImJy4BPwE+ARceAQ8BDgEjAQAMEhIMDBISDAgLCwgICwtLBw0ELQYGCgoXBS0GBgoDCAOzBAgDLAQEBgYNBCwEBAYCBALkBAYDTgkGBgUVCU4JBgYDDQEwAgQCTQYDAwMMBk0GAwMCBwT+uFoKDg4KWgoODgFcWgYJCQZaBgkJBv5eBgoDBQUITggRBQUFCE4CBgMBNgQHAgMDBk0GDAMDAwZNAgQC5AMFAggEBC0EEQcHBQQtAwoFswIEAQYDAy0DDAUGAwMtAgcEAUgSDFoMEhIMWgwS/qYKCFoHCwsHWggKAUoIBk4KFgYGBgpOChYGAgL+1QUETQYOAwQEBk0GDgMCAfwCAiwGFQkJBgUtBhUJBgeoAQEtAwwFBgMDLQMMBQQEZw4KCg4OCgoOCQkGBgkJBgYJdwYFCBIELQUFCAgSBSwCAboEBAUMAy0DAwYFDAMtAQH+9gEBBRAHTgcFBQQQCE0FBQE7AQEDDAZNBgMDAwwGTQQEAAAAAQAAAAEAAAe3Z1NfDzz1AAsCAAAAAADckmTcAAAAANySZNwAAP/gAgAB4AAAAAgAAgAAAAAAAAABAAAB4P/gAAACAAAAAAACAAABAAAAAAAAAAAAAAAAAAAACwIAAAAAAAAAAAAAAAEAAAACAAAcAgAAEAIAAAACAAAAAgAAAAIAAAACAAAIAAAAAAAKABQAHgC2AWABwAIsApQC3AQKAAEAAAALAM4ADAAAAAAAAgAAAAAAAAAAAAAAAAAAAAAAAAAOAK4AAQAAAAAAAQAHAAAAAQAAAAAAAgAHAGAAAQAAAAAAAwAHADYAAQAAAAAABAAHAHUAAQAAAAAABQALABUAAQAAAAAABgAHAEsAAQAAAAAACgAaAIoAAwABBAkAAQAOAAcAAwABBAkAAgAOAGcAAwABBAkAAwAOAD0AAwABBAkABAAOAHwAAwABBAkABQAWACAAAwABBAkABgAOAFIAAwABBAkACgA0AKRpY29tb29uAGkAYwBvAG0AbwBvAG5WZXJzaW9uIDEuMABWAGUAcgBzAGkAbwBuACAAMQAuADBpY29tb29uAGkAYwBvAG0AbwBvAG5pY29tb29uAGkAYwBvAG0AbwBvAG5SZWd1bGFyAFIAZQBnAHUAbABhAHJpY29tb29uAGkAYwBvAG0AbwBvAG5Gb250IGdlbmVyYXRlZCBieSBJY29Nb29uLgBGAG8AbgB0ACAAZwBlAG4AZQByAGEAdABlAGQAIABiAHkAIABJAGMAbwBNAG8AbwBuAC4AAAADAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA") format("truetype");
+			font-weight: normal;
+			font-style: normal;
+			font-display: block
+		}
+
+		.loader-center {
+			display: none;
+			position: fixed;
+			top: 0;
+			left: 0;
+			z-index: 1000;
+			height: 100%;
+			width: 100%;
+			text-align: center;
+			background-color: rgba(0, 0, 0, .8)
+		}
+
+		.loader-center .loader-group {
+			position: fixed;
+			top: 50%;
+			left: 50%;
+			transform: translate(-50%, -50%)
+		}
+
+		.loader-center .loader {
+			display: inline-block;
+			font-size: 4em;
+			height: 1em;
+			line-height: 1;
+			margin: .5em;
+			animation: anim-rotate 2s infinite linear;
+			color: red;
+			text-shadow: 0 0 .25em rgba(255, 255, 255, .3)
+		}
+
+		.loader-center .loader--steps {
+			animation: anim-rotate 1s infinite steps(12)
+		}
+
+		.loader-center .icon-loader:before {
+			content: ""
+		}
+
+		@keyframes anim-rotate {
+			0% {
+				transform: rotate(0)
+			}
+
+			100% {
+				transform: rotate(360deg)
+			}
+		}
+
+		body.modal-chat-open {
+			overflow: hidden;
+			position: fixed
+		}
+
+		.box-chat-pasgo {
+			position: fixed;
+			bottom: 0;
+			height: auto;
+			right: 10px;
+			width: 296px;
+			border-top: 3px solid #d2d6de;
+			background: #f7f8fa;
+			margin-bottom: 20px;
+			box-shadow: 0 1px 1px rgba(0, 0, 0, .5);
+			overflow-x: hidden;
+			z-index: 10000
+		}
+
+		.box-chat-pasgo.box-success {
+			border-top-color: #00a65a
+		}
+
+		.box-chat-pasgo.collapsed-box .box-body,
+		.box-chat-pasgo.collapsed-box .box-footer {
+			display: none
+		}
+
+		.box-chat-pasgo.height-control .box-body {
+			max-height: 300px;
+			overflow: auto
+		}
+
+		.box-chat-pasgo.box-solid {
+			border-top: 0
+		}
+
+		.box-chat-pasgo.box-solid>.box-header .btn.btn-default {
+			background: transparent
+		}
+
+		.box-chat-pasgo.box-solid>.box-header .btn:hover,
+		.box-chat-pasgo.box-solid>.box-header a:hover {
+			background: rgba(0, 0, 0, .1)
+		}
+
+		.box-chat-pasgo.box-solid.box-default>.box-header {
+			color: #444;
+			background: #d2d6de;
+			background-color: #d2d6de
+		}
+
+		.box-chat-pasgo.box-solid.box-default>.box-header a,
+		.box-chat-pasgo.box-solid.box-default>.box-header .btn {
+			color: #444
+		}
+
+		.box-chat-pasgo.box-solid.box-info>.box-header {
+			color: #fff;
+			background: #00c0ef;
+			background-color: #00c0ef
+		}
+
+		.box-chat-pasgo.box-solid.box-info>.box-header a,
+		.box-chat-pasgo.box-solid.box-info>.box-header .btn {
+			color: #fff
+		}
+
+		.box-chat-pasgo.box-solid.box-success {
+			border: 1px solid #00a65a
+		}
+
+		.box-chat-pasgo.box-solid.box-success>.box-header {
+			color: #fff;
+			background: #00a65a;
+			background-color: #00a65a
+		}
+
+		.box-chat-pasgo.box-solid.box-success>.box-header a,
+		.box-chat-pasgo.box-solid.box-success>.box-header .btn {
+			color: #fff
+		}
+
+		.box-chat-pasgo.box-solid>.box-header>.box-tools .btn {
+			border: 0;
+			box-shadow: none
+		}
+
+		.box-chat-pasgo.box-solid[class*='bg']>.box-header {
+			color: #fff
+		}
+
+		.box-chat-pasgo .box-group>.box-chat-pasgo {
+			margin-bottom: 5px
+		}
+
+		.box-header:before,
+		.box-body:before,
+		.box-footer:before,
+		.box-header:after,
+		.box-body:after,
+		.box-footer:after {
+			content: " ";
+			display: table
+		}
+
+		.box-header:after,
+		.box-body:after,
+		.box-footer:after {
+			clear: both
+		}
+
+		.box-header {
+			color: #444;
+			display: block;
+			padding: 10px 10px;
+			position: relative;
+			text-align: left;
+			background-color: #f6f6f6
+		}
+
+		.box-header.with-border {
+			border-bottom: 1px solid #c1c1c1
+		}
+
+		.collapsed-box .box-header.with-border {
+			border-bottom: none
+		}
+
+		.box-header>.fa,
+		.box-header>.glyphicon,
+		.box-header>.ion,
+		.box-header .box-title {
+			display: inline-block;
+			font-size: 16px;
+			margin: 0;
+			line-height: 1
+		}
+
+		.box-header>.fa,
+		.box-header>.glyphicon,
+		.box-header>.ion {
+			margin-right: 5px
+		}
+
+		.box-header>.box-tools {
+			position: absolute;
+			right: 10px;
+			top: 5px
+		}
+
+		.box-header>.box-tools [data-toggle="tooltip"] {
+			position: relative
+		}
+
+		.box-header>.box-tools.pull-right .dropdown-menu {
+			right: 0;
+			left: auto
+		}
+
+		.btn-box-tool {
+			padding: 5px;
+			font-size: 12px;
+			background: transparent;
+			color: #97a0b3
+		}
+
+		.btn-box-tool i {
+			font-style: normal
+		}
+
+		.open .btn-box-tool,
+		.btn-box-tool:hover {
+			color: #606c84
+		}
+
+		.btn-box-tool.btn:active {
+			box-shadow: none
+		}
+
+		.box-body {
+			border-top-left-radius: 0;
+			border-top-right-radius: 0;
+			border-bottom-right-radius: 3px;
+			border-bottom-left-radius: 3px;
+			padding: 10px
+		}
+
+		.no-header .box-body {
+			border-top-right-radius: 3px;
+			border-top-left-radius: 3px
+		}
+
+		.box-footer {
+			border-top-left-radius: 0;
+			border-top-right-radius: 0;
+			border-bottom-right-radius: 3px;
+			border-bottom-left-radius: 3px;
+			border-top: 1px solid #f4f4f4;
+			padding: 10px 10px 5px 10px;
+			background-color: #fff
+		}
+
+		.direct-chat .box-body {
+			border-bottom-right-radius: 0;
+			border-bottom-left-radius: 0;
+			position: relative;
+			overflow-x: hidden;
+			padding: 0
+		}
+
+		.direct-chat-messages {
+			-webkit-transform: translate(0, 0);
+			-ms-transform: translate(0, 0);
+			-o-transform: translate(0, 0);
+			transform: translate(0, 0);
+			padding: 10px;
+			height: 300px;
+			overflow: auto
+		}
+
+		.direct-chat-msg,
+		.direct-chat-text {
+			display: block
+		}
+
+		.direct-chat-msg {
+			margin-bottom: 15px
+		}
+
+		.direct-chat-msg:before,
+		.direct-chat-msg:after {
+			content: " ";
+			display: table
+		}
+
+		.direct-chat-msg:after {
+			clear: both
+		}
+
+		.direct-chat-text {
+			border-radius: 5px;
+			position: relative;
+			padding: 4px 5px;
+			background: #d2d6de;
+			border: 1px solid #d2d6de;
+			margin: 1px 0 0 46px;
+			color: #333;
+			font-size: 13px;
+			text-align: justify;
+			padding: 7px 10px;
+			word-wrap: break-word
+		}
+
+		.direct-chat-text:after,
+		.direct-chat-text:before {
+			position: absolute;
+			right: 100%;
+			top: 12px;
+			border: solid transparent;
+			border-right-color: #d2d6de;
+			content: ' ';
+			height: 0;
+			width: 0;
+			pointer-events: none
+		}
+
+		.direct-chat-text:after {
+			border-width: 5px;
+			margin-top: -5px
+		}
+
+		.direct-chat-text:before {
+			border-width: 6px;
+			margin-top: -6px
+		}
+
+		.left .direct-chat-text {
+			float: left;
+			width: 86%;
+			margin-left: 10px;
+			margin-right: 0;
+			word-wrap: break-word
+		}
+
+		.left .direct-chat-img {
+			float: left;
+			margin-left: -5px
+		}
+
+		.left .lef-time {
+			margin-right: 10px
+		}
+
+		.right .direct-chat-text {
+			float: right;
+			width: 86%;
+			margin-right: 10px;
+			margin-left: 0
+		}
+
+		.right .direct-chat-text:after,
+		.right .direct-chat-text:before {
+			right: auto;
+			left: 100%;
+			border-right-color: transparent;
+			border-left-color: #d2d6de
+		}
+
+		.right .direct-chat-timestamp {
+			margin-left: 10px
+		}
+
+		.direct-chat-img {
+			border-radius: 50%;
+			float: left;
+			width: 30px;
+			height: 30px
+		}
+
+		.right .direct-chat-img {
+			float: right;
+			margin-right: -5px
+		}
+
+		.direct-chat-info {
+			display: block;
+			margin-bottom: 2px;
+			font-size: 11px
+		}
+
+		.direct-chat-name {
+			font-weight: 600
+		}
+
+		.direct-chat-timestamp {
+			color: #8c9290;
+			font-size: 10px;
+			margin-top: 5px
+		}
+
+		.direct-chat-info .right>.direct-chat-text {
+			background: #00c0ef;
+			border-color: #00c0ef;
+			color: #fff
+		}
+
+		.direct-chat-info .right>.direct-chat-text:after,
+		.direct-chat-info .right>.direct-chat-text:before {
+			border-left-color: #00c0ef
+		}
+
+		.direct-chat-success .right>.direct-chat-text {
+			background: #00a65a;
+			border-color: #00a65a;
+			color: #fff;
+			word-wrap: break-word
+		}
+
+		.direct-chat-success .right>.direct-chat-text:after,
+		.direct-chat-success .right>.direct-chat-text:before {
+			border-left-color: #00a65a
+		}
+
+		.show-box-chat {
+			position: fixed;
+			opacity: 0;
+			visibility: hidden;
+			text-align: center;
+			z-index: 99;
+			background-image: url(/Assets/Images/webp/chat-now-red-v1.webp);
+			background-repeat: no-repeat;
+			background-size: contain;
+			background-position: center;
+			color: #fff;
+			width: 57px;
+			min-height: 54px;
+			line-height: 54px;
+			right: 8px;
+			font-size: 1.5em;
+			bottom: -25px;
+			padding-top: 2px;
+			border-radius: 5px;
+			transition: all .5s ease-in-out;
+			transition-delay: .2s
+		}
+
+		.show-box-chat:hover {
+			background-image: url(/Assets/Images/webp/chat-now-green-v1.webp);
+			background-repeat: no-repeat;
+			background-size: contain;
+			background-position: center;
+			color: #fff;
+			transition: all .2s ease-in-out;
+			transition-delay: 0
+		}
+
+		.show-box-chat.show {
+			visibility: visible;
+			cursor: pointer;
+			opacity: 1;
+			bottom: 110px !important;
+			right: 12px
+		}
+
+		.show-box-chat div.number-message {
+			display: none;
+			position: absolute;
+			height: 25px;
+			width: 25px;
+			text-align: center;
+			border-radius: 50%;
+			background: #00a1ff;
+			z-index: 999;
+			font-size: 13px;
+			right: -5px;
+			top: -9px;
+			overflow: hidden
+		}
+
+		.pasgo-footer {
+			float: right;
+			padding: 6px 6px 0 0;
+			color: #ea1c06;
+			font-weight: bold;
+			font-size: 11.5px;
+			font-style: italic
+		}
+
+		.pasgo-footer a {
+			color: red
+		}
+
+		.pasgo-footer a:hover {
+			color: #337ab7
+		}
+
+		#box-typing {
+			float: left;
+			width: 100%;
+			padding: 0 10px;
+			color: #616362;
+			font-size: 13px;
+			font-style: italic;
+			position: absolute;
+			bottom: 0;
+			background-color: #f7f8fa;
+			padding-bottom: 0
+		}
+
+		#box-error {
+			float: left;
+			width: 100%;
+			padding: 0 10px;
+			color: #616362;
+			font-size: 13px;
+			font-style: italic;
+			text-align: center;
+			padding-top: 5px;
+			padding-bottom: 5px;
+			position: absolute;
+			background-color: #e3e3e3;
+			z-index: 1
+		}
+
+		#see-history-chat {
+			text-align: center;
+			font-size: 13px
+		}
+
+		#box-user-info {
+			width: 100%;
+			height: 93%;
+			position: absolute;
+			background-color: #f7f8fa;
+			z-index: 999;
+			top: 42px
+		}
+
+		#box-user-info .box-user-input {
+			float: left;
+			width: 100%;
+			margin: 5px 0
+		}
+
+		#box-user-info .box-user-input span {
+			float: left;
+			margin-left: 10%;
+			width: 80%;
+			font-size: 13px;
+			text-align: center
+		}
+
+		#box-user-info .input-group {
+			margin-top: 20px;
+			display: block
+		}
+
+		#box-user-info .form-control {
+			margin-left: 10%;
+			width: 80%;
+			border-top-right-radius: 5px;
+			border-bottom-right-radius: 5px;
+			font-size: 13px
+		}
+
+		#box-user-info .input-group-btn {
+			float: right;
+			margin-right: 10%
+		}
+
+		#box-user-info .box-user-button {
+			float: left;
+			width: 100%;
+			margin: 20px 0
+		}
+
+		#box-user-info .box-user-button #submit-info-client {
+			float: left;
+			width: 80%;
+			margin-left: 10%;
+			background-color: #449d44;
+			display: inline-block;
+			padding: 6px 12px;
+			margin-bottom: 0;
+			font-size: 14px;
+			font-weight: normal;
+			line-height: 1.42857143;
+			text-align: center;
+			white-space: nowrap;
+			vertical-align: middle;
+			-ms-touch-action: manipulation;
+			touch-action: manipulation;
+			cursor: pointer;
+			-webkit-user-select: none;
+			-moz-user-select: none;
+			-ms-user-select: none;
+			user-select: none;
+			background-image: none;
+			border: 1px solid transparent;
+			border-radius: 4px;
+			color: #fff
+		}
+
+		#box-user-info #phone-error,
+		#box-user-info #email-error,
+		#user-info-error {
+			float: left;
+			margin-left: 10%;
+			width: 80%;
+			color: red;
+			text-align: left;
+			font-size: 11px;
+			padding-top: 5px;
+			padding-left: 5px
+		}
+
+		.pasgo-khung-chat {
+			display: none
+		}
+
+		.hide-forever {
+			display: none !important
+		}
+
+		#number-message {
+			position: relative;
+			top: -13px;
+			margin: 0 auto;
+			color: #fff;
+			display: block;
+			clear: both;
+			float: left;
+			width: 100%
+		}
+
+		#number-message-in-detail,
+		#number-message-in-kham-pha {
+			position: absolute;
+			height: 23px;
+			width: 23px;
+			text-align: center;
+			border-radius: 50%;
+			background: #d30606;
+			z-index: 999;
+			bottom: 35px;
+			font-size: 11px;
+			left: 50%;
+			padding-top: 0;
+			color: #fff;
+			display: none
+		}
+
+		#message-client,
+		#send-message {
+			height: 40px;
+			font-size: 16px;
+			border-radius: 0;
+			box-shadow: none;
+			-webkit-appearance: none;
+			display: block;
+			-webkit-box-shadow: none;
+			-webkit-border-radius: 0;
+			-moz-appearance: none
+		}
+
+		#send-message {
+			color: #fff;
+			background: #00a659
+		}
+
+		@media all and (min-width:768px)and (max-width:1024px) {
+			.right .direct-chat-timestamp {
+				margin-left: 9%
+			}
+
+			.left .lef-time {
+				margin-right: 9%
+			}
+
+			#pasgo-chat-message {
+				padding-left: 20px;
+				padding-right: 20px
+			}
+
+			.direct-chat-text {
+				font-size: 15px
+			}
+
+			.direct-chat-timestamp {
+				font-size: 12px
+			}
+
+			#box-typing,
+			#box-error,
+			#see-history-chat {
+				font-size: 15px
+			}
+
+			.direct-chat-info {
+				font-size: 13px
+			}
+
+			.direct-chat-img {
+				width: 40px;
+				height: 40px
+			}
+
+			#box-user-info .box-user-input span {
+				font-size: 15px
+			}
+
+			#box-user-info .form-control {
+				font-size: 15px
+			}
+
+			#box-user-info #phone-error,
+			#box-user-info #email-error,
+			#user-info-error {
+				font-size: 13px
+			}
+		}
+
+		.direct-chat-messages {
+			-webkit-overflow-scrolling: touch !important;
+			overflow-y: scroll !important;
+			-webkit-overflow-scrolling: auto !important
+		}
+
+		#pasgo-chat-message::-webkit-scrollbar {
+			-webkit-appearance: none
+		}
+
+		#pasgo-chat-message::-webkit-scrollbar {
+			width: 4px
+		}
+
+		#pasgo-chat-message::-webkit-scrollbar {
+			height: 12px
+		}
+
+		#pasgo-chat-message::-webkit-scrollbar-thumb {
+			background-color: #616362;
+			border-radius: 10px
+		}
+
+		#pasgo-chat-message::-webkit-scrollbar-track {
+			border-radius: 10px;
+			background-color: transparent
+		}
+	</style>
+	<!--inline css for pagespeed-->
+	<!-- MePuzz start -->
+	<script>
+		(function (i, s, o, g, r, a, m) {
+			i['MePuzzAnalyticsObject'] = r; i[r] = i[r] || function () {
+				(i[r].q = i[r].q || []).push(arguments);
+			}, i[r].l = 1 * new Date(); a = s.createElement(o),
+				m = s.getElementsByTagName(o)[0]; a.async = 1; a.src = g;
+			m.parentNode.insertBefore(a, m);
+		})(window, document, 'script', 'https://static.mepuzz.com/sdk/v2/MePuzzSDK.min.js', 'mePuzz');
+		mePuzz('setAppId', 'DnZ4G2DeWz');
+		mePuzz('track', 'pageview');
+	</script>
+	<!-- MePuzz end -->
+</head>
+
+<body data-spy="scroll">
+
+	<!--Header-->
+	<header>
+		<!--menu-->
+		<nav id="navfixtop" class="header-v2">
+			<div class="container container-fix">
+				<ul id="menu">
+					<li>
+						<a href="https://pasgo.vn/ho-chi-minh"><span class="pasgo-icondesktop-logo"></span></a>
+					</li>
+					<li>
+						<a href="https://pasgo.vn/dia-diem-gan-ban">Gần bạn</a>
+					</li>
+					<li>
+						<a href="https://pasgo.vn/ho-chi-minh/bo-suu-tap">Bộ sưu tập</a>
+					</li>
+					<li>
+						<a href="#">Ăn uống <span class="pasgo-icondesktop-menudown"></span></a>
+						<div class="pasgo-dropdown-menu">
+							<div class="container container-fix">
+								<div id="home-menu"><span class="text-loading">Đang tải...</span></div>
+							</div>
+						</div>
+					</li>
+					<li>
+						<a href="https://pasgo.vn/ho-chi-minh/nha-hang-uy-tin">Nhà hàng uy tín</a>
+					</li>
+					<li>
+						<a href="https://pasgo.vn/ho-chi-minh/giam-gia-nhieu-nhat">Ưu đãi hot</a>
+					</li>
+					<li>
+						<a href="https://pasgo.vn/ho-chi-minh/diem-den-moi-nhat">Mới nhất</a>
+					</li>
+
+					<li>
+						<a href="https://pasgo.vn/blog/ho-chi-minh">Tin tức & Blog<span
+								class="pasgo-icondesktop-menudown"></span></a>
+						<div class="pasgo-dropdown-menu">
+							<div class="container container-fix">
+								<div id="home-menu-blog"><span class="text-loading">Đang tải...</span></div>
+							</div>
+						</div>
+					</li>
+
+
+					<li>
+						<a href="https://pasgo.vn/ho-chi-minh/video">Video PasGo <span
+								class="pasgo-icondesktop-menudown"></span></a>
+						<div class="pasgo-dropdown-menu">
+							<div class="container container-fix">
+								<div id="home-menu-video"><span class="text-loading">Đang tải...</span></div>
+							</div>
+						</div>
+					</li>
+				</ul>
+				<ul class="menu-right">
+
+					<li>
+						<a href="https://pasgo.vn/dang-nhap?returnUrl=/ho-chi-minh"><span
+								class="glyphicon glyphicon-user"></span><span class="tex-indent">Tài khoản</span></a>
+						<ul class="login">
+							<li>
+								<a class="btn" href="https://pasgo.vn/dang-nhap?returnUrl=/ho-chi-minh">Đăng nhập</a>
+							</li>
+							<li>
+								<a class="link" href="https://pasgo.vn/dang-ky?returnUrl=/ho-chi-minh">Thành viên
+									mới?</a>
+							</li>
+							<li>
+								<a class="btn" href="https://pasgo.vn/dang-ky?returnUrl=/ho-chi-minh">Đăng ký</a>
+							</li>
+						</ul>
+					</li>
+				</ul>
+				<div class="search-fixed">
+					<form action="/tim-kiem" class="navbar-form navbar-right bar-bottom" method="get">
+						<div class="input-group">
+							<input name="search" type="text" class="form-control"
+								placeholder="Tìm: Buffet, Lẩu, Nướng..." autocomplete="off">
+							<div class="input-group-btn">
+								<button type="submit" class="btn btn-default p-normal"><span
+										class="glyphicon glyphicon-search" aria-hidden="true"></span></button>
+							</div>
+						</div>
+					</form>
+				</div>
+			</div>
+		</nav>
+
+		<!--pasgo search-->
+		<section class="pasgo-search">
+			<div class="container container-fix">
+				<div class="row">
+					<div class="col-md-2 selectedtinh">
+						<div class="input-group">
+							<span class="input-group-addon">
+								<span class="pasgo-icondesktop-province"></span>
+								<form action="/Base/ChangeProvince" method="post"> <select class="form-control first"
+										id="provinceId" name="provinceId" onchange="this.form.submit();">
+										<option value="1">Hà Nội</option>
+										<option selected value="2">Hồ Chí Minh</option>
+										<option value="4">Đà Nẵng</option>
+										<option value="5">Khánh Hòa</option>
+									</select>
+								</form> <span class="pasgo-icondesktop-menudown"></span>
+							</span>
+						</div>
+					</div>
+					<div class="col-md-8">
+						<form action="/tim-kiem" class="navbar-form navbar-right bar-bottom" method="get">
+							<div class="input-group">
+								<input id="textSearch" type="text" name="search" class="form-control"
+									placeholder="Buffet, Lẩu & Nướng, Hải sản..." onclick="searchWebsite();"
+									oninput="searchWebsite();" autocomplete="off">
+								<img src="https://pasgo.vn/Assets/Images/gif/search-loading.gif" class="img-search"
+									alt="tìm kiếm nhà hàng, bộ sưu tập" />
+								<span class="input-group-addon">
+
+									<select class="form-control selected" id="slTypeSearch"
+										onchange="typeSearchSelected(this)">
+										<option value="1">Đặt chỗ</option>
+										<option value="2">Khám phá</option>
+										<option value="3">Video</option>
+									</select>
+									<span class="pasgo-icondesktop-menudown"></span>
+								</span>
+								<span class="input-group-addon frm-search">
+									<button type="submit" class="btn"><span class="pasgo-icondesktop-search"></span> Tìm
+										kiếm</button>
+								</span>
+								<!--Kết quả search-->
+								<div id="result"> </div>
+							</div>
+						</form>
+					</div>
+					<div class="col-md-2 pr-0">
+						<div class="pasgo-phone"><span class="pasgo-icondesktop-hotline"></span> 1900 6005</div>
+					</div>
+				</div>
+			</div>
+		</section>
+	</header>
+
+	<!--ve-top-->
+	<div class="smoothscroll-top">
+		<span class="scroll-top-inner">
+			<span>&uarr;</span>
+		</span>
+	</div>
+	<!--Qc PasGo-->
+	<div th:replace="${mainContent}"></div>
+
+	<article id="home-notify-pasgo"></article>
+	<!--footer-->
+	<footer id="footer" class="lazyload lazypreload" data-provinceId="2">
+		<div class="container container-fix">
+			<div class="row">
+				<div class="footer-content">
+					<div class="col-md-2 text-info">
+						<a href="https://pasgo.vn/ho-chi-minh"><span class="pasgo-icondesktop-logo"></span></a>
+						<div>
+							PasGo là Mạng lưới nhà hàng NGON, uy tín và chất lượng. Giúp thực khách đặt bàn dễ dàng,
+							được tặng kèm ưu đãi mà không cần mua Deal, Voucher. Giải pháp đột phá mới cho câu chuyện ăn
+							gì, ở đâu!
+						</div>
+					</div>
+					<div class="col-md-2" id="ve-pasgo">
+						<h3>Về PasGo</h3>
+						<ul>
+							<li>
+								<a href="https://pasgo.vn/tin-tuc/nhung-dieu-thu-vi-ve-app-pasgo-co-the-ban-chua-biet-50"
+									target="_blank">Những điều thú vị về App PasGo – Có thể bạn chưa biết!</a>
+							</li>
+							<li>
+								<a href="https://pasgo.vn/tin-tuc/vi-sao-pasgo-dang-phat-trien-63" target="_blank">Vì
+									sao PasGo đang phát triển!</a>
+							</li>
+							<li>
+								<a href="https://pasgo.vn/huong-dan" target="_blank">Hướng dẫn đặt bàn</a>
+							</li>
+							<li>
+								<a href="https://pasgo.vn/chinh-sach-bao-ve-thong-tin" target="_blank">Chính sách bảo
+									mật</a>
+							</li>
+						</ul>
+					</div>
+					<div class="col-md-2">
+						<h3>Tương tác</h3>
+						<ul>
+							<li>
+								<a href="https://pasgo.vn/co-che-giai-quyet-tranh-chap" target="_blank">Khiếu nại</a>
+							</li>
+							<li>
+								<a href="https://pasgo.vn/cau-hoi-thuong-gap" target="_blank">Câu hỏi thường gặp</a>
+							</li>
+							<li>
+								<a href="https://pasgo.vn/danh-cho-nha-hang" target="_blank">Dành cho nhà hàng</a>
+							</li>
+							<li>
+								<a href="https://pasgo.vn/tin-tuc" target="_blank">Tin tức</a>
+							</li>
+							<li>
+								<a href="https://pasgo.vn/lien-he" target="_blank">Liên hệ</a>
+							</li>
+							<li>
+								<a href="https://pasgo.vn/dia-diem-gan-ban">Địa điểm gần bạn</a>
+							</li>
+						</ul>
+					</div>
+					<div class="col-md-3">
+						<h3>Tham gia với chúng tôi</h3>
+						<div class="pasgo-social">
+							<a href="https://www.facebook.com/pasgo.vn" rel="nofollow" target="_blank"><span
+									class="pasgo-icondesktop-facebook"></span></a>
+
+							<a href="https://www.youtube.com/channel/UCZVrGI9UypsJxa-U_-DC2qg" rel="nofollow"
+								target="_blank"><span class="pasgo-icondesktop-youtube"></span></a>
+							<a href="http://surl.li/qbtdm" rel="nofollow noreferrer" target="_blank">
+								<span class="pasgo-icondesktop-tiktok"></span>
+							</a>
+						</div>
+						<h3>Thương hiệu được chứng nhận</h3>
+						<a class="link-bct" rel="nofollow"
+							href="http://online.gov.vn/HomePage/WebsiteDisplay.aspx?DocId=16895" target="_blank"><span
+								class="pasgo-icondesktop-dkbocongthuong"></span></a>
+						<a rel="nofollow"
+							href="//www.dmca.com/Protection/Status.aspx?ID=25701f4d-601c-4a62-acbd-eef1c7d4b620"
+							title="DMCA.com Protection Status" class="dmca-badge">
+							<span class="pasgo-icondesktop-logodmca"></span>
+						</a>
+					</div>
+
+					<div class="col-md-12">
+						<h4>
+							<span> © Copyright 2010 PasGo.jsc, All rights reserved</span>
+						</h4>
+						<div class="link-company"><a href="http://online.gov.vn/Home/WebDetails/16887" rel="nofollow"
+								target="_blank">CÔNG TY CỔ PHẦN PASGO</a></div>
+						<p>Văn phòng Hà Nội: Tầng 2 tòa nhà VTC Online, Số 18 Tam Trinh, Q. Hai Bà Trưng, ​​Hà Nội</p>
+						<p>Văn Phòng TP.HCM: Lầu 13, Tòa nhà M-H, Số 728-730 Võ Văn Kiệt, P.1, Quận 5, TP Hồ Chí Minh
+						</p>
+
+						<p>Tổng đài: 1900 6005 | Email:<a style="color: #333333" href="mailto:cskh@pasgo.vn">
+								CSKH@pasgo.vn</a></p>
+						<p>Mã số doanh nghiệp: 0106329034 do Sở Kế hoạch đầu tư TP Hà Nội cấp ngày 08/10/2013</p>
+						<div class="col-xs-12 wap-help">
+							<p> Mọi ý tưởng, đóng góp của bạn đều được chúng tôi ghi nhận và trân trọng!</p>
+							<div class="wap-help-link">
+								<a class="button-support" href="https://forms.gle/bbDhcKDfLSQg6eog8">
+									<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+										stroke-width="1.5" stroke="currentColor" class="button-support-icon">
+										<path stroke-linecap="round" stroke-linejoin="round"
+											d="M6 12L3.269 3.126A59.768 59.768 0 0121.485 12 59.77 59.77 0 013.27 20.876L5.999 12zm0 0h7.5" />
+									</svg>
+									<span class="button-support-text">Gửi góp ý</span>
+								</a>
+							</div>
+						</div>
+					</div>
+
+				</div>
+			</div>
+		</div>
+	</footer>
+
+	<!--Chat Client-->
+	<div class="container">
+		<div class="row">
+			<div class="col-xs-12">
+				<div class="bootstrap snippets">
+					<div class="pasgo-khung-chat">
+						<!-- DIRECT CHAT SUCCESS -->
+						<div class="box-chat-pasgo box-success direct-chat direct-chat-success">
+							<div class="box-header with-border">
+								<h3 class="box-title">Chat ngay để được tư vấn</h3>
+								<div class="box-tools pull-right">
+									<button type="button" class="btn btn-box-tool btn-close-box" data-widget="remove"><i
+											class="glyphicon glyphicon-remove"></i></button>
+								</div>
+							</div>
+							<!-- /.box-header -->
+							<div class="box-body">
+								<!-- Conversations are loaded here -->
+								<div id="box-error">Đang tải...</div> <!-- /.box-error... -->
+								<div id="pasgo-chat-message" class="direct-chat-messages">
+									<div id="see-history-chat"><a href="JavaScript:loadMoreMessage()">Xem thêm lịch
+											sử</a></div>
+									<!-- add message -->
+								</div>
+								<div id="box-typing"></div> <!-- /.box-typing... -->
+							</div>
+							<script id="message-right-template" type="text/x-handlebars-template">
+                            <div class='direct-chat-msg right'>
+                                <div class='direct-chat-info clearfix'>
+                                    <span class='direct-chat-name pull-right support-color-name-{{color}}'>{{name}}</span>
+                                    <span class='direct-chat-timestamp pull-left' id="pull-right-time-{{datetime}}">{{time}}</span>
+                                </div>
+                                <img class='direct-chat-img' src='{{image}}'>
+                                <div class='direct-chat-text'>
+                                    {{message}}
+                                </div>
+                            </div>
+                        </script>
+							<script id="message-left-template" type="text/x-handlebars-template">
+                            <div class='direct-chat-msg left'>
+                                <div class='direct-chat-info clearfix'>
+                                    <span class='direct-chat-name pull-left'>{{name}}</span>
+                                    <span class='direct-chat-timestamp pull-right lef-time' id="pull-right-time-{{datetime}}">&nbsp;{{time}}</span><span class='direct-chat-timestamp pull-right' id="pull-right-icon-{{datetime}}"><img src="#" width="12px" height="12px" /></span>
+                                </div>
+                                <img class='direct-chat-img' src='{{image}}' alt='Message User Image'>
+                                <div class='direct-chat-text'>{{message}} </div>
+                            </div>
+                        </script>
+							<!-- /.box-body -->
+							<div class="box-footer">
+								<form id="send-form">
+									<div class="input-group">
+										<input type="text" id="message-client" placeholder="Nhập tin nhắn..."
+											class="form-control" autocomplete="off">
+										<span class="input-group-btn">
+											<button id="send-message" type="button"
+												class="btn btn-success btn-flat">Gửi</button>
+										</span>
+									</div>
+								</form>
+								<span class="pasgo-footer"><a href="https://pasgo.vn/">PasGo.vn</a></span>
+							</div>
+							<div id="box-user-info">
+								<form>
+									<div class="input-group">
+										<span id="user-info-error"></span>
+										<div class="box-user-input">
+											<span>Bạn vui lòng điền các thông tin dưới đây để bắt đầu chat ngay.</span>
+										</div>
+										<div class="box-user-input">
+											<input type="text" id="phone-client" placeholder="* Điện thoại"
+												class="form-control" autocomplete="off"> <br />
+											<span id="phone-error"></span>
+										</div>
+										<div class="box-user-input">
+											<input type="text" id="email-client" placeholder="* Email"
+												class="form-control" autocomplete="off"> <br />
+											<span id="email-error"></span>
+										</div>
+										<div class="box-user-button">
+											<button id="submit-info-client" type="button">Bắt đầu trò truyện</button>
+										</div>
+									</div>
+								</form>
+							</div>
+						</div>
+						<!--/.direct-chat -->
+					</div>
+					<div class="show-box-chat show" id="show-box-chat-btn">
+						<span class="scroll-top-inner"></span>
+						<div class="number-message">
+							<span id="number-message">0</span>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!--Phone Call-->
+	<!-- Modal -->
+	<div class="modal fade" id="phone-call" role="dialog">
+		<div class="modal-dialog">
+
+			<!-- Modal content-->
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" id="phone-call-close-btn" class="close pull-left"
+						data-dismiss="modal">&times;</button>
+					<h4 class="modal-title">Gọi điện</h4>
+				</div>
+				<div class="modal-body">
+					<p id='phone-call-title'>Chọn số dưới đây để liên hệ với ....</p>
+					<div id='phone-number-list'>
+
+						<div>
+						</div>
+					</div>
+
+				</div>
+			</div>
+
+		</div>
+
+
+		<script type="text/javascript">
+			var isMobileDevice = ('False' == 'True' ? true : false)
+			var isDeveloper = ('False' == 'True' ? true : false)
+			var isFitiNotify = ('False' == 'True' ? true : false)
+		</script>
+
+		<script type="text/javascript">
+			setTimeout(function () {
+				var e = document.createElement('script');
+				e.src = '/bundles/desktop-accountmanage?v=YL1kl8hFGL2415ptCUFkYbcqFokf3e19SgAflffLSFY1';
+				e.type = 'text/javascript';
+				document.getElementsByTagName("head")[0].appendChild(e);
+			}, 10);
+		</script>
+
+
+		<script type="text/javascript">
+			if (isFitiNotify) {
+				setTimeout(function () {
+					var e = document.createElement('script');
+					e.src = '/bundles/fitisoft-popup?v=lxHKgqlwwKJVapR6RINN6TA_bECSWtxvE-pmwBnRUow1';
+					e.type = 'text/javascript';
+					document.getElementsByTagName("head")[0].appendChild(e);
+				}, 100);
+			}
+		</script>
+
+		<script>
+			$(function () {
+				$("#datepicker").datepicker({
+					dateFormat: 'dd-mm-yy'
+				});
+			});
+		</script>
+		<script>
+			$(function () {
+				$("#datepicker1").datepicker({
+					dateFormat: 'dd-mm-yy'
+				});
+			});
+		</script>
+		<noscript>
+			<iframe src="https://www.googletagmanager.com/ns.html?id=GTM-PXPW4XX" height="0" width="0"
+				style="display:none;visibility:hidden"></iframe>
+		</noscript>
+</body>
+
+</html>
