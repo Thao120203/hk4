@@ -1,55 +1,90 @@
-
 <!doctype html>
 <html lang="en">
+
 <head>
-<meta charset="utf-8">
-<meta name="viewport"
-	content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<meta name="description" content="">
-<meta name="author" content="">
-<link rel="icon" href="favicon.ico">
-<title>Tiny Dashboard - A Bootstrap Dashboard Template</title>
-<!-- Simple bar CSS -->
-<link rel="stylesheet" th:href="@{/admin/css/simplebar.css}">
-<!-- Fonts CSS -->
-<link
-	href="https://fonts.googleapis.com/css2?family=Overpass:ital,wght@0,100;0,200;0,300;0,400;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,600;1,700;1,800;1,900&display=swap"
-	rel="stylesheet">
-<!-- Icons CSS -->
-<link rel="stylesheet" th:href="@{/admin/css/feather.css}">
-<!-- Date Range Picker CSS -->
-<link rel="stylesheet" th:href="@{/admin/css/daterangepicker.css}">
-<!-- App CSS -->
-<link rel="stylesheet" th:href="@{/admin/css/app-light.css}"
-	id="lightTheme">
-<link rel="stylesheet" th:href="@{/admin/css/app-dark.css}"
-	id="darkTheme" disabled>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+	<meta name="description" content="">
+	<meta name="author" content="">
+	<link rel="icon" href="favicon.ico">
+	<title>Tiny Dashboard - A Bootstrap Dashboard Template</title>
+	<!-- Simple bar CSS -->
+	<link rel="stylesheet" th:href="@{/admin/css/simplebar.css}">
+	<!-- Fonts CSS -->
+	<link
+		href="https://fonts.googleapis.com/css2?family=Overpass:ital,wght@0,100;0,200;0,300;0,400;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,600;1,700;1,800;1,900&display=swap"
+		rel="stylesheet">
+	<!-- Icons CSS -->
+	<link rel="stylesheet" th:href="@{/admin/css/feather.css}">
+	<!-- Date Range Picker CSS -->
+	<link rel="stylesheet" th:href="@{/admin/css/daterangepicker.css}">
+	<!-- App CSS -->
+	<link rel="stylesheet" th:href="@{/admin/css/app-light.css}" id="lightTheme">
+	<link rel="stylesheet" th:href="@{/admin/css/app-dark.css}" id="darkTheme" disabled>
 </head>
+
 <body class="light ">
 	<div class="wrapper vh-100">
 		<div class="row align-items-center h-100">
-			
-			
+
+
 			<form class="col-lg-6 col-md-8 col-10 mx-auto" method="post" th:action="@{/log/register}">
-			 <div class="mx-auto text-center my-4">
+				<th:block th:if="${msg != null}">
+					
+					<div class="alert alert-danger" role="alert" th:if="${msg == 4}">
+						<span class="fe fe-minus-circle fe-16 mr-2"></span>
+						Password not match
+					</div>
+				</th:block>
+				<div class="mx-auto text-center my-4">
 					<h2 class="my-3">Register</h2>
 				</div>
 				<div class="form-group">
-					<label for="inputEmail4">Email</label> <input type="email"
-						class="form-control" id="inputEmail4" th:field="${account.email}">
+					<label for="inputEmail4">Email</label> <input type="email" class="form-control" id="inputEmail4"
+						th:field="${account.email}">
+				</div>
+
+				<div class="form-row">
+					<div class="form-group col-md-6">
+						<label for="firstname">Firstname</label>
+						<input type="text" id="firstname" class="form-control" th:field="${user.firstName}">
+					</div>
+					<div class="form-group col-md-6">
+						<label for="lastname">Lastname</label>
+						<input type="text" id="lastname" th:field="${user.lastName}" class="form-control">
+					</div>
+				</div>
+
+				<div class="form-group">
+					<label>Phone Number</label> <input type="text" class="form-control" th:field="${user.phoneNumber}"
+						aria-describedby="emailHelp" required="">
+					<div class="invalid-feedback">Please enter phone number</div>
+				</div>
+				<div class="form-group">
+					<label>Birthday</label> <input type="text" class="form-control" id="datepicker"
+						th:field="${user.birthday}" aria-describedby="emailHelp" required="">
+					<div class="invalid-feedback">Please enter birthday</div>
+				</div>
+				<div class="form-group mb-3">
+					<label for="example-select">Gender</label>
+					<select class="form-control" id="example-select" th:field="${user.gender}">
+						<option value="Male">Male</option>
+						<option value="Female">Female</option>
+						<option value="Other">Other</option>
+					</select>
 				</div>
 				<hr class="my-4">
 				<div class="row mb-4">
 					<div class="col-md-6">
 						<div class="form-group">
-							<label for="inputPassword5">New Password</label> <input
-								type="password" class="form-control" id="inputPassword5" name="newPassword">
+							<label for="inputPassword5">New Password</label> <input type="password" class="form-control"
+								id="inputPassword5" name="newPassword">
 						</div>
 						<div class="form-group">
-							<label for="inputPassword6">Confirm Password</label> <input
-								type="password" class="form-control" id="inputPassword6" name="confirmPassword">
+							<label for="inputPassword6">Confirm Password</label> <input type="password"
+								class="form-control" id="inputPassword6" name="confirmPassword">
 						</div>
-						
+
 					</div>
 					<div class="col-md-6">
 						<p class="mb-2">Password requirements</p>
@@ -80,55 +115,54 @@
 	<script th:src="@{/admin/js/config.js}"></script>
 	<script th:src="@{/admin/js/apps.js}"></script>
 	<!-- Global site tag (gtag.js) - Google Analytics -->
-	<script async
-		src="https://www.googletagmanager.com/gtag/js?id=UA-56159088-1"></script>
+	<script async src="https://www.googletagmanager.com/gtag/js?id=UA-56159088-1"></script>
 	<script>
-      window.dataLayer = window.dataLayer || [];
+		window.dataLayer = window.dataLayer || [];
 
-      function gtag()
-      {
-        dataLayer.push(arguments);
-      }
-      gtag('js', new Date());
-      gtag('config', 'UA-56159088-1');
-    </script>
+		function gtag() {
+			dataLayer.push(arguments);
+		}
+		gtag('js', new Date());
+		gtag('config', 'UA-56159088-1');
+	</script>
 	<!-- Code injected by live-server -->
 	<script>
-	// <![CDATA[  <-- For SVG support
-	if ('WebSocket' in window) {
-		(function () {
-			function refreshCSS() {
-				var sheets = [].slice.call(document.getElementsByTagName("link"));
-				var head = document.getElementsByTagName("head")[0];
-				for (var i = 0; i < sheets.length; ++i) {
-					var elem = sheets[i];
-					var parent = elem.parentElement || head;
-					parent.removeChild(elem);
-					var rel = elem.rel;
-					if (elem.href && typeof rel != "string" || rel.length == 0 || rel.toLowerCase() == "stylesheet") {
-						var url = elem.href.replace(/(&|\?)_cacheOverride=\d+/, '');
-						elem.href = url + (url.indexOf('?') >= 0 ? '&' : '?') + '_cacheOverride=' + (new Date().valueOf());
+		// <![CDATA[  <-- For SVG support
+		if ('WebSocket' in window) {
+			(function () {
+				function refreshCSS() {
+					var sheets = [].slice.call(document.getElementsByTagName("link"));
+					var head = document.getElementsByTagName("head")[0];
+					for (var i = 0; i < sheets.length; ++i) {
+						var elem = sheets[i];
+						var parent = elem.parentElement || head;
+						parent.removeChild(elem);
+						var rel = elem.rel;
+						if (elem.href && typeof rel != "string" || rel.length == 0 || rel.toLowerCase() == "stylesheet") {
+							var url = elem.href.replace(/(&|\?)_cacheOverride=\d+/, '');
+							elem.href = url + (url.indexOf('?') >= 0 ? '&' : '?') + '_cacheOverride=' + (new Date().valueOf());
+						}
+						parent.appendChild(elem);
 					}
-					parent.appendChild(elem);
 				}
-			}
-			var protocol = window.location.protocol === 'http:' ? 'ws://' : 'wss://';
-			var address = protocol + window.location.host + window.location.pathname + '/ws';
-			var socket = new WebSocket(address);
-			socket.onmessage = function (msg) {
-				if (msg.data == 'reload') window.location.reload();
-				else if (msg.data == 'refreshcss') refreshCSS();
-			};
-			if (sessionStorage && !sessionStorage.getItem('IsThisFirstTime_Log_From_LiveServer')) {
-				console.log('Live reload enabled.');
-				sessionStorage.setItem('IsThisFirstTime_Log_From_LiveServer', true);
-			}
-		})();
-	}
-	else {
-		console.error('Upgrade your browser. This Browser is NOT supported WebSocket for Live-Reloading.');
-	}
+				var protocol = window.location.protocol === 'http:' ? 'ws://' : 'wss://';
+				var address = protocol + window.location.host + window.location.pathname + '/ws';
+				var socket = new WebSocket(address);
+				socket.onmessage = function (msg) {
+					if (msg.data == 'reload') window.location.reload();
+					else if (msg.data == 'refreshcss') refreshCSS();
+				};
+				if (sessionStorage && !sessionStorage.getItem('IsThisFirstTime_Log_From_LiveServer')) {
+					console.log('Live reload enabled.');
+					sessionStorage.setItem('IsThisFirstTime_Log_From_LiveServer', true);
+				}
+			})();
+		}
+		else {
+			console.error('Upgrade your browser. This Browser is NOT supported WebSocket for Live-Reloading.');
+		}
 	// ]]>
-</script>
+	</script>
 </body>
+
 </html>

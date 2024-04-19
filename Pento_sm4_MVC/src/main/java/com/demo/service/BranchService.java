@@ -21,5 +21,7 @@ public interface BranchService {
 	public List<Branchs> listBranchbyCategory_Food(int id_category);
 	public Integer countListBranchbyCategory_Food(int id_category);
 
-	
+	public List<Branchs> findAddress(String address);
+	public List<Branchs> findByKeyword(String keyword);
+
 }

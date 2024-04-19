@@ -1,59 +1,71 @@
 <!doctype html>
 <html lang="en">
-<head>
-<meta charset="utf-8">
-<meta name="viewport"
-	content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<meta name="description" content="">
-<meta name="author" content="">
-<link rel="icon" th:href="favicon.ico">
-<title>Pento</title>
-<!-- Simple bar CSS -->
 
-<link rel="stylesheet" th:href="@{/admin/css/simplebar.css}">
-<!-- Fonts CSS -->
-<link
-	href="https://fonts.googleapis.com/css2?family=Overpass:ital,wght@0,100;0,200;0,300;0,400;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,600;1,700;1,800;1,900&display=swap"
-	rel="stylesheet">
-<!-- Icons CSS -->
-<link rel="stylesheet" th:href="@{/admin/css/feather.css}">
-<!-- Date Range Picker CSS -->
-<link rel="stylesheet" th:href="@{/admin/css/daterangepicker.css}">
-<!-- App CSS -->
-<link rel="stylesheet" th:href="@{/admin/css/app-light.css}" id="lightTheme">
-<link rel="stylesheet" th:href="@{/admin/css/app-dark.css}" id="darkTheme" disabled>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+	<meta name="description" content="">
+	<meta name="author" content="">
+	<link rel="icon" th:href="favicon.ico">
+	<title>Pento</title>
+	<!-- Simple bar CSS -->
+
+	<link rel="stylesheet" th:href="@{/admin/css/simplebar.css}">
+	<!-- Fonts CSS -->
+	<link
+		href="https://fonts.googleapis.com/css2?family=Overpass:ital,wght@0,100;0,200;0,300;0,400;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,600;1,700;1,800;1,900&display=swap"
+		rel="stylesheet">
+	<!-- Icons CSS -->
+	<link rel="stylesheet" th:href="@{/admin/css/feather.css}">
+	<!-- Date Range Picker CSS -->
+	<link rel="stylesheet" th:href="@{/admin/css/daterangepicker.css}">
+	<!-- App CSS -->
+	<link rel="stylesheet" th:href="@{/admin/css/app-light.css}" id="lightTheme">
+	<link rel="stylesheet" th:href="@{/admin/css/app-dark.css}" id="darkTheme" disabled>
 </head>
+
 <body class="light ">
 	<div class="wrapper vh-100">
 		<div class="row align-items-center h-100">
+
 			<form class="col-lg-3 col-md-4 col-10 mx-auto text-center" method="post" th:action="@{process-login}">
-			
-				
-				<h1 >Sign in</h1>
-				<th:block th:text="${msg}"></th:block>
+				<th:block th:if="${msg != null}">
+					<div class="alert alert-primary" role="alert" th:if="${msg == 0}">
+						Logout Success
+					</div>
+					<div class="alert alert-danger" role="alert" th:if="${msg == 1}">
+						<span class="fe fe-minus-circle fe-16 mr-2"></span>Account Is Invalid
+					</div>
+					<div class="alert alert-primary" role="alert" th:if="${msg == 3}">
+						Register Success
+					</div>
+
+				</th:block>
+
+				<h1>Sign in</h1>
+
 				<div class="form-group">
-					<label class="sr-only">Email address</label> 
-					<input type="email" class="form-control form-control-lg"
-						placeholder="Email address" required="" name="email">
+					<label class="sr-only">Email address</label>
+					<input type="email" class="form-control form-control-lg" placeholder="Email address" required=""
+						name="email">
 				</div>
 				<div class="form-group">
-					<label for="inputPassword" class="sr-only">Password</label> <input
-						type="password" id="inputPassword"
-						class="form-control form-control-lg" placeholder="Password"
-						required="" name="password">
+					<label for="inputPassword" class="sr-only">Password</label> <input type="password"
+						id="inputPassword" class="form-control form-control-lg" placeholder="Password" required=""
+						name="password">
 				</div>
-				
+
 				<button class="btn btn-lg btn-primary btn-block" type="submit">Sign In</button>
 				<a th:href="@{/log/register}">Register</a>
 				|
 				<a th:href="@{/log/forgetPassword}">Forget Password</a>
 				<p class="mt-5 mb-3 text-muted">© 2024</p>
-				<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
+				<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
 			</form>
 		</div>
 	</div>
-	
-	
+
+
 	<script th:src="@{/admin/js/jquery.min.js}"></script>
 	<script th:src="@{/admin/js/popper.min.js}"></script>
 	<script th:src="@{/admin/js/moment.min.js}"></script>
@@ -65,19 +77,19 @@
 	<script th:src="@{/admin/js/config.js}"></script>
 	<script th:src="@{/admin/js/apps.js}"></script>
 	<!-- Global site tag (gtag.js) - Google Analytics -->
-	<script async
-		src="https://www.googletagmanager.com/gtag/js?id=UA-56159088-1"></script>
+	<script async src="https://www.googletagmanager.com/gtag/js?id=UA-56159088-1"></script>
 	<script>
-      window.dataLayer = window.dataLayer || [];
+		window.dataLayer = window.dataLayer || [];
 
-      function gtag()
-      {
-        dataLayer.push(arguments);
-      }
-      gtag('js', new Date());
-      gtag('config', 'UA-56159088-1');
-    </script>
+		function gtag() {
+			dataLayer.push(arguments);
+		}
+		gtag('js', new Date());
+		gtag('config', 'UA-56159088-1');
+	</script>
 </body>
+
 </html>
 </body>
+
 </html>

@@ -1,8 +1,12 @@
 package com.demo.service;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 
+import com.demo.entities.Orders;
 import com.demo.entities.Tables;
 import com.demo.entities.Transaction;
 import com.demo.repositories.TablesRepository;
@@ -50,6 +54,13 @@ public class TransactionServiceImpl implements TransactionService{
 			e.printStackTrace();
 			return false;
 		}
+	}
+
+	@Override
+	@Async
+	public Transaction transactionAndOrder(int id_order) {
+		 
+		return transactionRepository.findByIdOrder(id_order);
 	}
 
 

@@ -51,28 +51,25 @@ public class AccountController {
 	public String edit(ModelMap modelMap, Authentication authentication) {
 		Account account = accountService.findByEmail(authentication.getName());
 		modelMap.put("account", accountService.find(account.getId()));
-		modelMap.put("user", userService.findAccoutId(account.getId()));
+		modelMap.put("users", userService.findAccoutId(account.getId()));
 		modelMap.put("branchs", branchService.findAll());
 		return "user/account/edit";
 	}
 
 	@PostMapping({ "edit" })
-	public String edit(@ModelAttribute("account") Account account, RedirectAttributes redirectAttributes,
-			@ModelAttribute("user") User user, @RequestParam("id_user") int id_user, Authentication authentication) {
-		try {
+	public String edit( RedirectAttributes redirectAttributes,
+			@ModelAttribute("user") User user, Authentication authentication) {
+			
 			Account account2 = accountService.findByEmail(authentication.getName());
-			user.setId(id_user);
-			if (accountService.save(account) && userService.save(user)) {
+			user.setAccount(account2);
+			if (userService.save(user)) {
 				redirectAttributes.addFlashAttribute("msg", "Edit Success");
 			} else {
 				redirectAttributes.addFlashAttribute("msg", "Edit Failed");
 
 			}
 
-		} catch (Exception e) {
-			e.printStackTrace();
-			redirectAttributes.addFlashAttribute("msg", e.getMessage());
-		}
+		
 		return "redirect:/home/index";
 	}
 

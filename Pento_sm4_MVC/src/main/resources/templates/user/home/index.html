@@ -1,4 +1,4 @@
-<html xmlns:th="http://www.thymeleaf.org" th:replace="~{layout/user :: content('HomePage',~{this :: .aaa})}">
+<html xmlns:th="http://www.thymeleaf.org" th:replace="~{layout/user :: content('Home',~{this :: .aaa})}">
 
 <head>
 	<title th:text="${title}"></title>
@@ -9,8 +9,7 @@
 	<div class="aaa">
 		<div class="wapper-desktop">
 			<div class="container-sm py-2xl">
-				<a th:href="@{/account/edit}">ppp</a>
-				<h2 class="title">Danh mục</h2>
+				<h2 class="title">Category</h2>
 				<div class="category-product">
 					<div class="slider">
 						<div class="btn-prev">
@@ -29,16 +28,104 @@
 						<div class="slider-content">
 							<div class="slider-category slider-wrapper">
 
-								<div th:each="category : ${categories}" class="slider-item catogry-item">
+								<div class="slider-item catogry-item">
 									<div class="catogry-item__header">
 										<div class="image">
-											<a th:href="@{'/category/index/' + ${category.id} }">
-												<img src="https://pastaxi-manager.onepas.vn/Upload/DanhMucHienThi/Avatar/638036438488453397-lau-pasgo.vn.png?Width=70&Type=webp"
-													alt="" />
+											<a th:href="@{'/category/index/' + 1 }">
+												<img th:src="@{/images/buffet.png}" />
 											</a>
 										</div>
 									</div>
-									<p th:text="${category.name}"></p>
+									<p>Buffet</p>
+								</div>
+
+
+								<div class="slider-item catogry-item">
+									<div class="catogry-item__header">
+										<div class="image">
+											<a th:href="@{'/category/index/' + 2 }">
+												<img th:src="@{/images/lau.png}" />
+											</a>
+										</div>
+									</div>
+									<p>Lẩu</p>
+								</div>
+
+								<div class="slider-item catogry-item">
+									<div class="catogry-item__header">
+										<div class="image">
+											<a th:href="@{'/category/index/' + 3 }">
+												<img th:src="@{/images/nuong.png}" />
+											</a>
+										</div>
+									</div>
+									<p>Nướng</p>
+								</div>
+
+								<div class="slider-item catogry-item">
+									<div class="catogry-item__header">
+										<div class="image">
+											<a th:href="@{'/category/index/' + 4 }">
+												<img th:src="@{/images/nhat.png}" />
+											</a>
+										</div>
+									</div>
+									<p>Nhật</p>
+								</div>
+
+								<div class="slider-item catogry-item">
+									<div class="catogry-item__header">
+										<div class="image">
+											<a th:href="@{'/category/index/' + 5 }">
+												<img th:src="@{/images/han.png}" />
+											</a>
+										</div>
+									</div>
+									<p>Hàn</p>
+								</div>
+
+								<div class="slider-item catogry-item">
+									<div class="catogry-item__header">
+										<div class="image">
+											<a th:href="@{'/category/index/' + 6 }">
+												<img th:src="@{/images/haisan.png}" />
+											</a>
+										</div>
+									</div>
+									<p>Hải sản</p>
+								</div>
+
+								<div class="slider-item catogry-item">
+									<div class="catogry-item__header">
+										<div class="image">
+											<a th:href="@{'/category/index/' + 7 }">
+												<img th:src="@{/images/au.png}" />
+											</a>
+										</div>
+									</div>
+									<p>Món Âu</p>
+								</div>
+
+								<div class="slider-item catogry-item">
+									<div class="catogry-item__header">
+										<div class="image">
+											<a th:href="@{'/category/index/' + 8 }">
+												<img th:src="@{/images/a.png}" />
+											</a>
+										</div>
+									</div>
+									<p>món Á</p>
+								</div>
+
+								<div class="slider-item catogry-item">
+									<div class="catogry-item__header">
+										<div class="image">
+											<a th:href="@{'/category/index/' + 9 }">
+												<img th:src="@{/images/viet.png}" />
+											</a>
+										</div>
+									</div>
+									<p>Món Việt</p>
 								</div>
 
 							</div>
@@ -66,14 +153,10 @@
 				<div class="wrapper-header">
 					<div class="flex justify-between-items-center">
 						<h2 class="title">
-							Top nhà hàng phù hợp ĐẶT TIỆC 8/3 cho CÔNG TY
+							Top newest restaurants
 						</h2>
-						<a href="" class="link-more">Xem tất cả</a>
+						<a th:href="@{/branch/index}" class="link-more">All</a>
 					</div>
-					<p class="sub-title">
-						Không gian check-in đẹp. Phòng riêng đa dạng sức chứa. Nhiều ưu
-						đãi hấp dẫn.
-					</p>
 				</div>
 				<div class="wrapper-content">
 					<div class="slider">
@@ -94,20 +177,149 @@
 							<div class="slider-wrapper">
 								<div th:each="branch : ${branchs}" class="slider-item slider_item">
 									<div class="card">
-										<a th:href="@{'/branch/details/' + ${branch.id}}" 
-											class="card_link">
+										<a th:href="@{'/branch/details/' + ${branch.id}}" class="card_link">
 											<div class="card_header">
 												<img th:src="@{'/images/' + ${branch.image}}">
 												<div class="item-sticker">
-													<span class="text-sticker">Được đề xuất</span>
+													<span class="text-sticker">Recommended</span>
 												</div>
 											</div>
 											<div class="card_body">
 												<h3 th:text="${branch.name}"></h3>
 
 												<div class="sale">
-													<p class="name-restaurant">Address:</p>
-													<p th:text="${branch.address}"></p>
+													<p class="card_body-address" th:text="${branch.address}"></p>
+												</div>
+											</div>
+										</a>
+									</div>
+								</div>
+
+							</div>
+						</div>
+						<div class="btn-next">
+							<button class="btn-slider-md btn">
+								<svg xmlns="http://www.w3.org/2000/svg"
+									class="icon icon-tabler icon-tabler-arrow-narrow-right" width="24" height="24"
+									viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none"
+									stroke-linecap="round" stroke-linejoin="round">
+									<path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+									<path d="M5 12l14 0"></path>
+									<path d="M15 16l4 -4"></path>
+									<path d="M15 8l4 4"></path>
+								</svg>
+							</button>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<div class="wapper-desktop bg-body-primary">
+			<div class="container-sm py-2xl">
+				<div class="wrapper-header">
+					<div class="flex justify-between-items-center">
+						<h2 class="title">
+							District 1 Restaurant
+						</h2>
+					</div>
+
+				</div>
+				<div class="wrapper-content">
+					<div class="slider">
+						<div class="btn-prev">
+							<button class="btn-slider-md btn">
+								<svg xmlns="http://www.w3.org/2000/svg"
+									class="icon icon-tabler icon-tabler-arrow-narrow-left" width="24" height="24"
+									viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none"
+									stroke-linecap="round" stroke-linejoin="round" style="transform: rotate(180deg)">
+									<path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+									<path d="M19 12l-14 0"></path>
+									<path d="M19 12l-4 4"></path>
+									<path d="M19 12l-4 -4"></path>
+								</svg>
+							</button>
+						</div>
+						<div class="slider-content">
+							<div class="slider-wrapper">
+								<div th:each="branch : ${addressq1}" class="slider-item slider_item">
+									<div class="card">
+										<a th:href="@{'/branch/details/' + ${branch.id}}" class="card_link">
+											<div class="card_header">
+												<img th:src="@{'/images/' + ${branch.image}}">
+											</div>
+											<div class="card_body">
+												<h3 th:text="${branch.name}"></h3>
+
+												<div class="sale">
+													<p class="card_body-address" th:text="${branch.address}"></p>
+												</div>
+											</div>
+										</a>
+									</div>
+								</div>
+
+							</div>
+						</div>
+						<div class="btn-next">
+							<button class="btn-slider-md btn">
+								<svg xmlns="http://www.w3.org/2000/svg"
+									class="icon icon-tabler icon-tabler-arrow-narrow-right" width="24" height="24"
+									viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none"
+									stroke-linecap="round" stroke-linejoin="round">
+									<path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+									<path d="M5 12l14 0"></path>
+									<path d="M15 16l4 -4"></path>
+									<path d="M15 8l4 4"></path>
+								</svg>
+							</button>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<div class="wapper-desktop bg-body-primary">
+			<div class="container-sm py-2xl">
+				<div class="wrapper-header">
+					<div class="flex justify-between-items-center">
+						<h2 class="title">
+							District 3 Restaurant
+						</h2>
+					</div>
+				</div>
+				<div class="wrapper-content">
+					<div class="slider">
+						<div class="btn-prev">
+							<button class="btn-slider-md btn">
+								<svg xmlns="http://www.w3.org/2000/svg"
+									class="icon icon-tabler icon-tabler-arrow-narrow-left" width="24" height="24"
+									viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none"
+									stroke-linecap="round" stroke-linejoin="round" style="transform: rotate(180deg)">
+									<path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+									<path d="M19 12l-14 0"></path>
+									<path d="M19 12l-4 4"></path>
+									<path d="M19 12l-4 -4"></path>
+								</svg>
+							</button>
+						</div>
+						<div class="slider-content">
+							<div class="slider-wrapper">
+								<div th:each="branch : ${addressq3}" class="slider-item slider_item">
+									<div class="card">
+										<a th:href="@{'/branch/details/' + ${branch.id}}" class="card_link">
+											<div class="card_header">
+												<img th:src="@{'/images/' + ${branch.image}}">
+												<div class="item-sticker">
+													<span class="text-sticker">Recommended</span>
+												</div>
+											</div>
+											<div class="card_body">
+												<h3 th:text="${branch.name}"></h3>
+
+												<div class="sale">
+													
+													<p class="card_body-address" th:text="${branch.address}"></p>
 												</div>
 											</div>
 										</a>

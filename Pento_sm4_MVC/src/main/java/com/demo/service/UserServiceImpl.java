@@ -1,7 +1,5 @@
 package com.demo.service;
 
-import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -50,13 +48,13 @@ public class UserServiceImpl implements UserService{
 			return false;
 		}
 	}
-	
+
 	@Override
 	public User findAccoutId(int account_id) {
+		// TODO Auto-generated method stub
 		return userRepository.findAccountId(account_id);
 	}
 
-	
 
 
 }

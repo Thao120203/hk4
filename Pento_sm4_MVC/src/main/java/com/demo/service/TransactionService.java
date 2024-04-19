@@ -1,5 +1,7 @@
 package com.demo.service;
 
+import java.util.List;
+
 import com.demo.entities.Transaction;
 
 public interface TransactionService {
@@ -11,6 +13,9 @@ public interface TransactionService {
 	public boolean save(Transaction transaction);
 	public boolean edit(int id);
 	public boolean delete(int id);
+	
+	
+	public Transaction transactionAndOrder(int id_order);
 	
 	
 }

@@ -1,0 +1,118 @@
+<html xmlns:th="http://www.thymeleaf.org" th:replace="~{layout/a :: content('HomePage',~{this :: .aaa})}">
+
+<body>
+	<div class="aaa">
+
+		<div class="wapper-content">
+
+
+			<div class="loader-center" id="loadermodal">
+				<div class="loader-box">
+					<div class="loader-group">
+						<div class="loader loader--steps icon-loader" aria-hidden="true"></div>
+					</div>
+				</div>
+			</div>
+
+			<div class="container">
+				<div class="wapper wap-account">
+					<div class="wapcontent">
+						<div class="row">
+							<div class="col-md-12">
+								<ul class="breadcrumb" itemscope itemtype="http://schema.org/BreadcrumbList">
+									<li itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
+										<a itemprop="item" th:href="@{/home/index}"> <span
+												itemprop="name">Home</span></a> <span>></span>
+										<meta itemprop="position" content="1" />
+									</li>
+									<li itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
+										<span itemprop="name"> Order Details</span>
+										<meta itemprop="position" content="2" />
+									</li>
+								</ul>
+							</div>
+						</div>
+
+						<div class="row content-acount">
+							<div class="col-md-4">
+								<ul>
+									<li class="acount-info">
+										<div class="row">
+											<div class="col-md-4 category-profile">
+												<img src="https://pasgo.vn/Assets/Images/webp/no_avatar.webp"
+													id="img-avatar-profile" class="img-circle img-responsive"
+													alt="aaaa" />
+												<span class="file-input btn btn-primary btn-file">
+
+												</span>
+											</div>
+											<div class="col-md-8">
+												<div class="text-manage"><span>Email : </span>
+													<th:block th:text="${account.email}"></th:block>
+												</div>
+												<div class="text-manage"><span>SDT : </span>
+													<th:block th:text="${users.phoneNumber}"></th:block>
+												</div>
+
+											</div>
+										</div>
+									</li>
+
+									<li class="acount-info">
+										<a class="acount-menu" th:href="@{/account/edit}"><span
+												class="text-menu-acount">Account Information</span><span
+												class="pasgo-icondesktop-menublack"></span></a>
+									</li>
+
+									<li class="acount-info">
+										<a class="acount-menu" th:href="@{/orders/index}"><span
+												class="text-menu-acount">History Order</span><span
+												class="pasgo-icondesktop-menublack"></span></a>
+									</li>
+									<li class="acount-info">
+										<a class="acount-menu" th:href="@{/logout}"></span><span
+												class="text-menu-acount">Logout</span><span
+												class="pasgo-icondesktop-menublack"></span></a>
+									</li>
+								</ul>
+							</div>
+							<div class="col-md-8">
+								<div class="content-right">
+									<h1>Order Details</h1>
+									<table border="1" class="table table-striped table-hover">
+										<thead>
+											<tr>
+												<th>ID</th>
+												<th>Menu</th>
+												<th>Quantity</th>
+												<th>price</th>
+
+											</tr>
+										</thead>
+										<tbody>
+											<tr th:each="orderdetail : ${orderdetails}">
+												<td style="text-align: center;" th:text="${orderdetail.id}"></td>
+												<td style="text-align: center;" th:text="${orderdetail.menu.name}"></td>
+												<td style="text-align: center;" th:text="${orderdetail.quantity}"></td>
+												<td style="text-align: center;" th:text="${orderdetail.price}"></td>
+
+											</tr>
+
+										</tbody>
+
+									</table>
+								</div>
+							</div>
+						</div>
+
+
+
+					</div>
+				</div>
+
+			</div>
+		</div>
+	</div>
+</body>
+
+</html>

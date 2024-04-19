@@ -1,7 +1,9 @@
 package com.demo.service;
 
 import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 
 import com.demo.entities.Orders;
@@ -48,6 +50,13 @@ public class OrdersServiceImpl implements OrdersService{
 			e.printStackTrace();
 			return false;
 		}
+	}
+
+	@Override
+	@Async
+	public List<Orders> findByIdAccount(int id_user) {
+		// TODO Auto-generated method stub
+		return OrdersRepository.findByIdAccount(id_user);
 	}
 	
 	@Override

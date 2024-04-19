@@ -13,16 +13,8 @@ public interface OrdersRepository extends CrudRepository<Orders, Integer>{
 	
 	@Query("from Orders order by id desc")
 	public List<Orders> findAllNew();
-	
+	@Query("from Orders where user.id = :id_user order by id desc")
+	public List<Orders> findByIdAccount(@Param("id_user") int id_user);
 	@Query("from Orders where tables.id = :id")
 	public List<Orders> findByTableId(@Param("id") int id );
-
-//	@Query("select distinct new Account(o.id, u.name, t.number, b.name) from Order o " +
-//	        "join o.user u " +
-//	        "join o.table t " +
-//	        "join t.branch b " +
-//	        "order by o.id desc")
-//	public List<Account> findAllOrdersWithUserTableAndBranch();
-
 }
-

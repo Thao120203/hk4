@@ -1,89 +1,66 @@
-<html xmlns:th="http://www.thymeleaf.org"
-	th:replace="~{layout/admin :: content('Edit Branch',~{this :: .aaa})}">
+<html xmlns:th="http://www.thymeleaf.org" th:replace="~{layout/admin :: content('Eidt Branch',~{this :: .aaa})}">
 
 <head>
-<title th:text="${title}"></title>
+	<title th:text="${title}"></title>
 
 </head>
 
 <body>
 	<div class="aaa">
 		<div class="row">
-			<div class="col-md-12" th:if="${msg}">
-				<div class="alert alert-warning alert-dismissible fade show"
-					role="alert">
-					<strong th:text="${msg}">Holy guacamole!</strong>
-					<button type="button" class="close" data-dismiss="alert"
-						aria-label="Close">
-						<span aria-hidden="true">×</span>
-					</button>
-				</div>
-			</div>
 			<div class="col-md-12">
 				<div class="card shadow mb-4">
 					<div class="card-header">
 						<strong class="card-title">Edit Branch</strong>
 					</div>
 					<div class="card-body">
-						<form method="post" th:action="@{/admin/branch/edit}" enctype="multipart/form-data"
-							novalidate>
+						<form class="needs-validation" method="post" th:action="@{/admin/branch/edit}"
+							enctype="multipart/form-data" novalidate>
 							<div class="form-group">
-								<label>Name</label> <input type="text" class="form-control"
-									th:field="${branch.name}" id="inputAddress5">
-							</div>
-							<div class="form-group">
-								<label for="inputAddress2">Address</label> <input type="text"
-									class="form-control" th:field="${branch.address}"
-									id="inputAddress6">
+								<label for="validationCustomUsername ">Name</label>
+								<input type="text" class="form-control" th:field="${branch.name}"
+									aria-describedby="inputGroupPrepend" id="validationCustomUsername" required>
+								<div class="invalid-feedback"> Please choose a name. </div>
 							</div>
 							<div class="form-group">
-								<label for="inputAddress2">Phone Number</label> <input
-									type="text" class="form-control"
-									th:field="${branch.phoneNumber}" id="inputAddress6">
+								<label for="inputAddress2">Address</label>
+								<input type="text" class="form-control" th:field="${branch.address}" id="inputAddress6" required>
 							</div>
-
-							<div class="form-row">
-								<div class="col-md-4 mb-4" sec:au>
-									<label for="example-select">Management account</label> <select
-										th:field="${branch.account.id}" class="form-control select2">
-										<option th:each="account : ${accounts}"
-											th:value="${account.id}" th:text="${account.email}"></option>
-									</select>
-								</div>
+							<div class="form-group">
+								<label for="inputAddress2">Phone Number</label>
+								<input type="text" class="form-control" th:field="${branch.phoneNumber}"
+									id="inputAddress6" required>
 							</div>
-
 							<div class="form-row">
 								<div class="form-group col-md-6">
-									<label for="inputEmail4">Opening Hours</label> <input
-										class="form-control" id="example-time"
-										th:field="${branch.openingHours}" type="time" name="time">
+									<label for="inputEmail4">Opening Hours</label>
+									<input class="form-control" id="example-time" th:field="${branch.openingHours}"
+										type="time" name="time" required>
 								</div>
 								<div class="form-group col-md-6">
-									<label for="inputPassword4">Clossing Hours</label> <input
-										class="form-control" id="example-time" type="time"
-										th:field="${branch.clossingHours}" name="time">
+									<label for="inputPassword4">Clossing Hours</label>
+									<input class="form-control" id="example-time" type="time"
+										th:field="${branch.clossingHours}" name="time" required>
 								</div>
 							</div>
+							<img th:src="@{'/images/' + ${branch.image}}" width="120" height="100">
+
 							<div class="form-group">
-								<label for="inputAddress2">Image</label> <input type="file"
-									class="form-control" name="file" id="inputAddress6">
+								<label for="inputAddress2">Image</label>
+								<input type="file" class="form-control" name="file" id="inputAddress6">
 							</div>
 							<div class="form-group toggle">
 								<div class="custom-control custom-switch">
-									<input type="checkbox" class="custom-control-input"
-										id="customSwitch1" onclick="A()" name="status"
-										th:checked="${branch.status == '1'}"> <label
-										class="custom-control-label text" for="customSwitch1">OPEN</label>
+									<input type="checkbox" class="custom-control-input" id="customSwitch1" onclick="A()"
+										name="status" th:checked="${branch.status == '1'}">
+									<label class="custom-control-label text" for="customSwitch1">OPEN</label>
 								</div>
 							</div>
 							<button type="submit" class="btn btn-primary">Edit</button>
-							<input type="hidden" th:field="${branch.id}"> <input
-								type="hidden" th:field="${branch.account.id}">
-						</form>
-					</div>
-					<!-- /. card-body -->
-				</div>
-				<!-- /. card -->
+							<input type="hidden" th:field="${branch.id}">
+							</formclass="needs-validation">
+					</div> <!-- /. card-body -->
+				</div> <!-- /. card -->
 			</div>
 		</div>
 	</div>

@@ -1,8 +1,7 @@
-<html xmlns:th="http://www.thymeleaf.org"
-	th:replace="~{layout/admin :: content('List Contact',~{this :: .aaa})}">
+<html xmlns:th="http://www.thymeleaf.org" th:replace="~{layout/admin :: content('List Contact',~{this :: .aaa})}">
 
 <head>
-<title th:text="${title}"></title>
+	<title th:text="${title}"></title>
 
 </head>
 
@@ -12,63 +11,71 @@
 		<div col-12>
 			<h2 class="mb-2 page-title">List Table in Branch - [ <b th:text="${branchName ?: 'ALL'}"></b>]</h2>
 			<div class="row my-4">
-			<div class="col-md-12" th:if="${msg}">
-				<div class="alert alert-warning alert-dismissible fade show" role="alert">
-					<strong th:text="${msg}">Holy guacamole!</strong>
-					<button type="button" class="close" data-dismiss="alert"
-						aria-label="Close">
-						<span aria-hidden="true">×</span>
-					</button>
-				</div>
-			</div>
 				<!-- Small table -->
 				<div class="col-md-12">
 					<div class="card shadow">
 
 						<div class="card-body">
+							<th:block th:if="${msg != null}">
+								<div class="alert alert-primary" role="alert" th:if="${msg == 1}">
+									Add Success
+								</div>
+								<div class="alert alert-danger" role="alert" th:if="${msg == 4}">
+									<span class="fe fe-minus-circle fe-16 mr-2"></span>
+									Delete Success
+								</div>
+								<div class="alert alert-primary" role="alert" th:if="${msg == 3}">
+									Edit Success
+								</div>
+
+
+
+							</th:block>
 							<!-- table -->
-							<div id="dataTable-1_wrapper"
-								class="dataTables_wrapper dt-bootstrap4 no-footer">
+							<div id="dataTable-1_wrapper" class="dataTables_wrapper dt-bootstrap4 no-footer">
 
 								<div class="row">
 									<div class="col-sm-12">
-									<a th:href="@{/admin/table/add}" sec:authorize="!hasRole('ROLE_ADMIN')"><button class="btn btn-primary float-right ml-3" type="button">Add
-											more + All Branch</button></a>
-									<a th:if="${branchId} != null" th:href="@{'/admin/table/add/' + ${branchId}}"><button class="btn btn-primary float-right ml-3" type="button">Add
-											more +</button></a>
-										<table class="table datatables dataTable no-footer"
-											id="dataTable-1" role="grid"
+										<a th:href="@{/admin/table/add}" sec:authorize="!hasRole('ROLE_ADMIN')"><button
+												class="btn btn-primary float-right ml-3" type="button">Add
+												more + All Branch</button></a>
+										<a th:if="${branchId} != null"
+											th:href="@{'/admin/table/add/' + ${branchId}}"><button
+												class="btn btn-primary float-right ml-3" type="button">Add
+												more +</button></a>
+										<table class="table datatables dataTable no-footer" id="dataTable-1" role="grid"
 											aria-describedby="dataTable-1_info">
 											<thead class="thead-dark">
 												<tr role="row">
 
-													<th class="sorting" tabindex="0"
-														aria-controls="dataTable-1" rowspan="1" colspan="1"
+													<th class="sorting" tabindex="0" aria-controls="dataTable-1"
+														rowspan="1" colspan="1"
 														aria-label="#: activate to sort column ascending"
 														style="width: 9.5625px;">Id</th>
-													<th class="sorting" tabindex="0"
-														aria-controls="dataTable-1" rowspan="1" colspan="1"
+													<th class="sorting" tabindex="0" aria-controls="dataTable-1"
+														rowspan="1" colspan="1"
 														aria-label="Name: activate to sort column ascending"
 														style="width: 124.075px;">Name</th>
 
-													<th class="sorting" tabindex="0"
-														aria-controls="dataTable-1" rowspan="1" colspan="1"
+													<th class="sorting" tabindex="0" aria-controls="dataTable-1"
+														rowspan="1" colspan="1"
 														aria-label="Department: activate to sort column ascending"
-														style="width: 160.65px;" sec:authorize="!hasRole('ROLE_ADMIN')">Branchs</th>
-													<th class="sorting" tabindex="0"
-														aria-controls="dataTable-1" rowspan="1" colspan="1"
+														style="width: 160.65px;" sec:authorize="!hasRole('ROLE_ADMIN')">
+														Branchs</th>
+													<th class="sorting" tabindex="0" aria-controls="dataTable-1"
+														rowspan="1" colspan="1"
 														aria-label="Company: activate to sort column ascending"
 														style="width: 69.2px;">Type Table</th>
-													<th class="sorting" tabindex="0"
-														aria-controls="dataTable-1" rowspan="1" colspan="1"
+													<th class="sorting" tabindex="0" aria-controls="dataTable-1"
+														rowspan="1" colspan="1"
 														aria-label="Address: activate to sort column ascending"
 														style="width: 40.675px;">Number Table</th>
-													<th class="sorting" tabindex="0"
-														aria-controls="dataTable-1" rowspan="1" colspan="1"
+													<th class="sorting" tabindex="0" aria-controls="dataTable-1"
+														rowspan="1" colspan="1"
 														aria-label="Address: activate to sort column ascending"
 														style="width: 20.675px;">Status</th>
-													<th class="sorting" tabindex="0"
-														aria-controls="dataTable-1" rowspan="1" colspan="1"
+													<th class="sorting" tabindex="0" aria-controls="dataTable-1"
+														rowspan="1" colspan="1"
 														aria-label="City: activate to sort column ascending"
 														style="width: 10.9625px;">Action</th>
 
@@ -79,30 +86,31 @@
 												<tr th:each="table : ${tables}">
 													<td th:text="${table.id}"></td>
 													<td th:text="${table.name}"></td>
-													<td th:text="${table.branchs.name}" sec:authorize="!hasRole('ROLE_ADMIN')"></td>
-													
-													
+													<td th:text="${table.branchs.name}"
+														sec:authorize="!hasRole('ROLE_ADMIN')"></td>
+
+
 													<td th:if="${table.tableType == 'Small Table'}"><span
-														class="badge badge-pill badge-success">Small Table</spans>
+															class="badge badge-pill badge-success">Small Table</spans>
 													</td>
 													<td th:if="${table.tableType == 'Medium Table'}"><span
-														class="badge badge-pill badge-success">Medium Table</span>
+															class="badge badge-pill badge-success">Medium Table</span>
 													</td>
 													<td th:if="${table.tableType == 'Large Table'}"><span
-														class="badge badge-pill badge-success">Large Table</span>
+															class="badge badge-pill badge-success">Large Table</span>
 													</td>
 													<td th:if="${table.tableType == 'VIP'}"><span
-														class="badge badge-pill badge-warning">VIP</span>
+															class="badge badge-pill badge-warning">VIP</span>
 													</td>
-														
-												
+
+
 													<td th:text="${table.numberOfSeat}"></td>
-													
+
 													<td th:if="${table.status == '0'}"><span
-														class="badge badge-pill badge-warning">Unbooked</span>
+															class="badge badge-pill badge-warning">Unbooked</span>
 													</td>
 													<td th:if="${table.status == '1'}"><span
-														class="badge badge-pill badge-success">Booked</span>
+															class="badge badge-pill badge-success">Booked</span>
 													</td>
 													<td>
 														<div class="dropdown">
@@ -115,10 +123,12 @@
 																aria-labelledby="dr1" style="">
 																<a class="dropdown-item"
 																	th:href="@{'/admin/table/edit/' + ${table.id} }"><button
-																		type="button" class="btn mb-2 btn-outline-success">Edit</button></a>
+																		type="button"
+																		class="btn mb-2 btn-outline-success">Edit</button></a>
 																<a class="dropdown-item"
 																	th:href="@{'/admin/table/delete/' + ${table.id} } "><button
-																		type="button" class="btn mb-2 btn-outline-danger">Delete</button></a>
+																		type="button"
+																		class="btn mb-2 btn-outline-danger">Delete</button></a>
 															</div>
 														</div>
 													</td>

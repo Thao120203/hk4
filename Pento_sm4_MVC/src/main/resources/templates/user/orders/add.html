@@ -21,7 +21,7 @@
 	<link rel="canonical" href="https://form.jotform.com/240735485454462" />
 	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=2.0, user-scalable=1" />
 	<meta name="HandheldFriendly" content="true" />
-	<title>Online Food Order Form</title>
+	<title>Order</title>
 	<link type="text/css" rel="stylesheet" href="https://cdn01.jotfor.ms/stylebuilder/static/form-common.css?v=3648d64
 " />
 	<style type="text/css">
@@ -1301,12 +1301,12 @@
 										</ul>
 									</span></div>
 								<div data-wrapper-react="true">
-									<span th:each="menu : ${menus}"
+									<span th:each="menu,iterStat   : ${menus}"
 										class="form-product-item hover-product-item on_col1 show_image show_desc show_option show_subtotal new_ui"
 										categories="non-categorized" pid="1001" aria-labelledby="label_24">
 										<div data-wrapper-react="true" class="form-product-item-detail new_ui">
 											<div class="p_col">
-												<div class="p_checkbox"><input type="checkbox"
+												<div class="p_checkbox"><input type="checkbox" th:value="${menu.id}"
 														class="product-checkbox  form-product-input" id="input_24_1001"
 														name="q24_menu[][id]" data-inputname="q24_menu[][id]"
 														value="1001" readonly
@@ -1323,7 +1323,7 @@
 											<div class="p_image">
 												<div class="image_area form-product-image-with-options">
 													<div style="position:absolute;width:100%;height:100%"><img
-															 th:src="@{'/images/' + ${menu.images.name}}" />
+															th:src="@{'/images/' + ${menu.images.name}}" />
 													</div>
 												</div>
 											</div>
@@ -1333,8 +1333,9 @@
 															id="product-name-input_24_1001">
 															<th:block th:text="${menu.name}"></th:block>
 														</span>
-														<span>Quantity: <input type="number" class="quantity-input"
-																value="1" min="1" max="10" /></span>
+														<span>Quantity:
+															<input type="number" class="quantity-input"
+																name="quantities" value="1" min="1" max="10" /></span>
 														<span class="form-product-description"
 															id="product-name-description-input_24_1001">
 														</span>
@@ -1409,8 +1410,22 @@
 											Member</label>
 									</span>
 								</span>
+								<span class="form-address-line form-address-street-line jsTest-address-lineField">
+									<span class="form-sub-label-container" style="vertical-align:top">
+										<select th:field="${order.tables.id}" class="form-dropdown form-address-country"
+											name="q17_address17[country]" id="input_17_country" data-component="country"
+											required="" aria-labelledby="label_17 sublabel_17_country"
+											autocomplete="section-input_17 country">
+											<option th:each="table : ${tables}" th:value="${table.id}"
+												th:text="${table.tableType}"></option>
+										</select>
+										<label class="form-sub-label" for="input_17_addr_line1"
+											id="sublabel_17_addr_line1" style="min-height:13px">Choose table</label>
+									</span>
+								</span>
 							</div>
 							<div class="form-address-line-wrapper jsTest-address-line-wrapperField">
+
 								<span class="form-address-line form-address-city-line jsTest-address-lineField ">
 									<span class="form-sub-label-container" style="vertical-align:top">
 										<input type="date" id="date" name="date" class="form-textbox form-address-city"
@@ -1421,10 +1436,9 @@
 								</span>
 								<span class="form-address-line form-address-state-line jsTest-address-lineField ">
 									<span class="form-sub-label-container" style="vertical-align:top">
-										<select id="time"
-											class="form-dropdown form-address-country" name="time">
-											<option th:each="hour : ${#numbers.sequence(10, 23)}" th:value="${hour}" 
-								            th:text="${#strings.concat(hour, ':00')}"></option>
+										<select id="time" class="form-dropdown form-address-country" name="time">
+											<option th:each="hour : ${#numbers.sequence(10, 23)}" th:value="${hour}"
+												th:text="${#strings.concat(hour, ':00')}"></option>
 										</select>
 										<label class="form-sub-label" for="input_17_state" id="sublabel_17_state"
 											style="min-height:13px">hours</label>
@@ -1433,6 +1447,59 @@
 							</div>
 
 
+						</div>
+					</div>
+				</li>
+
+				<li class="form-line" data-type="control_paymentmethods" id="id_46"><label
+						class="form-label form-label-top" id="label_46" for="input_46"> Payment
+						Methods </label>
+					<div id="cid_46" class="form-input-wide" data-layout="full">
+						<div class="payment-methods-area">
+							<div data-wrapper-react="true" class="paypalcomplete-payment-wrapper" data-sandbox="enabled"
+								data-currency="USD" data-merchantid="" data-billing-address="undefined"
+								data-auth-only="No" data-show-spb="true" data-show-card-fields="true">
+								<div id="paypal-commerce-platform-container">
+									<div class="paypal-toggle-buttons">
+										<div class="paypal-toggle">
+											<div id="paypal-card-fields">
+												<div class="payment-method-container" data-id="paypal-card-fields">
+													<input type="radio" class="form-radio" name="paypal-payment-method"
+														data-id="paypal-card-fields" id="paypal-card-fields-input"
+														aria-describedby="label_46" value="cash">
+													<label for="paypal-card-fields-input">
+														<span class="CC_ico"></span>
+														Cash</label>
+												</div>
+											</div>
+											<div id="paypal-smart-buttons">
+												<div class="payment-method-container" data-id="paypal-smart-buttons">
+													<input type="radio" class="form-radio" name="paypal-payment-method"
+														data-id="paypal-smart-buttons" id="paypal-smart-buttons-input"
+														aria-label="Paypal" aria-describedby="label_46" value="paypal"/><label
+														for="paypal-smart-buttons-input" aria-hidden="true"></label>
+												</div>
+											</div>
+										</div>
+									</div>
+									<div class="paypal-toggle-content " render-paypal-type="">
+										<div class="content-area">
+
+											<div id="paypal-spb-area">
+												<p>Please click one of the PayPal options to complete payment and
+													<b>submit</b> the form.
+												</p>
+												<div id="paypal-button-container"></div>
+											</div>
+										</div>
+										<div class="paypal-paylater-messages" style="display:block;padding-top:12px">
+											<div class="message-area"></div>
+										</div>
+									</div>
+								</div>
+							</div><input type="hidden" id="input_46_payment_method"
+								name="q46_paymentMethods[payment_method]" class="" data-defaultvalue=""
+								data-component="payment_method" aria-labelledby="" value="" />
 						</div>
 					</div>
 				</li>
@@ -1488,7 +1555,10 @@
 				document.getElementById('total').innerText = total.toFixed(2);
 			}
 		});
+
+
 	</script>
+
 </body>
 
 </html>

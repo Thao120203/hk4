@@ -1,10 +1,10 @@
 package com.demo.service;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-
 import java.util.ArrayList;
 import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import com.demo.entities.Menu;
 import com.demo.repositories.MenuRepository;
@@ -51,13 +51,16 @@ public class MenuServiceImpl implements MenuService{
 			return false;
 		}
 	}
-
-
+	@Override
+	public List<Menu> findBybranch_Menu(int id_account) {
+		return MenuRepository.findBybranch_Category(id_account);
+	}
+	
 	@Override
 	public List<Menu> findByKeyword(int id_category) {
 		return MenuRepository.findByKeyword(id_category);
 	}
-
+	
 	@Override
 	public List<Menu> findBybranch_Category(int id_account) {
 		var a= 0;
@@ -71,9 +74,6 @@ public class MenuServiceImpl implements MenuService{
 		}
 		return menus;
 	}
-	@Override
-	public List<Menu> findBybranch_Menu(int id_account) {
-		return MenuRepository.findBybranch_Category(id_account);
-	}
+
 
 }

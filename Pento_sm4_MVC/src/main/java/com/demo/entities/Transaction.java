@@ -12,7 +12,7 @@ import jakarta.persistence.*;
 public class Transaction implements java.io.Serializable {
 
 	private Integer id;
-	private OrderDetail orderDetail;
+	private Orders orders ;
 	private Promotions promotions;
 	private String totalAmount;
 	private String paymentMethod;
@@ -21,16 +21,16 @@ public class Transaction implements java.io.Serializable {
 	public Transaction() {
 	}
 
-	public Transaction(OrderDetail orderDetail, String totalAmount, String paymentMethod, Date created) {
-		this.orderDetail = orderDetail;
+	public Transaction(Orders orders, String totalAmount, String paymentMethod, Date created) {
+		this.orders = orders;
 		this.totalAmount = totalAmount;
 		this.paymentMethod = paymentMethod;
 		this.created = created;
 	}
 
-	public Transaction(OrderDetail orderDetail, Promotions promotions, String totalAmount, String paymentMethod,
+	public Transaction(Orders orders, Promotions promotions, String totalAmount, String paymentMethod,
 			Date created) {
-		this.orderDetail = orderDetail;
+		this.orders = orders;
 		this.promotions = promotions;
 		this.totalAmount = totalAmount;
 		this.paymentMethod = paymentMethod;
@@ -45,18 +45,19 @@ public class Transaction implements java.io.Serializable {
 		return this.id;
 	}
 
+	
 	public void setId(Integer id) {
 		this.id = id;
 	}
 
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "order_id", nullable = false)
-	public OrderDetail getOrderDetail() {
-		return this.orderDetail;
+	public Orders getOrders() {
+		return orders;
 	}
 
-	public void setOrderDetail(OrderDetail orderDetail) {
-		this.orderDetail = orderDetail;
+	public void setOrders(Orders orders) {
+		this.orders = orders;
 	}
 
 	@ManyToOne(fetch = FetchType.LAZY)
@@ -64,6 +65,8 @@ public class Transaction implements java.io.Serializable {
 	public Promotions getPromotions() {
 		return this.promotions;
 	}
+
+	
 
 	public void setPromotions(Promotions promotions) {
 		this.promotions = promotions;

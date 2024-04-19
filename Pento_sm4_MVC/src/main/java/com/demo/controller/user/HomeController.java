@@ -10,7 +10,7 @@ import com.demo.service.BranchService;
 import com.demo.service.CategoryFoodService;
 
 @Controller
-@RequestMapping({ "home", "home/", "/", "" })
+@RequestMapping({ "home", "home/","/" })
 public class HomeController {
 	
 	@Autowired
@@ -24,8 +24,9 @@ public class HomeController {
 	@GetMapping({ "index", "index/", "", "/"})
 	public String index(ModelMap modelMap) {
 		modelMap.put("branchs", branchService.findAll());
+		modelMap.put("addressq1", branchService.findAddress("Q. 1"));
 		modelMap.put("categories", categoryService.findAll());
-
+		modelMap.put("addressq3", branchService.findAddress("Q. 3"));
 		return "user/home/index";
 	}
 	

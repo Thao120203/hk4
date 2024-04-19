@@ -1,15 +1,20 @@
 package com.demo.controller.admin;
 
+import java.io.File;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.ClassPathResource;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PatchMapping;
@@ -20,8 +25,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.demo.entities.Account;
 import com.demo.entities.Branchs;
-import com.demo.entities.Images;
 import com.demo.helpers.FileHelper;
 import com.demo.service.AccountService;
 import com.demo.service.BranchService;
@@ -41,20 +46,11 @@ public class BranchsAdminController {
 
 		String email = accountService.findByEmail(authentication.getName()).getRole().getName();
 
-		try {
-			Path folderPath = Paths.get("static/images");
-			if (!Files.exists(folderPath)) {
-				Files.createDirectories(folderPath);
-			}
-			if (email.equals("ROLE_SUPER_ADMIN")) {
-				modelMap.put("branchs", branchService.findAll());
-			} else {
-				modelMap.put("branchs", branchService
-						.findBranchNamesByAccountId(accountService.findByEmail(authentication.getName()).getId()));
-			}
-
-		} catch (Exception e) {
-			e.printStackTrace();
+		if (email.equals("ROLE_SUPER_ADMIN")) {
+			modelMap.put("branchs", branchService.findAll());
+		} else {
+			modelMap.put("branchs", branchService
+					.findBranchNamesByAccountId(accountService.findByEmail(authentication.getName()).getId()));
 		}
 
 		return "admin/branch/index";
@@ -76,38 +72,41 @@ public class BranchsAdminController {
 		modelMap.put("accounts", accountService.findByRoleAdmin());
 		return "admin/branch/add";
 	}
+
 	@PostMapping({ "add" })
-	public String add(@ModelAttribute("branch") Branchs branch, @RequestParam("file") MultipartFile file,
-			RedirectAttributes redirectAttributes) {
+	public String add(@ModelAttribute("branch") Branchs branch, RedirectAttributes redirectAttributes,
+			BindingResult bindingResult, @RequestParam("file") MultipartFile file, Authentication authentication) {
+		Account account = accountService.findByEmail(authentication.getName());
+		branch.setAccount(account);
+		String statusValue = branch.getStatus();
+		branch.setStatus(statusValue != null && statusValue.equals("on") ? "1" : "0");
 		try {
-			String statusValue = branch.getStatus();
-			branch.setStatus(statusValue != null && statusValue.equals("on") ? "1" : "0");
-			
 			if (file != null && !file.isEmpty()) {
 				String fileName = FileHelper.generateFileName(file.getOriginalFilename());
-				Path imagePath = Paths.get("static/images/" + fileName);
-				Files.copy(file.getInputStream(), imagePath, StandardCopyOption.REPLACE_EXISTING);
+				File imagesFolder = new ClassPathResource("static/images").getFile();
+				Path path = Paths.get(imagesFolder.getAbsolutePath() + File.separator + fileName);
+				Files.copy(file.getInputStream(), path, StandardCopyOption.REPLACE_EXISTING);
 				branch.setImage(fileName);
-			} else {
-				branch.setImage("noimage.png");
 			}
-			
-			if (branchService.save(branch)) {
-				redirectAttributes.addFlashAttribute("msg", "Add Success");
-				return "redirect:/admin/branch/index";
-			}
+
 		} catch (Exception e) {
 			e.printStackTrace();
-			redirectAttributes.addFlashAttribute("msg", "Add Failed");
 		}
-		return "redirect:/admin/branch/add";
+		if (branchService.save(branch)) {
+			redirectAttributes.addFlashAttribute("msg", 1);
+		} else {
+			redirectAttributes.addFlashAttribute("msg", 2);
+			return "redirect:/admin/branch/add";
+		}
+		return "redirect:/admin/branch/index";
+
 	}
 
 	// DELETE
 	@GetMapping({ "delete/{id}" })
 	public String delete(RedirectAttributes redirectAtributes, @PathVariable("id") int id) {
 		if (branchService.delete(id)) {
-			redirectAtributes.addFlashAttribute("msg", "Delete Success");
+			redirectAtributes.addFlashAttribute("msg", 4);
 		} else {
 			redirectAtributes.addFlashAttribute("msg", "Delete Failed");
 		}
@@ -118,36 +117,39 @@ public class BranchsAdminController {
 	@GetMapping({ "edit/{id}" })
 	public String edit(@PathVariable("id") int id, ModelMap modelMap) {
 		modelMap.put("branch", branchService.find(id));
-		modelMap.put("accounts", accountService.findByRoleAdmin());
 		return "admin/branch/edit";
 	}
 
+	
 	@PostMapping({ "edit" })
-	public String edit(@ModelAttribute("branch") Branchs branch, @RequestParam("file") MultipartFile file,
-			RedirectAttributes redirectAttributes) {
-
+	public String edit(@ModelAttribute("branch") Branchs branch, RedirectAttributes redirectAttributes,
+			@RequestParam("file") MultipartFile file) {
+		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+		Account account = accountService.findByEmail(authentication.getName());
+		branch.setAccount(account);
+		String statusValue = branch.getStatus();
+		branch.setStatus(statusValue != null && statusValue.equals("on") ? "1" : "0");
 		try {
-			String statusValue = branch.getStatus();
-			branch.setStatus(statusValue != null && statusValue.equals("on") ? "1" : "0");
-			if (file != null && file.getSize() > 0) {
-				Images images = new Images();
-				String fileName = FileHelper.generateFileName(file.getOriginalFilename());
-				Path imagePath = Paths.get("static/images/" + fileName);
-				Files.copy(file.getInputStream(), imagePath, StandardCopyOption.REPLACE_EXISTING);
-				branch.setImage(fileName);
+			if (file != null && !file.isEmpty()) {
 
+				String fileName = FileHelper.generateFileName(file.getOriginalFilename());
+				File imagesFolder = new ClassPathResource("static/images").getFile();
+				Path path = Paths.get(imagesFolder.getAbsolutePath() + File.separator + fileName);
+				Files.copy(file.getInputStream(), path, StandardCopyOption.REPLACE_EXISTING);
+				branch.setImage(fileName);
 			} else {
-				branch.setImage("noimage.png");
+				var branchs = branchService.find(branch.getId());
+				branch.setImage(branchs.getImage());
 			}
-			if (branchService.save(branch)) {
-				redirectAttributes.addFlashAttribute("msg", "Edit Success");
-				return "redirect:/admin/branch/index";
-			}
+
 		} catch (Exception e) {
 			e.printStackTrace();
-			redirectAttributes.addFlashAttribute("msg", "Edit Failed");
 		}
-		redirectAttributes.addFlashAttribute("msg", "Edit Failed");
+		if (branchService.save(branch)) {
+			redirectAttributes.addFlashAttribute("msg", 3);
+
+			return "redirect:/admin/branch/index";
+		}
 		return "redirect:/admin/branch/edit";
 	}
 

@@ -50,13 +50,18 @@ public class OrderDetailServiceImpl implements OrderDetailService{
 			return false;
 		}
 	}
-	
+
 	@Override
-	public List<OrderDetail> findByOrderId(int id) {
+	public double sumorderdetail_idorder(int id_order) {
 		// TODO Auto-generated method stub
-		return OrderDetailRepository.findByOrderId(id);
+		return OrderDetailRepository.sumorderdetail_idorder(id_order);
 	}
 
+	@Override
+	public List<OrderDetail> findByIdOrder(int id_order) {
+		// TODO Auto-generated method stub
+		return OrderDetailRepository.findByIdOrder(id_order);
+	}
 
 
 

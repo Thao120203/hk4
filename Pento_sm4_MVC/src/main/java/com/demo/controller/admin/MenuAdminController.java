@@ -106,13 +106,13 @@ public class MenuAdminController {
 		        menu.setAccount(account);
 		        
 		        if (menuService.save(menu)) {
-		            redirectAttributes.addFlashAttribute("msg", "Success");
+		            redirectAttributes.addFlashAttribute("msg", 1);
 		        } else {
 		            redirectAttributes.addFlashAttribute("msg", "Failed");
 		        }
 		    } catch (Exception e) {
 		        e.printStackTrace();
-		        redirectAttributes.addFlashAttribute("msg", "Failed");
+		        redirectAttributes.addFlashAttribute("msg", e.getMessage());
 		    }
 		    return "redirect:/admin/menu/index";
 	}
@@ -121,7 +121,7 @@ public class MenuAdminController {
 	@GetMapping({"delete/{id}"})
 	public String delete(RedirectAttributes redirectAtributes, @PathVariable("id") int id) {
 		if(menuService.delete(id)) {
-			redirectAtributes.addFlashAttribute("msg", "Delete Success");
+			redirectAtributes.addFlashAttribute("msg", 4);
 		} else {
 			redirectAtributes.addFlashAttribute("msg", "Delete Failed");
 		}
@@ -165,7 +165,7 @@ public class MenuAdminController {
 		        menu.setAccount(account);
 		        
 		        if (menuService.save(menu)) {
-		            redirectAttributes.addFlashAttribute("msg", "Edit Success");
+		            redirectAttributes.addFlashAttribute("msg", 3);
 		        } else {
 		            redirectAttributes.addFlashAttribute("msg", "Failed");
 		        }

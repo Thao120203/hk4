@@ -9,9 +9,6 @@ public interface AccountService extends UserDetailsService{
 	public Iterable<Account> findAll();
 	public Account find(int id);
 	public Account findByEmail(String email);
-	public Iterable<Account> findByRoleAdminMember();
-	public Iterable<Account> findByRoleAdmin();
-	public Iterable<Account> findByRoleMember();
 	
 	public boolean findEmail(String email);
 	
@@ -23,6 +20,6 @@ public interface AccountService extends UserDetailsService{
 	public boolean delete(int id);
 	// Find Pasword
 	public String findPassword(int id);
-	
+	public Iterable<Account> findByRoleAdmin();
 	
 }

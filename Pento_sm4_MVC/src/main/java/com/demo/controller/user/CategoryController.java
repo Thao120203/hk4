@@ -43,7 +43,7 @@ public class CategoryController {
 	@GetMapping( "index/{id}")
 	public String index(ModelMap modelMap, @PathVariable("id") int id) {
 		modelMap.put("category", categoryService.find(id));
-		modelMap.put("menus", menuService.findByKeyword(id));
+		
 		modelMap.put("branchs", branchService.listBranchbyCategory_Food(id));
 		modelMap.put("countbranch", branchService.countListBranchbyCategory_Food(id));
 		return "user/category/index";

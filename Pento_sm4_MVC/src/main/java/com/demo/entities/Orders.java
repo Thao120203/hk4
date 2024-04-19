@@ -22,6 +22,7 @@ public class Orders implements java.io.Serializable {
 	private String status;
 	private Date created;
 	private Set<OrderDetail> orderDetails = new HashSet<OrderDetail>(0);
+	private Set<Transaction> transactions = new HashSet<Transaction>(0);
 
 	public Orders() {
 	}
@@ -36,7 +37,7 @@ public class Orders implements java.io.Serializable {
 	}
 
 	public Orders(Tables tables, Times times, User user, int totalMember, boolean children, String status, Date created,
-			Set<OrderDetail> orderDetails) {
+			Set<OrderDetail> orderDetails, Set<Transaction> transactions) {
 		this.tables = tables;
 		this.times = times;
 		this.user = user;
@@ -45,6 +46,7 @@ public class Orders implements java.io.Serializable {
 		this.status = status;
 		this.created = created;
 		this.orderDetails = orderDetails;
+		this.transactions = transactions;
 	}
 
 	@Id
@@ -133,6 +135,15 @@ public class Orders implements java.io.Serializable {
 
 	public void setOrderDetails(Set<OrderDetail> orderDetails) {
 		this.orderDetails = orderDetails;
+	}
+	
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "orders")
+	public Set<Transaction> getTransactions() {
+		return this.transactions;
+	}
+
+	public void setTransactions(Set<Transaction> transactions) {
+		this.transactions = transactions;
 	}
 
 }

@@ -37,14 +37,16 @@ public class SecurityConfiguration {
 		return http.cors(cor -> cor.disable()).csrf(cs -> cs.disable()).authorizeHttpRequests(auth -> {
 			auth.requestMatchers("/", "/index/**",
 					"/admin/css/**", "/admin/js/**", "/admin/log/**", 
-					"/log/**", "/images/**",
+					"/log/**",
 					"/home/**", "/aboutus/**", "/dashboard/**", "/contact/**", "/menu/**", 
-					"/user/**", "/users/**", 
+					"/user/**", "/users/**",
+					"/login?logout","/**",
+					"/logout",
 					"/accessDenied")
 					.permitAll()
 					.requestMatchers("/admin/account/index", "/admin/table/index", "/admin/user/index").hasAnyRole("SUPER_ADMIN")
-					.requestMatchers("/admin/**").hasAnyRole("SUPER_ADMIN", "ADMIN")
-					.requestMatchers("/user/**", "/").hasAnyRole("SUPER_ADMIN", "ADMIN", "MEMBER")
+					.requestMatchers("/admin/**").hasAnyRole( "ADMIN")
+					.requestMatchers("/user/**", "/").hasAnyRole("MEMBER")
 					.anyRequest()
 					.authenticated();
 		}).formLogin(formLogin -> {
@@ -60,7 +62,7 @@ public class SecurityConfiguration {
 						}
 					}).failureUrl("/log/login?error");
 		}).logout(logout -> {
-			logout.logoutUrl("/logout").logoutSuccessUrl("/login?logout");
+			logout.logoutUrl("/logout").logoutSuccessUrl("/log/login?logout");
 		}).exceptionHandling(ex -> {
 			ex.accessDeniedPage("/accessDenied");
 		}).build();
@@ -78,8 +80,8 @@ public class SecurityConfiguration {
 					.getAuthorities();
 
 			Map<String, String> urls = new HashMap<String, String>();
-			urls.put("ROLE_SUPER_ADMIN", "/admin/dashboard");
-			urls.put("ROLE_ADMIN", "/admin/dashboard");
+			urls.put("ROLE_SUPER_ADMIN", "/admin/account/index");
+			urls.put("ROLE_ADMIN", "/admin/branch/index");
 			urls.put("ROLE_MEMBER", "/");
 
 			String url = "";

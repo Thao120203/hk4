@@ -13,7 +13,10 @@ public interface OrderDetailRepository extends CrudRepository<OrderDetail, Integ
 	
 	@Query("from OrderDetail order by id desc")
 	public List<OrderDetail> findAllNew();
+	@Query("select sum(price)from OrderDetail where orders.id= :id_order")
+	public double sumorderdetail_idorder(@Param("id_order")int id);
+	@Query("from OrderDetail where orders.id= :id_order")
+	public List<OrderDetail> findByIdOrder(@Param("id_order")int id);
 	
-	@Query("from OrderDetail where orders.id = :id")
-	public List<OrderDetail> findByOrderId(@Param("id") int id);
+	
 }

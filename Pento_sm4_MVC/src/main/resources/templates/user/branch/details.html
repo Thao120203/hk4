@@ -1,158 +1,205 @@
-<html xmlns:th="http://www.thymeleaf.org"
-	th:replace="~{layout/user :: content('HomePage',~{this :: .aaa})}">
+<html xmlns:th="http://www.thymeleaf.org" th:replace="~{layout/user :: content('Restaurant',~{this :: .aaa})}">
 
-<div class="aaa">
-		<div class="gird grid-cols-10 gap-2">
-			<div class="col-span-8">
+<head>
+	<title th:text="${title}"></title>
 
-				<div class="slider">
-					<div class="btn-prev" style="transform: translateY(-50%)">
-						<button class="carousel-control-left btn">
-							<i class="icon fa-chevron-left"></i>
-						</button>
-					</div>
-					<div class="slider-content">
-						<div class="slider-wrapper">
-							<div class="slider-item flex" style="width: 100%">
-								<div class="slider-detail">
-									<img class="img-responsive"
-										th:src="@{'/images/' + ${branch.image}}">
-								</div>
-							</div>
+</head>
 
+<body>
+	<div class="aaa">
+		<div class="carousel-detail">
+			<div class="gird grid-cols-12 gap-3">
+				<div class="col-span-8">
+					<div class="slider">
+						<div class="btn-prev" style="transform: translateY(-50%)">
+							<button class="carousel-control-left btn">
+								<i class="icon fa-chevron-left"></i>
+							</button>
 						</div>
+						<div class="slider-content">
+							<div class="slider-wrapper">
+								<div class="slider-item flex" style="width: 100%">
+									<div class="slider-detail">
+										<img class="img-responsive" th:src="@{'/images/' + ${branch.image}}">
+									</div>
+								</div>
+
+							</div>
+						</div>
+
 					</div>
-
-				</div>
-
-				<div class="wap-top-detail bg-white">
-					<div class="wap-top-detail-wrapper">
-						<h1 class="title">
-							<span class="pasgo-title" itemprop="name"> <th:block
-									th:text="${branch.name}"></th:block>
-							</span>
-						</h1>
-						<p class="text-address">
-							<span class="icon-address"> <svg width="22" height="22"
-									viewBox="0 0 16 17" fill="none"
-									xmlns="http://www.w3.org/2000/svg">
+					<div class="wap-top-detail bg-white">
+						<div class="wap-top-detail-wrapper">
+							<h1 class="title">
+								<span class="pasgo-title" itemprop="name">
+									<th:block th:text="${branch.name}"></th:block>
+								</span>
+							</h1>
+							<p class="text-address">
+								<span class="icon-address">
+									<svg width="22" height="22" viewBox="0 0 16 17" fill="none"
+										xmlns="http://www.w3.org/2000/svg">
 										<g id="icon/location/line">
 											<g id="Color">
 												<path fill-rule="evenodd" clip-rule="evenodd"
-										d="M5.40301 7.13913C5.40301 5.71767 6.57255 4.5541 8.0013 4.5541C9.43005 4.5541 10.5996 5.71767 10.5996 7.13913C10.5996 8.56059 9.43005 9.72417 8.0013 9.72417C6.57255 9.72417 5.40301 8.56059 5.40301 7.13913ZM6.49703 7.13913C6.49703 7.96257 7.17364 8.63573 8.0013 8.63573C8.82896 8.63573 9.50558 7.96257 9.50558 7.13913C9.50558 6.31569 8.82896 5.64253 8.0013 5.64253C7.17364 5.64253 6.49703 6.31569 6.49703 7.13913Z"
-										fill="black"></path>
+													d="M5.40301 7.13913C5.40301 5.71767 6.57255 4.5541 8.0013 4.5541C9.43005 4.5541 10.5996 5.71767 10.5996 7.13913C10.5996 8.56059 9.43005 9.72417 8.0013 9.72417C6.57255 9.72417 5.40301 8.56059 5.40301 7.13913ZM6.49703 7.13913C6.49703 7.96257 7.17364 8.63573 8.0013 8.63573C8.82896 8.63573 9.50558 7.96257 9.50558 7.13913C9.50558 6.31569 8.82896 5.64253 8.0013 5.64253C7.17364 5.64253 6.49703 6.31569 6.49703 7.13913Z"
+													fill="black"></path>
 												<path fill-rule="evenodd" clip-rule="evenodd"
-										d="M2.66797 7.13913C2.66797 4.22107 5.06828 1.83301 8.0013 1.83301C10.9343 1.83301 13.3346 4.22107 13.3346 7.13913C13.3346 8.92564 12.1659 10.8493 10.9457 12.3688C9.88425 13.6908 8.80675 14.6802 8.47721 14.9828C8.44366 15.0136 8.41786 15.0373 8.40062 15.0535C8.2731 15.114 8.1022 15.1663 8.0013 15.1663C7.90041 15.1663 7.72951 15.114 7.60198 15.0535C7.58475 15.0373 7.55897 15.0136 7.52544 14.9828C7.1959 14.6802 6.11836 13.6908 5.05686 12.3688C3.83671 10.8493 2.66797 8.92564 2.66797 7.13913ZM7.90699 13.8363L8.0013 13.9257L8.09561 13.8363C8.81803 13.1518 9.85021 12.0566 10.703 10.8483C11.5515 9.64594 12.2406 8.3065 12.2406 7.13913C12.2406 4.81909 10.3332 2.92144 8.0013 2.92144C5.66937 2.92144 3.76199 4.81909 3.76199 7.13913C3.76199 8.34025 4.45076 9.67946 5.2999 10.8741C6.15291 12.0743 7.18524 13.1524 7.90699 13.8363Z"
-										fill="black"></path>
+													d="M2.66797 7.13913C2.66797 4.22107 5.06828 1.83301 8.0013 1.83301C10.9343 1.83301 13.3346 4.22107 13.3346 7.13913C13.3346 8.92564 12.1659 10.8493 10.9457 12.3688C9.88425 13.6908 8.80675 14.6802 8.47721 14.9828C8.44366 15.0136 8.41786 15.0373 8.40062 15.0535C8.2731 15.114 8.1022 15.1663 8.0013 15.1663C7.90041 15.1663 7.72951 15.114 7.60198 15.0535C7.58475 15.0373 7.55897 15.0136 7.52544 14.9828C7.1959 14.6802 6.11836 13.6908 5.05686 12.3688C3.83671 10.8493 2.66797 8.92564 2.66797 7.13913ZM7.90699 13.8363L8.0013 13.9257L8.09561 13.8363C8.81803 13.1518 9.85021 12.0566 10.703 10.8483C11.5515 9.64594 12.2406 8.3065 12.2406 7.13913C12.2406 4.81909 10.3332 2.92144 8.0013 2.92144C5.66937 2.92144 3.76199 4.81909 3.76199 7.13913C3.76199 8.34025 4.45076 9.67946 5.2999 10.8741C6.15291 12.0743 7.18524 13.1524 7.90699 13.8363Z"
+													fill="black"></path>
 											</g>
 										</g>
 									</svg>
-							</span>
-							<th:block th:text="${branch.address}"></th:block>
-						</p>
-						<div class="hours-pickup">
-							<div class="right">
-								Loại hình: <span>Buffet nướng lẩu Hàn Quốc</span>
-							</div>
-							<div class="left">
-								<span class="text-left">Khoảng giá </span> <span
-									class="pasgo-giatrungbinh" itemprop="priceRange">250.000
-									- 400.000 đ/người</span>
-							</div>
-						</div>
-						<div class="tags">
-							<p class="text-tag">Thẻ tag:</p>
-							<div class="slider-tag">
-								<div class="slider">
-									<div class="btn-prev">
-										<button class="btn-slider-sm btn" fdprocessedid="m4ixvqu">
-											<i class="fa-solid fa-chevron-left"></i>
-										</button>
+								</span>
+								<th:block th:text="${branch.address}"></th:block>
+							</p>
+
+							<div class="tags">
+								<p class="text-tag">Tags:</p>
+								<div class="slider-tag">
+									<div class="slider">
+										<div class="btn-prev">
+											<button class="btn-slider-sm btn" fdprocessedid="m4ixvqu">
+												<i class="fa-solid fa-chevron-left"></i>
+											</button>
+										</div>
+										<div class="slider-content" th:each="menus_category : ${menus_categorys}">
+											<div class="slider-wrapper">
+												<div class="slider-item flex" style="width: calc(100% / 5)">
+													<div class="tag-item">
+														<a th:href="@{'/category/index/' + ${menus_category.categoryFood.id}}"
+															target="_blank" class="btn-tags">
+															<th:block th:text="${menus_category.categoryFood.name}">
+															</th:block>
+														</a>
+													</div>
+												</div>
+
+											</div>
+										</div>
+
+										<div class="btn-next">
+											<button class="btn-slider-sm btn" fdprocessedid="pvj50a">
+												<i class="fa-solid fa-chevron-right"></i>
+											</button>
+										</div>
 									</div>
-									<div class="slider-content"
-										th:each="menus_category : ${menus_categorys}">
-										<div class="slider-wrapper">
-											<div class="slider-item flex" style="width: calc(100%/ 5)">
-												<div class="tag-item">
-													<a
-														th:href="@{'/category/index/' + ${menus_category.categoryFood.id}}"
-														target="_blank" class="btn-tags"> <th:block
-															th:text="${menus_category.categoryFood.name}">
-														</th:block>
-													</a>
+								</div>
+							</div>
+							<div class="hours-pickup">
+								<th:block th:if="${branch.status == '0' }"> <a href="#time-service"
+										class="hours-pickup-title col-md-2 text-danger">Close</a>
+								</th:block>
+								<th:block th:if="${branch.status == '1' }"> <a href="#time-service"
+										class=" col-md-2 text-info"><font color="blue">Open</font></a>
+								</th:block>
+							</div>
+							<ul class="tab-nav">
+								<li class="tab-nav_item">
+									<a href="#dia-chi">Menu</a>
+								</li>
+
+
+							</ul>
+						</div>
+					</div>
+					<article id="dia-chi">
+						<div class="gird grid-cols-4 gap-3 mt-20">
+
+							<div th:each="menu : ${menus}" class="card card-product">
+								<div href="" class="card_link">
+									<div class="card_header">
+										<img th:src="@{'/images/' + ${menu.images.name}}">
+										<div class="card_header_footer">
+											<a href="">
+												<th:block th:text="${menu.name}"></th:block>
+											</a>
+											<div class="gird grid-cols-2">
+												<div class="rating-container-item">
+													<ul class="review flex">
+
+													</ul>
+												</div>
+												<div class="rating-container-item">
+													<ul class="rating flex">
+
+													</ul>
 												</div>
 											</div>
-
+											<p class="text-address">
+												<th:block th:text="${menu.description}"></th:block>
+											</p>
 										</div>
 									</div>
+									<div class="card_body">
+										<div class="wapsale">
+											<strong th:text="${menu.price} +  '$'"></strong>
+										</div>
 
-									<div class="btn-next">
-										<button class="btn-slider-sm btn" fdprocessedid="pvj50a">
-											<i class="fa-solid fa-chevron-right"></i>
-										</button>
 									</div>
 								</div>
 							</div>
-						</div>
-						<div class="hours-pickup">
-							<a href="#time-service"
-								class="hours-pickup-title col-md-2 text-danger">Đóng cửa</a>
-						</div>
-						<ul class="tab-nav">
-							<li class="tab-nav_item"><a href="#dia-chi">Menu</a></li>
-							<li class="tab-nav_item"><a href="#gioi-thieu"> Giới
-									thiệu </a></li>
 
-						</ul>
+						</div>
+						<a class="btn btn-submit-booking" type="button" th:href="@{'/orders/add/'+ ${branch.id}}">
+							order now
+						</a>
+					</article>
+					<article id="gioi-thieu">
+
+					</article>
+
+				</div>
+				<div class="col-span-4">
+
+					<div class="booking-form-area">
+						<form class="wap-booking" th:action="@{/branch/comment}" method="post">
+							<h2 class="title-booking">Review</h2>
+
+							<div class="gird grid-cols-2 gap-3">
+								<div class="input-form">
+									<label class="form-label" for="">
+										<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+											viewBox="0 0 24 24" fill="none">
+											<path fill-rule="evenodd" clip-rule="evenodd"
+												d="M11.9999 2C9.32893 2 7.1627 4.15223 7.1627 6.80834C7.1627 9.46445 9.32893 11.6167 11.9999 11.6167C14.6709 11.6167 16.8371 9.46445 16.8371 6.80834C16.8371 4.15223 14.6709 2 11.9999 2ZM8.70423 6.80834C8.70423 5.00011 10.1792 3.53328 11.9999 3.53328C13.8206 3.53328 15.2956 5.00011 15.2956 6.80834C15.2956 8.61657 13.8206 10.0834 11.9999 10.0834C10.1792 10.0834 8.70423 8.61657 8.70423 6.80834Z"
+												fill="#3A3A3C"></path>
+											<path fill-rule="evenodd" clip-rule="evenodd"
+												d="M8.83721 14.1251C7.55448 14.1251 6.32418 14.6316 5.41699 15.5332C4.50977 16.4349 4 17.658 4 18.9334V20.9543C4 21.3782 4.34562 21.7209 4.77076 21.7209H19.2292C19.6544 21.7209 20 21.3782 20 20.9543V18.9334C20 17.658 19.4902 16.4349 18.583 15.5332C17.6758 14.6316 16.4455 14.1251 15.1628 14.1251H8.83721ZM6.50661 16.6178C7.12463 16.0036 7.96296 15.6584 8.83721 15.6584H15.1628C16.037 15.6584 16.8754 16.0036 17.4934 16.6178C18.1114 17.2321 18.4585 18.065 18.4585 18.9334V20.1877H5.54153V18.9334C5.54153 18.065 5.88861 17.2321 6.50661 16.6178Z"
+												fill="#3A3A3C"></path>
+										</svg>
+										<span class="text-desc"> chat luong:</span>
+									</label>
+									<select class="form-control-select" name="rating">
+										<option value="Excellent">Excellent</option>
+										<option value="Above Average">Above Average</option>
+										<option value="Excellent">Excellent</option>
+
+										<option value="Below Average">below Average</option>
+										<option value="Poor">Poor</option>
+									</select>
+								</div>
+								<div class="input-form">
+									<label class="form-label" for="">
+
+										<span class="text-desc">Comment:</span>
+									</label>
+
+									<textarea class="form-control-select" name="comment" cols="20" rows="4"></textarea>
+								</div>
+							</div>
+							<button class="btn btn-submit-booking" type="submit">
+								Submit
+							</button>
+							<input type="hidden" th:value="${branch.id}" name="idBybranch">
+						</form>
+
+
 					</div>
 				</div>
-				<article id="dia-chi">
-					<div class="gird grid-cols-4 gap-3 mt-20">
-
-						<div th:each="menu : ${menus}" class="card card-product">
-							<div href="" class="card_link">
-								<div class="card_header">
-									<img th:src="@{'/images/' + ${menu.images.name}}">
-									<div class="card_header_footer">
-										<a href=""> <th:block th:text="${menu.name}"></th:block>
-										</a>
-										<div class="gird grid-cols-2">
-											<div class="rating-container-item">
-												<ul class="review flex">
-
-												</ul>
-											</div>
-											<div class="rating-container-item">
-												<ul class="rating flex">
-
-												</ul>
-											</div>
-										</div>
-										<p class="text-address">
-											<th:block th:text="${menu.description}"></th:block>
-										</p>
-									</div>
-								</div>
-								<div class="card_body">
-									<div class="wapsale">
-										<strong th:text="${menu.price} + 'VND'"></strong>
-									</div>
-
-								</div>
-							</div>
-						</div>
-
-					</div>
-					<a class="btn btn-submit-booking" type="button"
-						th:href="@{'/orders/add/'+ ${branch.account.id}}"> order now </a>
-				</article>
-				<article id="gioi-thieu"></article>
-
 			</div>
-
 		</div>
-	
-
-</div>
+	</div>
+</body>
 
 </html>

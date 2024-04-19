@@ -22,4 +22,10 @@ public interface BranchRepository extends CrudRepository<Branchs, Integer>{
 	@Query("from Branchs where account.id = :id_account")
 	public List<Branchs> findByidaccount(@Param("id_account") int id_account);
 	
+	
+	@Query("from Branchs where address like %:address")
+	public List<Branchs> findByAddress(@Param("address") String address);
+	
+	@Query("from Branchs where name like %:keyword%")
+	public List<Branchs> findByKeyword(@Param("keyword") String keyword);
 }

@@ -6,7 +6,6 @@ import java.util.Date;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
-import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PatchMapping;
@@ -16,7 +15,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.demo.entities.User;
-import com.demo.service.AccountService;
 import com.demo.service.UserService;
 
 @Controller
@@ -25,8 +23,6 @@ public class UserAdminController {
 	
 	@Autowired
 	private UserService userService;
-	@Autowired
-	private AccountService accountService;
 	
 	@GetMapping({ "index", "", "/" })
 	public String index(ModelMap modelMap) {
@@ -71,10 +67,8 @@ public class UserAdminController {
 	
 	// EDIT Information
 	@GetMapping({"edit/{id}"})
-	public String edit(@PathVariable("id") int id, ModelMap modelMap, Authentication authentication) {
+	public String edit(@PathVariable("id") int id, ModelMap modelMap) {
 		modelMap.put("user", userService.find(id));	
-		modelMap.put("accounts", accountService.findByRoleAdminMember());
-		modelMap.put("sa", accountService.findByEmail(authentication.getName()).getId());
 		return "admin/user/edit";
 	}
 	

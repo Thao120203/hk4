@@ -43,6 +43,11 @@ public class AccountServiceImpl implements AccountService{
 			return null;
 		}
 	}
+	
+	@Override
+	public Iterable<Account> findByRoleAdmin() {
+		return accountRepository.findByAdmin();
+	}
 
 	@Override
 	public boolean save(Account account) {
@@ -92,21 +97,6 @@ public class AccountServiceImpl implements AccountService{
 	@Override
 	public boolean findEmail(String email) {
 		return accountRepository.findEmail(email);
-	}
-
-	@Override
-	public Iterable<Account> findByRoleAdmin() {
-		return accountRepository.findByAdmin();
-	}
-
-	@Override
-	public Iterable<Account> findByRoleMember() {
-		return accountRepository.findByMember();
-	}
-
-	@Override
-	public Iterable<Account> findByRoleAdminMember() {
-		return accountRepository.findAdminMember();
 	}
 
 

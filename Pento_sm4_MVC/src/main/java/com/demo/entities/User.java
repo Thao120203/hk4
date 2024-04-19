@@ -23,11 +23,16 @@ public class User implements java.io.Serializable {
 	private String phoneNumber;
 	private String gender;
 	
-	@DateTimeFormat(pattern = "yyyy-MM-dd")
+	@DateTimeFormat(pattern = "dd-MM-yyyy")
 	private Date birthday;
 	private Set<Orders> orderses = new HashSet<Orders>(0);
 
 	public User() {
+	}
+
+	public User(Integer id) {
+		super();
+		this.id = id;
 	}
 
 	public User(String firstName, String lastName, String phoneNumber, String gender, Date birthday) {

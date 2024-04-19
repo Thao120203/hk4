@@ -1,11 +1,14 @@
 package com.demo.service;
 
+import java.util.List;
+
 import com.demo.entities.CategoryFood;
 import com.demo.entities.Contact;
 
 public interface CategoryFoodService {
 
 	public Iterable<CategoryFood> findAll();
+	public List<CategoryFood> listAll();
 	public CategoryFood find(int id);
 	
 	// CRUD

@@ -28,6 +28,10 @@ public class BranchServiceImpl implements BranchService{
 		return branchsRepository.findAllNew();
 	}
 
+	public List<Branchs> findByKeyword(String keyword) {
+		return branchsRepository.findByKeyword(keyword);
+	}
+	
 	@Override
 	public Branchs find(int id) {
 		return branchsRepository.findById(id).get();
@@ -117,5 +121,10 @@ public class BranchServiceImpl implements BranchService{
 			
 		}
 		return count;
+	}
+
+	@Override
+	public List<Branchs> findAddress(String address) {
+		return branchsRepository.findByAddress(address);
 	}
 }

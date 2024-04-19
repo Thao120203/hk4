@@ -1,5 +1,7 @@
 package com.demo.service;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 
 import org.springframework.stereotype.Service;
@@ -63,6 +65,14 @@ public class CategoryFoodServiceImpl implements CategoryFoodService{
 			return null;
 		}
 	}
+
+	@Override
+	public List<CategoryFood> listAll() {
+		// TODO Auto-generated method stub
+		return categoryRepository.findAllNew();
+	}
+
+	
 
 	
 }

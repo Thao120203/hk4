@@ -4,7 +4,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.demo.entities.Hours;
+import com.demo.entities.Tables;
 import com.demo.repositories.HoursRepository;
+import com.demo.repositories.TablesRepository;
 
 @Service
 public class HoursServiceImpl implements HoursService{
@@ -17,11 +19,6 @@ public class HoursServiceImpl implements HoursService{
 	}
 
 	@Override
-	public Hours find(int id) {
-		return hoursRepository.findById(id).get();
-	}
-
-	@Override
 	public boolean save(Hours Hours) {
 		try {
 			hoursRepository.save(Hours);
@@ -31,24 +28,6 @@ public class HoursServiceImpl implements HoursService{
 			return false;
 		}
 	}
-
-	@Override
-	public boolean edit(int id) {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
-	@Override
-	public boolean delete(int id) {
-		try {
-			hoursRepository.delete(find(id));
-			return true;
-		} catch (Exception e) {
-			e.printStackTrace();
-			return false;
-		}
-	}
-
-
+	
 
 }

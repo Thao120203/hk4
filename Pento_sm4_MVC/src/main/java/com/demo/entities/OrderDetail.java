@@ -17,7 +17,7 @@ public class OrderDetail implements java.io.Serializable {
 	private Orders orders;
 	private int quantity;
 	private double price;
-	private Set<Transaction> transactions = new HashSet<Transaction>(0);
+	
 
 	public OrderDetail() {
 	}
@@ -27,12 +27,12 @@ public class OrderDetail implements java.io.Serializable {
 		this.price = price;
 	}
 
-	public OrderDetail(Menu menu, Orders orders, int quantity, double price, Set<Transaction> transactions) {
+	public OrderDetail(Menu menu, Orders orders, int quantity, double price) {
 		this.menu = menu;
 		this.orders = orders;
 		this.quantity = quantity;
 		this.price = price;
-		this.transactions = transactions;
+		
 	}
 
 	@Id
@@ -85,13 +85,6 @@ public class OrderDetail implements java.io.Serializable {
 		this.price = price;
 	}
 
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "orderDetail")
-	public Set<Transaction> getTransactions() {
-		return this.transactions;
-	}
-
-	public void setTransactions(Set<Transaction> transactions) {
-		this.transactions = transactions;
-	}
+	
 
 }

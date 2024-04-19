@@ -24,7 +24,7 @@ public class OrderDetailController {
 	@Autowired
 	private OrderDetailService OrderDetailService;
 	
-	@GetMapping({ "index", "", "/" })
+	@GetMapping({ "index"})
 	public String index(ModelMap modelMap) {
 		modelMap.put("OrderDetails", OrderDetailService.findAll());
 		return "OrderDetail/index";

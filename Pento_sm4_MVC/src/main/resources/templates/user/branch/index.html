@@ -1,0 +1,50 @@
+<html xmlns:th="http://www.thymeleaf.org" th:replace="~{layout/user :: content('Branch',~{this :: .aaa})}">
+
+<head>
+	<title th:text="${title}"></title>
+
+</head>
+
+<body>
+	<div class="aaa">
+
+		<div class="wrapper bg-white">
+			<div class="product-content bg-white">
+			
+				<div class="gird grid-cols-4 gap-3 mt-20">
+					
+					<div  th:each="branch : ${branchs}" class="card card-product">
+						<a th:href="@{'/branch/details/' + ${branch.id}}" class="card_link">
+							<div class="card_header">
+								<img th:src="@{'/images/' + ${branch.image}}"
+														>
+								<div class="card_header_footer">
+									<a href=""> <th:block th:text="${branch.name}"></th:block>  </a>
+									<div class="gird grid-cols-2">
+										<div class="rating-container-item">
+											<ul class="review flex">
+												
+											</ul>
+										</div>
+									</div>
+									<p class="text-address">
+									  
+									</p>
+								</div>
+							</div>
+							<div class="card_body">
+							
+								<div class="waptag"><th:block th:text="${branch.address}" ></th:block></div>
+								<div class="wapbooking">
+									
+								</div>
+							</div>
+						</a>
+					</div>
+				</div>
+			</div>
+		</div>
+
+</body>
+
+</html>
