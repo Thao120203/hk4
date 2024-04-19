@@ -142,42 +142,63 @@
 		</div>
 	</nav>
 	</header>
-
-	<div th:replace="${mainContent}"></div>
-<footer id="footer" class="lazypreload lazyloaded" data-provinceid="2">
-    <div class="container container-fix">
-        <div class="row">
-            <div class="footer-content">
-               
-                
-                <div class="col-md-12">
-                    <h4>
-                        <span> © Copyright 2010 PasGo.jsc, All rights reserved</span>
-                    </h4>
-                    <div class="link-company"><a href="http://online.gov.vn/Home/WebDetails/16887" rel="nofollow" target="_blank">CÔNG TY CỔ PHẦN PASGO</a></div>
-                    <p>Văn phòng Hà Nội: Tầng 2 tòa nhà VTC Online, Số 18 Tam Trinh, Q. Hai Bà Trưng, &ZeroWidthSpace;&ZeroWidthSpace;Hà Nội</p>
-                    <p>Văn Phòng TP.HCM: Lầu 13, Tòa nhà M-H, Số 728-730 Võ Văn Kiệt, P.1, Quận 5, TP Hồ Chí Minh</p>
-                    
-                    <p>Tổng đài: 1900 6005 | Email:<a style="color: #333333" href="mailto:cskh@pasgo.vn"> CSKH@pasgo.vn</a></p>
-                    <p>Mã số doanh nghiệp: 0106329034 do Sở Kế hoạch đầu tư TP Hà Nội cấp ngày 08/10/2013</p>
-                    <div class="col-xs-12 wap-help">
-                        <p> Mọi ý tưởng, đóng góp của bạn đều được chúng tôi ghi nhận và trân trọng!</p>
-                        <div class="wap-help-link">
-                            <a class="button-support" href="https://forms.gle/bbDhcKDfLSQg6eog8">
-                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="button-support-icon">
-                                    <path stroke-linecap="round" stroke-linejoin="round" d="M6 12L3.269 3.126A59.768 59.768 0 0121.485 12 59.77 59.77 0 013.27 20.876L5.999 12zm0 0h7.5"></path>
-                                </svg>
-                                <span class="button-support-text">Gửi góp ý</span>
-                            </a>
-                        </div>
-                    </div>
-                </div>
-                
-            </div>
-        </div>
-    </div>
-</footer>
+	<div class="wapper-content">
+		<div th:replace="${mainContent}"></div>
 	</div>
+
+	<div class="smoothscroll-top show">
+		<span class="scroll-top-inner"> <span>↑</span>
+		</span>
+	</div>
+	<footer id="footer" class="lazypreload lazyloaded" data-provinceid="2">
+		<div class="container container-fix">
+			<div class="row">
+				<div class="footer-content">
+
+
+					<div class="col-md-12">
+						<h4>
+							<span> © Copyright 2010 PasGo.jsc, All rights reserved</span>
+						</h4>
+						<div class="link-company">
+							<a href="http://online.gov.vn/Home/WebDetails/16887"
+								rel="nofollow" target="_blank">CÔNG TY CỔ PHẦN PASGO</a>
+						</div>
+						<p>Văn phòng Hà Nội: Tầng 2 tòa nhà VTC Online, Số 18 Tam
+							Trinh, Q. Hai Bà Trưng, &ZeroWidthSpace;&ZeroWidthSpace;Hà Nội</p>
+						<p>Văn Phòng TP.HCM: Lầu 13, Tòa nhà M-H, Số 728-730 Võ Văn
+							Kiệt, P.1, Quận 5, TP Hồ Chí Minh</p>
+
+						<p>
+							Tổng đài: 1900 6005 | Email:<a style="color: #333333"
+								href="mailto:cskh@pasgo.vn"> CSKH@pasgo.vn</a>
+						</p>
+						<p>Mã số doanh nghiệp: 0106329034 do Sở Kế hoạch đầu tư TP Hà
+							Nội cấp ngày 08/10/2013</p>
+						<div class="col-xs-12 wap-help">
+							<p>Mọi ý tưởng, đóng góp của bạn đều được chúng tôi ghi nhận
+								và trân trọng!</p>
+							<div class="wap-help-link">
+								<a class="button-support"
+									href="https://forms.gle/bbDhcKDfLSQg6eog8"> <svg
+										xmlns="http://www.w3.org/2000/svg" fill="none"
+										viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"
+										class="button-support-icon">
+                                    <path stroke-linecap="round"
+											stroke-linejoin="round"
+											d="M6 12L3.269 3.126A59.768 59.768 0 0121.485 12 59.77 59.77 0 013.27 20.876L5.999 12zm0 0h7.5"></path>
+                                </svg> <span class="button-support-text">Gửi
+										góp ý</span>
+								</a>
+							</div>
+						</div>
+					</div>
+
+				</div>
+			</div>
+		</div>
+	</footer>
+	
 </body>
 <script th:src="@{/user/assets/js/main.js}"></script>
 

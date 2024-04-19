@@ -14,6 +14,15 @@
 				List Branch - [<b th:text="${accountName ?: 'All'}"></b>]
 			</h2>
 			<div class="row my-4">
+			<div class="col-md-12" th:if="${msg}">
+				<div class="alert alert-warning alert-dismissible fade show" role="alert">
+					<strong th:text="${msg}">Holy guacamole!</strong>
+					<button type="button" class="close" data-dismiss="alert"
+						aria-label="Close">
+						<span aria-hidden="true">×</span>
+					</button>
+				</div>
+			</div>
 				<!-- Small table -->
 				<div class="col-md-12">
 					<div class="card shadow">
@@ -38,6 +47,10 @@
 														aria-controls="dataTable-1" rowspan="1" colspan="1"
 														aria-label="#: activate to sort column ascending"
 														style="width: 9.5625px;">Id</th>
+														<th class="sorting" tabindex="0"
+														aria-controls="dataTable-1" rowspan="1" colspan="1"
+														aria-label="Name: activate to sort column ascending"
+														style="width: 50.075px;">Image</th>
 													<th class="sorting" tabindex="0"
 														aria-controls="dataTable-1" rowspan="1" colspan="1"
 														aria-label="Name: activate to sort column ascending"
@@ -77,6 +90,12 @@
 											<tbody>
 												<tr role="row" class="odd" th:each="branch : ${branchs}">
 													<td th:text="${branch.id}"></td>
+													
+													<td>
+													<img th:src="@{branch.image ? '/images/' + ${branch.image} : '/images/noimage.png'}" width="120"
+															height="100">
+													</td>
+													
 													<td><span th:if="${branch.account != null}" th:text="${branch.account.email}"></span> 
 															 <span th:unless="${branch.account != null}"> EMPTY </span></td>
 													<td th:text="${branch.name}"></td>

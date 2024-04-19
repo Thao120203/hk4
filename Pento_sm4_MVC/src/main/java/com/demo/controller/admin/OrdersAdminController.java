@@ -201,9 +201,10 @@ public class OrdersAdminController {
 		Orders.setTimes(times);
 		Orders.setStatus("unpaid");
 		if (OrdersService.save(Orders)) {
+			redirectAttributes.addFlashAttribute("msg", "Add Success");
 			return "redirect:/admin/order/index";
 		}
-
+		redirectAttributes.addFlashAttribute("msg", "Add Failed");
 		return "redirect:/admin/order/index";
 	}
 
@@ -258,8 +259,10 @@ public class OrdersAdminController {
 
 		Orders.setTimes(times);
 		if (OrdersService.save(Orders)) {
+			redirectAttributes.addFlashAttribute("msg", "Edit Success");
 			return "redirect:/admin/order/index";
 		}
+		redirectAttributes.addFlashAttribute("msg", "Edit Failed");
 		return "redirect:/admin/order/edit";
 	}
 

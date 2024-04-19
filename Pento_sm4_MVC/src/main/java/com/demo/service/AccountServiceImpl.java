@@ -99,5 +99,15 @@ public class AccountServiceImpl implements AccountService{
 		return accountRepository.findByAdmin();
 	}
 
+	@Override
+	public Iterable<Account> findByRoleMember() {
+		return accountRepository.findByMember();
+	}
+
+	@Override
+	public Iterable<Account> findByRoleAdminMember() {
+		return accountRepository.findAdminMember();
+	}
+
 
 }

@@ -101,7 +101,17 @@
 					<!-- end section -->
 
 					
-						<div class="row">
+						<div class="row my-4">
+				<!-- Small table -->
+				<div class="col-md-12">
+					<div class="card shadow">
+
+						<div class="card-body">
+							<!-- table -->
+							<div id="dataTable-1_wrapper"
+								class="dataTables_wrapper dt-bootstrap4 no-footer">
+
+								<div class="row">
 									<div class="col-sm-12">
 									
 										<table class="table datatables dataTable no-footer"
@@ -109,86 +119,110 @@
 											aria-describedby="dataTable-1_info">
 											<thead class="thead-dark">
 												<tr role="row">
-													
+
 													<th class="sorting" tabindex="0"
 														aria-controls="dataTable-1" rowspan="1" colspan="1"
 														aria-label="#: activate to sort column ascending"
 														style="width: 9.5625px;">Id</th>
+														<th class="sorting" tabindex="0"
+														aria-controls="dataTable-1" rowspan="1" colspan="1"
+														aria-label="Name: activate to sort column ascending"
+														style="width: 120.075px;">User</th>
 													<th class="sorting" tabindex="0"
 														aria-controls="dataTable-1" rowspan="1" colspan="1"
 														aria-label="Name: activate to sort column ascending"
-														style="width: 93.075px;">Email</th>
+														style="width: 120.075px;">Branch</th>
 													
+
 													<th class="sorting" tabindex="0"
 														aria-controls="dataTable-1" rowspan="1" colspan="1"
 														aria-label="Department: activate to sort column ascending"
-														style="width: 124.65px;">Status</th>
+														style="width: 20.65px;">Table</th>
 													<th class="sorting" tabindex="0"
 														aria-controls="dataTable-1" rowspan="1" colspan="1"
 														aria-label="Company: activate to sort column ascending"
-														style="width: 69.2px;">Role</th>
-												
+														style="width: 10.2px;">Seat</th>
+													<th class="sorting" tabindex="0"
+														aria-controls="dataTable-1" rowspan="1" colspan="1"
+														aria-label="Address: activate to sort column ascending"
+														style="width: 10.675px;">Children</th>
+													<th class="sorting" tabindex="0"
+														aria-controls="dataTable-1" rowspan="1" colspan="1"
+														aria-label="Address: activate to sort column ascending"
+														style="width: 10.675px;">Status</th>
+													<th class="sorting" tabindex="0"
+														aria-controls="dataTable-1" rowspan="1" colspan="1"
+														aria-label="Address: activate to sort column ascending"
+														style="width: 20.675px;">Time</th>
+													<th class="sorting" tabindex="0"
+														aria-controls="dataTable-1" rowspan="1" colspan="1"
+														aria-label="Address: activate to sort column ascending"
+														style="width: 20.675px;">Created</th>
 													<th class="sorting" tabindex="0"
 														aria-controls="dataTable-1" rowspan="1" colspan="1"
 														aria-label="City: activate to sort column ascending"
-														style="width: 96.9625px;">More</th>
+														style="width: 9.9625px;">Action</th>
 
 												</tr>
 											</thead>
 											<tbody>
-
-												<tr role="row" class="odd" th:each="account : ${accounts}">
+												<tr th:each="order,orderIndex : ${orders}">
+													<td th:text="${order.id}"></td>
+													<td
+														th:text="${'('+ order.user.phoneNumber +') '+order.user.lastName }"></td>
+													<td th:if="${orderIndex.index < #lists.size(tables)}">
+														<span th:text="${tables[orderIndex.index].branchs.name}"></span>
+													</td>
 													
-													<td th:text="${account.id}"></td>
-													<td th:text="${account.email}"></td>
-													<td th:if="${account.status == '1'}"><span
-														class="badge badge-pill badge-success">Active</span></td>
-													<td th:if="${account.status == '0'}"><span
-														class="badge badge-pill badge-warning">Inactive</span></td>
-
-
-													<td th:text="${account.role.name}"></td>
-
+													<td th:text="${order.tables.name}"></td>
+													<td th:text="${order.totalMember}"></td>
+													<td th:text="${order.children}"></td>
+													<td th:text="${order.status}"></td>
+													<td th:text="${#dates.format(order.created, 'dd/MM/yyyy')}"></td>
+													<td th:if="${orderIndex.index < #lists.size(times)}">
+														<span
+														th:text="${times[orderIndex.index].hours.name + ' ' + times[orderIndex.index].days.name+'/'+times[orderIndex.index].months.name+'/2024'}"></span>
+													</td>
 
 													<td>
 														<div class="dropdown">
-															<button class="btn btn-sm dropdown-toggle more-vertical"
-																type="button" data-toggle="dropdown"
-																aria-haspopup="true" aria-expanded="false">
+															<button class="btn btn-sm dropdown-toggle" type="button"
+																id="dr1" data-toggle="dropdown" aria-haspopup="true"
+																aria-expanded="false">
 																<span class="text-muted sr-only">Action</span>
 															</button>
-															<div class="dropdown-menu dropdown-menu-right" style="">
-															<a class="dropdown-item"
-																	th:href="@{'/admin/branch/view/' + ${account.id} } ">
-																	<button type="button"
-																		class="btn mb-2 btn-outline-warning">View Branch</button>
-																</a>
+															<div class="dropdown-menu dropdown-menu-right"
+																aria-labelledby="dr1" style="">
 																<a class="dropdown-item"
-																	th:href="@{'/admin/account/edit/' + ${account.id} }">
-																	<button type="button"
-																		class="btn mb-2 btn-outline-success">Edit</button>
-																</a> <a class="dropdown-item"
-																	th:href="@{'/admin/account/delete/' + ${account.id} } ">
-																	<button type="button"
-																		class="btn mb-2 btn-outline-danger">Remove</button>
-																</a> 
+																	th:href="@{'/admin/orderDetail/index/' + ${order.id} }"><button
+																		type="button" class="btn mb-2 btn-outline-info">View
+																		details</button></a> <a class="dropdown-item"
+																	th:href="@{'/admin/order/edit/' + ${order.id} }"><button
+																		type="button" class="btn mb-2 btn-outline-success">Edit</button></a>
+
 																<a class="dropdown-item"
-																	th:href="@{'/admin/account/updatePassword/' + ${account.id} } ">
-																	<button type="button"
-																		class="btn mb-2 btn-outline-warning">Change
-																		Password</button>
-																</a>
+																	th:href="@{'/admin/order/delete/' + ${order.id} } "><button
+																		type="button" class="btn mb-2 btn-outline-danger">Delete</button></a>
 															</div>
 														</div>
 													</td>
 												</tr>
-
 											</tbody>
+
 										</table>
-										
 									</div>
 								</div>
-					<!-- end section -->
+
+							</div>
+						</div>
+
+
+					</div>
+				</div>
+				<!-- simple table -->
+			</div>
+			<!-- end section -->
+						
 				</div>
 			</div>
 			<!-- .row -->

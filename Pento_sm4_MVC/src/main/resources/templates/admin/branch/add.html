@@ -10,13 +10,23 @@
 
 	<div class="aaa">
 		<div class="row">
+		<div class="col-md-12" th:if="${msg}">
+				<div class="alert alert-warning alert-dismissible fade show" role="alert">
+					<strong th:text="${msg}">Holy guacamole!</strong>
+					<button type="button" class="close" data-dismiss="alert"
+						aria-label="Close">
+						<span aria-hidden="true">×</span>
+					</button>
+				</div>
+			</div>
 			<div class="col-md-12">
 				<div class="card shadow mb-4">
 					<div class="card-header">
 						<strong class="card-title">Add Branch</strong>
 					</div>
 					<div class="card-body">
-						<form class="needs-validation" method="post" th:action="@{/admin/branch/add}" novalidate>
+						<form class="needs-validation" method="post" th:action="@{/admin/branch/add}" enctype="multipart/form-data"
+							novalidate>
 							<div class="form-group">
 								<label for="validationCustomUsername ">Name</label>
 								<input type="text" class="form-control" th:field="${branch.name}" aria-describedby="inputGroupPrepend" id="validationCustomUsername" required>
@@ -48,6 +58,10 @@
 									<label for="inputPassword4">Clossing Hours</label>
 									<input class="form-control" id="example-time" type="time"  th:field="${branch.clossingHours}" name="time">
 								</div>
+							</div>
+							<div class="form-group">
+								<label for="inputAddress2">Image</label> <input type="file"
+									class="form-control" name="file" id="inputAddress6">
 							</div>
 							
 							<div class="form-group toggle">

@@ -60,9 +60,10 @@ public class OrderDetailAdminController {
 		Menu menu = menuService.find(orderDetail.getMenu().getId());
 		orderDetail.setPrice(orderDetail.getQuantity() * menu.getPrice());
 		if(orderDetailService.save(orderDetail)) {
-			
+			redirectAttributes.addFlashAttribute("msg", "Add Success");
 			return "redirect:admin//orderDetail/index/"+ id;
 		}
+		redirectAttributes.addFlashAttribute("msg", "Add Failed");
 		return "redirect:/admin/orderDetail/index/"+ id;
 	}
 	
@@ -94,8 +95,10 @@ public class OrderDetailAdminController {
 	public String edit(@ModelAttribute("orderDetail") OrderDetail orderDetail, RedirectAttributes redirectAttributes) {
 		int id = orderDetail.getOrders().getId();
 		if(orderDetailService.save(orderDetail)) {
+			redirectAttributes.addFlashAttribute("msg", "Edit Success");
 			return "redirect:/admin/orderDetail/index/"+id;
 		}
+		redirectAttributes.addFlashAttribute("msg", "Edit Failed");
 		return "redirect:/admin/orderDetail/index/"+id;
 	}
 	

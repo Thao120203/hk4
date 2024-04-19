@@ -14,6 +14,9 @@ public interface UserRepository extends CrudRepository<User, Integer>{
 	@Query("from User order by id desc")
 	public List<User> findAllNew();
 	
+	@Query("from User order by id desc")
+	public List<User> findAccountMember();
+	
 	
 	@Query("from User where account.id =: account_id")
 	public User findAccountId(@Param("account_id") int account_id);

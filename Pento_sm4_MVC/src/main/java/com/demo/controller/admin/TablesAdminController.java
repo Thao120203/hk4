@@ -65,8 +65,10 @@ public class TablesAdminController {
 	public String add(@ModelAttribute("table") Tables table, RedirectAttributes redirectAttributes) {
 		table.setStatus("0");
 		if(tablesService.save(table)) {
+			redirectAttributes.addFlashAttribute("msg", "Add Success");
 			return "redirect:/admin/table/find/" + table.getBranchs().getId();
 		}
+		redirectAttributes.addFlashAttribute("msg", "Add Failed");
 		return "redirect:/admin/table/add";
 	}
 	
@@ -96,8 +98,10 @@ public class TablesAdminController {
 		table.setStatus(statusValue != null && statusValue.equals("on") ? "1" : "0");
 		
 		if(tablesService.save(table)) {
+			redirectAttributes.addFlashAttribute("msg", "Edit Success");
 			return "redirect:/admin/table/index";
 		}
+		redirectAttributes.addFlashAttribute("msg", "Edit Failed");
 		return "redirect:/admin/table/edit";
 	}
 	

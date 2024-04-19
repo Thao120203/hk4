@@ -50,11 +50,27 @@ public class MenuAdminController {
 	private AccountService accountservice;
 	
 	@GetMapping({ "index"})
-	public String index(ModelMap modelMap) {
-		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+	public String index(ModelMap modelMap, Authentication authentication) {
 		Account account = accountservice.findByEmail(authentication.getName());
-		List<Menu> listmenu = menuService.findBybranch_Menu(account.getId());
-		modelMap.put("menus",listmenu);
+		
+		try {
+	        Path folderPath = Paths.get("static/images");
+	        if (!Files.exists(folderPath)) {
+	            Files.createDirectories(folderPath);
+	        }
+	        
+	        if(account.getId() != 1) {
+				modelMap.put("menus", menuService.findBybranch_Menu(account.getId()));
+			} else {
+				modelMap.put("menus", menuService.findAll());
+			}
+
+	        // Thực hiện các hoạt động khác nếu cần
+	        
+	    } catch (Exception e) {
+	        e.printStackTrace();
+	        // Xử lý ngoại lệ nếu có
+	    }
 		return "admin/menu/index";
 	}
 	
@@ -63,41 +79,42 @@ public class MenuAdminController {
 	public String add(ModelMap modelMap) {
 		Menu menu = new Menu();
 		modelMap.put("menu", menu);
+		modelMap.put("categories", categoryService.findAll());
 		return "admin/menu/add";
 	}
 
 	@PostMapping({ "add" })
-	public String add(@ModelAttribute("menu") Menu menu, RedirectAttributes redirectAttributes,@RequestParam("file") MultipartFile file) {
+	public String add(@ModelAttribute("menu") Menu menu, RedirectAttributes redirectAttributes,Authentication authentication,@RequestParam("file") MultipartFile file) {
 		
-		try {
-			Images images = new Images();
-			Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-			Account account = accountservice.findByEmail(authentication.getName());
-			if (file != null && file.getSize() > 0) {
-				String fileName = FileHelper.generateFileName(file.getOriginalFilename());
-				File imagesFolder = new ClassPathResource("static/images").getFile();
-				Path path = Paths.get(imagesFolder.getAbsolutePath() + File.separator + fileName);
-				Files.copy(file.getInputStream(), path, StandardCopyOption.REPLACE_EXISTING);
-				images.setName(fileName);
-				
-				imageService.save(images);
-				menu.setImages(images);
-				menu.setAccount(account);
-			} else {
-				menu.setImages(new Images("noimage.png"));
-			}
-			menu.setImages(images);
-			if (menuService.save(menu)) {
-				redirectAttributes.addFlashAttribute("msg", "Success");
-			} else {
-				redirectAttributes.addFlashAttribute("msg", "Failed");
-			}
-		} catch (Exception e) {
-			e.printStackTrace();
-			redirectAttributes.addFlashAttribute("msg", e.getMessage());
-			return "redirect:/accessDenied";
-		}
-		return "redirect:/admin/menu/index";
+		 try {
+		        Account account = accountservice.findByEmail(authentication.getName());
+
+		        if (file != null && !file.isEmpty()) {
+		            Images images = new Images();
+		            String fileName = FileHelper.generateFileName(file.getOriginalFilename());
+		            Path imagePath = Paths.get("static/images/" + fileName);
+		            Files.copy(file.getInputStream(), imagePath, StandardCopyOption.REPLACE_EXISTING);
+		            images.setName(fileName);
+		            imageService.save(images); // Lưu đối tượng Images trước
+		            menu.setImages(images);
+		        } else {
+		            Images defaultImage = new Images("noimage.png");
+		            imageService.save(defaultImage); // Lưu đối tượng Images mặc định trước
+		            menu.setImages(defaultImage);
+		        }
+
+		        menu.setAccount(account);
+		        
+		        if (menuService.save(menu)) {
+		            redirectAttributes.addFlashAttribute("msg", "Success");
+		        } else {
+		            redirectAttributes.addFlashAttribute("msg", "Failed");
+		        }
+		    } catch (Exception e) {
+		        e.printStackTrace();
+		        redirectAttributes.addFlashAttribute("msg", "Failed");
+		    }
+		    return "redirect:/admin/menu/index";
 	}
 	
 	// DELETE
@@ -122,35 +139,41 @@ public class MenuAdminController {
 	}
 	
 	@PostMapping({ "edit" })
-	public String edit(@ModelAttribute("menu") Menu menu,RedirectAttributes redirectAttributes,@RequestParam("file") MultipartFile file) {
-		try {
-			Images images = new Images();
-			Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-			Account account = accountservice.findByEmail(authentication.getName());
-			if (file != null && file.getSize() > 0) {
-				File folderImage = new File(new ClassPathResource(".").getFile().getPath() + "/static/images");
-				String fileName = FileHelper.generateFileName(file.getOriginalFilename());
-				Path path = Paths.get(folderImage.getAbsolutePath() + File.separator + fileName);
-				Files.copy(file.getInputStream(), path, StandardCopyOption.REPLACE_EXISTING);
-				images.setName(fileName);
-				
-				imageService.save(images);
-				menu.setImages(images);
-				menu.setAccount(account);
-			} else {
-				images.setName("noimage.png");
-				menu.setImages(new Images("noimage.png"));
-			}
-			if (menuService.save(menu)) {
-				redirectAttributes.addFlashAttribute("msg", "Success");
-			} else {
-				redirectAttributes.addFlashAttribute("msg", "Failed");
-			}
-		} catch (Exception e) {
-			e.printStackTrace();
-			redirectAttributes.addFlashAttribute("msg", e.getMessage());
-		}
-		return "redirect:/admin/menu/index";
+	public String edit(@ModelAttribute("menu") Menu menu,RedirectAttributes redirectAttributes,Authentication authentication,@RequestParam("file") MultipartFile file) {
+		 try {
+		        Account account = accountservice.findByEmail(authentication.getName());
+
+		        if (file != null && !file.isEmpty()) {
+		        	imageService.delete(menu.getImages().getId());
+		            Images images = new Images();
+		            String fileName = FileHelper.generateFileName(file.getOriginalFilename());
+		            Path imagePath = Paths.get("static/images/" + fileName);
+		            Files.copy(file.getInputStream(), imagePath, StandardCopyOption.REPLACE_EXISTING);
+		            images.setName(fileName);
+		            
+		            imageService.save(images); // Lưu đối tượng Images trước
+		            menu.setImages(images);
+		        } else {
+		        	var menus = menuService.find(menu.getId());
+					menu.setImages(menus.getImages());
+		        	 if (menu.getImages() == null) {
+		                 Images defaultImage = new Images("noimage.png");
+		                 imageService.save(defaultImage); // Lưu đối tượng Images mặc định
+		                 menu.setImages(defaultImage);
+		             }
+		        }
+		        menu.setAccount(account);
+		        
+		        if (menuService.save(menu)) {
+		            redirectAttributes.addFlashAttribute("msg", "Edit Success");
+		        } else {
+		            redirectAttributes.addFlashAttribute("msg", "Failed");
+		        }
+		    } catch (Exception e) {
+		        e.printStackTrace();
+		        redirectAttributes.addFlashAttribute("msg", e.getMessage());
+		    }
+		    return "redirect:/admin/menu/index";
+		
 	}
-	
 }

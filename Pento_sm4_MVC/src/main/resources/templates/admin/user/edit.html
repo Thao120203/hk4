@@ -11,6 +11,15 @@
 
 	<div class="aaa">
 		<div class="row">
+		<div class="col-md-12" th:if="${msg}">
+				<div class="alert alert-warning alert-dismissible fade show" role="alert">
+					<strong th:text="${msg}">Holy guacamole!</strong>
+					<button type="button" class="close" data-dismiss="alert"
+						aria-label="Close">
+						<span aria-hidden="true">×</span>
+					</button>
+				</div>
+			</div>
 			<div class="col-md-12">
 				<div class="card shadow mb-4">
 					<div class="card-header">
@@ -50,6 +59,19 @@
 									<option value="Female">Female</option>
 									<option value="Other">Other</option>
 								</select>
+							</div>
+							
+							<div class="form-row" th:if="${user.id != 1}">
+								<div class="col-md-4 mb-4">
+									<label for="example-select">Role</label> <select
+										th:field="${user.account.id}" class="form-control select2">
+										<option th:each="account : ${accounts}" th:value="${account.id}"
+											th:text="${account.email}"></option>
+									</select>
+								</div>
+							</div>
+							<div th:if="${user.id == 1}">
+							<input type="hidden" th:text="${sa}" th:field="${user.account.id}">
 							</div>
 						
 

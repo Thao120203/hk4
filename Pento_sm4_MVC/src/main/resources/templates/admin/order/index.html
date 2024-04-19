@@ -14,6 +14,15 @@
 				List Order - [<b th:text="${accountName ?: 'All'}"></b>]
 			</h2>
 			<div class="row my-4">
+			<div class="col-md-12" th:if="${msg}">
+				<div class="alert alert-warning alert-dismissible fade show" role="alert">
+					<strong th:text="${msg}">Holy guacamole!</strong>
+					<button type="button" class="close" data-dismiss="alert"
+						aria-label="Close">
+						<span aria-hidden="true">×</span>
+					</button>
+				</div>
+			</div>
 				<!-- Small table -->
 				<div class="col-md-12">
 					<div class="card shadow">
@@ -38,15 +47,15 @@
 														aria-controls="dataTable-1" rowspan="1" colspan="1"
 														aria-label="#: activate to sort column ascending"
 														style="width: 9.5625px;">Id</th>
+														<th class="sorting" tabindex="0"
+														aria-controls="dataTable-1" rowspan="1" colspan="1"
+														aria-label="Name: activate to sort column ascending"
+														style="width: 120.075px;">User</th>
 													<th class="sorting" tabindex="0"
 														aria-controls="dataTable-1" rowspan="1" colspan="1"
 														aria-label="Name: activate to sort column ascending"
 														style="width: 120.075px;">Branch</th>
-													<th class="sorting" tabindex="0"
-														aria-controls="dataTable-1" rowspan="1" colspan="1"
-														aria-label="Name: activate to sort column ascending"
-														style="width: 120.075px;">User</th>
-
+													
 													<th class="sorting" tabindex="0"
 														aria-controls="dataTable-1" rowspan="1" colspan="1"
 														aria-label="Department: activate to sort column ascending"
@@ -81,11 +90,12 @@
 											<tbody>
 												<tr th:each="order,orderIndex : ${orders}">
 													<td th:text="${order.id}"></td>
+													<td
+														th:text="${'('+ order.user.phoneNumber +') '+order.user.lastName }"></td>
 													<td th:if="${orderIndex.index < #lists.size(tables)}">
 														<span th:text="${tables[orderIndex.index].branchs.name}"></span>
 													</td>
-													<td
-														th:text="${'('+ order.user.phoneNumber +') '+order.user.lastName }"></td>
+													
 													<td th:text="${order.tables.name}"></td>
 													<td th:text="${order.totalMember}"></td>
 													<td th:text="${order.children}"></td>

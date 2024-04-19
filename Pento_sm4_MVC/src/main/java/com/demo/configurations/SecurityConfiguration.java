@@ -37,7 +37,7 @@ public class SecurityConfiguration {
 		return http.cors(cor -> cor.disable()).csrf(cs -> cs.disable()).authorizeHttpRequests(auth -> {
 			auth.requestMatchers("/", "/index/**",
 					"/admin/css/**", "/admin/js/**", "/admin/log/**", 
-					"/log/**",
+					"/log/**", "/images/**",
 					"/home/**", "/aboutus/**", "/dashboard/**", "/contact/**", "/menu/**", 
 					"/user/**", "/users/**", 
 					"/accessDenied")

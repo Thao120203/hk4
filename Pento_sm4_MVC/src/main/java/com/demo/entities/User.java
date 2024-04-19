@@ -23,7 +23,7 @@ public class User implements java.io.Serializable {
 	private String phoneNumber;
 	private String gender;
 	
-	@DateTimeFormat(pattern = "dd/MM/yyyy")
+	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	private Date birthday;
 	private Set<Orders> orderses = new HashSet<Orders>(0);
 
